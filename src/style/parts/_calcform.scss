@@ -1,0 +1,108 @@
+#calcform{
+  width: 537px;
+  margin-top: 50px;
+}
+.tabform{
+  border-radius: 6px;
+}
+
+.tabs_label{
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  position: relative;
+  background: #EBEBEB;
+  border-radius: 11px 11px 0 0;
+  &:after{
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: -11px;
+    background: #fff;
+    width: 269px;
+    border-radius: 11px 11px 0 0;
+    height: 64px;
+    transition: 0.5s all ease-in-out;
+  }
+  &.second{
+    &:after{
+      transition: 0.5s all ease-in-out;
+      left: 268px;
+    }
+  }
+}
+.tab_label{
+  width: 268px;
+  font-size: 18px;
+  line-height: 12px;
+  color: #949494;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  height: 50px;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+  padding-bottom: 5px;
+  &.active{
+    font-weight: bold;
+    font-size: 21px;
+    line-height: 12px;
+    color: #000;
+    transition: 0.5s color;
+  }
+  &:first-child{
+    border-radius: 11px 0 11px 0;
+  }
+  &:first-child.active{
+    border-radius: 11px 11px 0 0;
+  }
+  &:last-child{
+    border-radius: 0 11px 0 11px;
+  }
+  &:last-child.active{
+    border-radius: 11px 11px 0 0;
+  }
+}
+
+.tab_content{
+  position: relative;
+  top: -7px;
+  margin-bottom: -7px;
+  display: none;
+  background: #fff;
+  padding: 36px 25px 0;
+  transition: 0.5s all;
+  &.active{
+    display: block;
+  }
+  &:first-child{
+    border-radius: 0 11px 0 0;
+    transition: 0.5s all;
+  }
+
+  &:last-child{
+    border-radius: 11px 0 0 0;
+    transition: 0.5s all;
+  }
+
+}
+
+.tabform-footer{
+  background: #fff;
+  padding: 16px 25px 25px;
+  border-radius: 0 0 11px 11px;
+}
+
+.btn-w{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 25px;
+  .btn{
+    width: 230px;
+  }
+}

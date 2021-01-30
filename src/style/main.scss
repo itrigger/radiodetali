@@ -1,4 +1,21 @@
-// Переопределение дефолтных значений переменных Bootstrap 4 и определение своих
 @import "variables";
 @import "parts/_reset";
+@import "parts/_utils";
+@import "parts/_grid";
 @import "parts/_buttons";
+@import "parts/_header";
+@import "parts/_forms";
+@import "parts/_slider";
+@import "parts/_calcform";
+
+body{
+  background: url('../img/temp.jpg') center 0 no-repeat;
+  font-family: 'Roboto', sans-serif;
+}
+a{
+ &:focus,
+ &:active
+ {
+   outline: none;
+ }
+}
