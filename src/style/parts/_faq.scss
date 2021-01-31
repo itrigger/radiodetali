@@ -41,3 +41,47 @@
     }
   }
 }
+
+.faq_spoilers_w{
+  padding-left: 160px;
+  padding-top: 60px;
+  .heading{
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 51px;
+    margin-bottom: 35px;
+  }
+}
+
+.spoiler{
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  border: 2px solid transparent;
+  margin-left: -20px;
+}
+
+.spoiler_title{
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.spoiler_text{
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  color: #555;
+  padding-left: 100px;
+  margin-top: 20px;
+  display: none;
+  transition: 0.3s all;
+}
+.spoiler.active{
+  border: 2px solid #000000;
+  border-radius: 9px;
+  .spoiler_text{
+    display: block;
+    transition: 0.3s all;
+  }
+}

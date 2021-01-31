@@ -125,5 +125,10 @@ jQuery("document").ready(function () {
     });
 
 
+    /*spoiler*/
+    jQuery(".spoiler_title").on("click", function () {
+        jQuery(this).parent().toggleClass("active");
+    })
+
 });/*main wrap*/
 
