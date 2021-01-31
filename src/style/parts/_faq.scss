@@ -1,0 +1,43 @@
+#faq{
+  margin-top: 150px;
+  background: #FAFAFA;
+  .left-man{
+    position: relative;
+    top: -94px;
+    .man{
+      position: relative;
+      left: -20px;
+    }
+  }
+  .block{
+    background: $orange;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    padding: 27px 37px;
+    text-align: center;
+    position: relative;
+    margin-top: -31px;
+    .name{
+      font-weight: bold;
+      font-size: 24px;
+      line-height: 30px;
+    }
+    .title{
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 30px;
+    }
+    .desc{
+      font-weight: normal;
+      font-size: 13px;
+      line-height: 13px;
+    }
+    .btn-w{
+      display: flex;
+      flex-direction: column;
+      .btn{
+        margin-top: 19px;
+      }
+    }
+  }
+}

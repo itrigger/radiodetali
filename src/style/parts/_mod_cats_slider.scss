@@ -1,0 +1,98 @@
+.mod_categories_slider{
+  padding-top: 41px;
+  padding-bottom: 50px;
+  background: url("../img/pattern/diods-gray.png") center 126px repeat-x #E8E8E8;
+  h3{
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 51px;
+    text-transform: uppercase;
+  }
+  .head_w{
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .swiper-slide{
+    height: 371px;
+    background: #fff;
+    border-radius: 9px;
+    padding-bottom: 38px;
+    border: 2px solid #fff;
+    transition: 0.3s all;
+    &>a{
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      text-decoration: none;
+    }
+    &:hover{
+      transition: 0.3s all;
+      border: 2px solid #FF8500;
+      box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+      .btn{
+        transition: 0.3s all;
+          background: $orange;
+      }
+    }
+    .label{
+      position: absolute;
+      width: 100%;
+      top: 32px;
+      text-align: center;
+      font-weight: 500;
+      font-size: 14px;
+      text-transform: uppercase;
+      color: #000;
+    }
+    .title{
+      font-weight: 800;
+      font-size: 14px;
+      line-height: 24px;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+      margin-top: 17px;
+    }
+  }
+  .food_w{
+    margin-top: 43px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .btn{
+      width: 190px;
+      .ico-left{
+        margin-right: 12px;
+      }
+    }
+  }
+}
+
+.arrows_w{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 17px;
+  .swiper-button-next,
+  .swiper-button-prev
+  {
+    width: 32px;
+    height: 32px;
+    position: relative;
+    background: url("../img/ico-arrow.svg") 0 0 no-repeat;
+    top: auto;
+    left: auto;
+    right: auto;
+    &:after{
+      display: none;
+    }
+  }
+  .swiper-button-prev{
+    transform: rotate(180deg);
+    margin-right: 10px;
+  }
+}

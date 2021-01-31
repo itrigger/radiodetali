@@ -1,0 +1,22 @@
+.custom-select__option--value{
+  width: 100%;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  box-sizing: border-box;
+  border-radius: 35px;
+  height: 48px;
+}
+.custom-select--active .custom-select__option--value{
+  border-radius: 35px;
+  border-bottom-color: inherit;
+}
+.custom-select__dropdown{
+  top: calc(100% - -2px);
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+}
+.custom-select__option--value::after{
+  border: none;
+  width: 20px;
+  height: 12px;
+  background: url("../img/ico-dd-arr-20-12.svg") 0 0 no-repeat;
+}

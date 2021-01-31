@@ -40,8 +40,89 @@ jQuery("document").ready(function () {
     });
 
 
+    /*https://kvlsrg.github.io/jquery-custom-select/*/
+    jQuery('#radioels-type').customSelect({
+        placeholder: '<span style="color: darkgray;">Что продаёте?</span>',
+        search: true
+    });
+
+    jQuery('#radioels-name').customSelect({
+        placeholder: '<span style="color: darkgray;">Укажите элемент</span>',
+        search: true
+    });
+    jQuery('#radioprib-type').customSelect({
+        placeholder: '<span style="color: darkgray;">Что продаёте?</span>',
+        search: true
+    });
+
+    jQuery('#radioprib-name').customSelect({
+        placeholder: '<span style="color: darkgray;">Укажите элемент</span>',
+        search: true
+    });
 
 
+    let bannersSwiper = new Swiper('#slider .swiper-container', {
+        effect: 'fade',
+        fadeEffect: {
+            crossFade: true
+        },
+        // Optional parameters
+        slidesPerView: 1,
+        spaceBetween: 0,
+        // Responsive breakpoints
+        loop: true,
+        breakpoints: {
+            // when window width is >= 320px
+            320: {
+
+            },
+            1180: {
+
+            }
+        },
+        autoplay: {
+            delay: 3000,
+        },
+        disableOnInteraction: false,
+    });
+
+    let cardsSwiper = new Swiper('.mod_categories_slider .swiper-container', {
+        // Optional parameters
+        slidesPerView: 4,
+        spaceBetween: 30,
+       /* autoplay: {
+            delay: 4000,
+        },*/
+        // Responsive breakpoints
+        breakpoints: {
+            // when window width is >= 320px
+            320: {
+                slidesPerView: 2,
+                spaceBetween: 20
+            },
+            // when window width is >= 480px
+            480: {
+                slidesPerView: 3,
+                spaceBetween: 20
+            },
+            // when window width is >= 640px
+            640: {
+                slidesPerView: 3,
+                spaceBetween: 20
+            },
+            1120: {
+                slidesPerView: 4,
+                spaceBetween: 30
+            }
+        },
+        loop: true,
+
+        // Navigation arrows
+        navigation: {
+            nextEl: '.arrows_w .swiper-button-next',
+            prevEl: '.arrows_w .swiper-button-prev',
+        },
+    });
 
 
 });/*main wrap*/
