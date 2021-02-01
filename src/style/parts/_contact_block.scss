@@ -1,0 +1,63 @@
+#contact_block{
+  padding-top: 65px;
+  background: #000;
+  padding-bottom: 126px;
+  position: relative;
+  &:before{
+    content:'';
+    display: block;
+    position: absolute;
+    right: 0;
+    top:0;
+    width: 50%;
+    height: 100%;
+    background: url("../img/pattern/details-w.png") left 50px repeat-x;
+  }
+  .heading{
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 64px;
+    text-transform: uppercase;
+    color: #fff;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+  .text_conf{
+    margin-top: 12px;
+    margin-bottom: 25px;
+  }
+  img{
+    border-radius: 9px;
+    overflow: hidden;
+  }
+}
+
+.contact--footer-block{
+  display: flex;
+  color: #fff;
+  margin-top: 80px;
+  justify-content: flex-end;
+  .text{
+    span{
+      display: block;
+    }
+  }
+  a{
+    margin-left: 18px;
+    margin-top: 5px;
+  }
+  .ico{
+    transition: 0.3s all;
+    display: block;
+    position: relative;
+  }
+  .ico:hover{
+    animation: jump 0.3s ease-in-out;
+  }
+}
+
+.contact--image-block{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}

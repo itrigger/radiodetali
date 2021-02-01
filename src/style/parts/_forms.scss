@@ -20,3 +20,48 @@
   height: 12px;
   background: url("../img/ico-dd-arr-20-12.svg") 0 0 no-repeat;
 }
+
+.form{
+  input[type=text],
+  input[type=tel],
+  input[type=email],
+  textarea
+  {
+    border: none;
+    height: 43px;
+    background: #F3F3F3;
+    border-radius: 9px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #8D8D8D;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+  textarea{
+    height: 140px;
+    font-family: inherit;
+    padding-top: 10px;
+  }
+  .input--wide{
+    width: 100%;
+  }
+  .text_conf{
+    font-size: 11px;
+    line-height: 13px;
+    color: #fff;
+  }
+  input[type=submit]{
+    border: none;
+    background-image: url("../img/ico-arr-w-20-20.svg");
+    background-repeat: no-repeat;
+    background-position: 162px center;
+    width: 254px;
+    padding-right: 35px;
+    transition: 0.3s all;
+    &:hover{
+      background-position: 182px center;
+      transition: 0.3s all;
+    }
+  }
+}

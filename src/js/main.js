@@ -127,8 +127,43 @@ jQuery("document").ready(function () {
 
     /*spoiler*/
     jQuery(".spoiler_title").on("click", function () {
+        jQuery(".spoiler").removeClass("active");
         jQuery(this).parent().toggleClass("active");
-    })
+    });
+
+
+
+    let GOLD_DISCOUNT = 0.6;
+    let SILVER_DISCOUNT = 0.7;
+    let PLATINUM_DISCOUNT = 0.7;
+    let PALLADIUM_DISCOUNT = 0.7;
+
+    let categoriesAPI = {}; // объект где храним список категорий
+    let categoriesName = [];
+    let productsAPI = {}; // объект где храним список продуктов
+    let rowsCount = 1; // изначальное кол-во строк
+    let $parentEl = jQuery('.calculator'); // ссылка на родительскую обертку
+    let totalPrice = 0; // начальное значение итоговой цены
+
+    let GOLD = stock_gold / 31.1; // здесь будут курсы драгметаллов и доллара делим на 31,1 для перевода из унций в кг
+    let SILVER = stock_silver / 31.1;
+    let PLATINUM = stock_platinum / 31.1;
+    let PALLADIUM = stock_palladium / 31.1;
+    let USD = stock_rub;
+    let EUR = 1 / stock_eur * stock_rub;
+    let STOCK_DATE = stock_date.toString();
+    const TYPES = ["кг", "шт", "г", "кольцо", "секция", "2 секции", "контакт", "гр"];
+    const CONST_HOST = "https://priemkm.ru";
+    // const CONST_HOST = window.location.origin;
+    console.log(CONST_HOST);
+    const CONST_CK = 'ck_1a2af9ee2ad6e3ac6a0f9237cebfcc62ad4a88a5';
+    const CONST_CS = 'cs_fc757c4e40772bd4cb6b5f36c8a81bf33504395f';
+    const $dropdown = jQuery(".el-type-1"); // начальные ссылки на селекты
+    const $dropdownChild = jQuery(".el-name-1");
+
+
+
+
 
 });/*main wrap*/
 
