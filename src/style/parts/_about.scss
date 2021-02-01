@@ -12,4 +12,21 @@
     line-height: 25px;
     color: #555;
   }
+  .prem1,
+  .prem2,
+  .prem3,
+  .prem4
+  {
+    padding-top: 50px;
+    text-align: center;
+  }
+  .title{
+    margin-top: 30px;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    span{
+      display: block;
+    }
+  }
 }

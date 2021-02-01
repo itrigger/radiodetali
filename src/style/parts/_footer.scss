@@ -1,0 +1,80 @@
+#footer{
+
+}
+.line_orange{
+  height: 103px;
+  box-sizing: border-box;
+}
+.line_black{
+  box-sizing: border-box;
+  height: 295px;
+  position: relative;
+  background: #000;
+  color: #C4C4C4;
+  padding-top: 68px;
+  &:before{
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: url("../img/pattern/diods-gray.png") 0 0 repeat;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0.3;
+  }
+  .container{
+    position: relative;
+    z-index: 1;
+  }
+  .copy{
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .contacts{
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    margin-top: 20px;
+  }
+  .address{
+    display: flex;
+    font-size: 14px;
+    line-height: 18px;
+    .ico{
+      margin-right: 13px;
+    }
+    span{
+      display: block;
+    }
+  }
+  .foot-menu{
+    margin: 0;
+    padding: 0;
+    a{
+      color: inherit;
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+  .payment-text{
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 20px;
+    span{
+      display: block;
+    }
+  }
+  .payments{
+    ul{
+      display: flex;
+      li{
+        margin-right: 20px;
+        &:last-child{
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}

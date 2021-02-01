@@ -131,6 +131,9 @@ jQuery("document").ready(function () {
         jQuery(this).parent().toggleClass("active");
     });
 
+    jQuery('.map_bubble').on('click', '.close', function () {
+        jQuery(this).parent().removeClass("open").find(".wrapper").html("");
+    });
 
 
     let GOLD_DISCOUNT = 0.6;
