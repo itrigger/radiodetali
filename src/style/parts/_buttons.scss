@@ -80,10 +80,29 @@
   }
 }
 
+.btn-goto-list{
+  height: 30px;
+  background: #2C2C2C;
+  border-radius: 27px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 24px;
+  color: #fff;
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: 500;
+}
+
 .btn-wide{
   width: 100%;
 }
-
+.btn-round{
+  width: 48px;
+  height: 48px;
+  font-size: 24px;
+  font-weight: bold;
+}
 .btn-burger{
   position: relative;
   width: 25px;
@@ -329,7 +348,11 @@
   height: 22px;
   background: url("../img/ico-mail-big.svg") 0 0 no-repeat;
 }
-
+.ico-goto-list{
+  width: 23px;
+  height: 23px;
+  background: url("../img/ico-goto-list.svg") 0 0 no-repeat;
+}
 
 
 

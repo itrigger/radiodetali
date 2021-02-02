@@ -1,6 +1,10 @@
+.cat_header{
+  margin-bottom: 30px;
+}
 .cat_header--header{
   display: flex;
   align-items: center;
+  margin-top: 17px;
   h1{
     font-weight: bold;
     font-size: 30px;
@@ -17,8 +21,18 @@
     li{
       color: #BBBBBB;
       margin-right: 15px;
+      font-size: 13px;
+      line-height: 16px;
       a{
         color: #BBBBBB;
+        position: relative;
+        padding-right: 30px;
+        font-size: 13px;
+        line-height: 16px;
+        text-decoration: none;
+        &:after{
+          @include pseudo("bc-arr.svg",17,18,0,null,0);
+        }
       }
     }
   }
@@ -41,6 +55,9 @@
       border: 2px solid #FF8500;
       box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
     }
+    .img{
+      text-align: center;
+    }
     .name{
       font-weight: 500;
       font-size: 14px;
@@ -62,7 +79,11 @@
       line-height: 14px;
     }
     .btn_w{
-
+      display: flex;
+      align-items: center;
+      .btn-black{
+        margin-right: 18px;
+      }
     }
   }
 }
