@@ -81,7 +81,7 @@ jQuery("document").ready(function () {
             }
         },
         autoplay: {
-            delay: 3000,
+            delay: 6000,
         },
         disableOnInteraction: false,
     });
@@ -90,9 +90,10 @@ jQuery("document").ready(function () {
         // Optional parameters
         slidesPerView: 4,
         spaceBetween: 30,
-       /* autoplay: {
+        autoplay: {
             delay: 4000,
-        },*/
+        },
+        speed: 1000,
         // Responsive breakpoints
         breakpoints: {
             // when window width is >= 320px
@@ -116,18 +117,28 @@ jQuery("document").ready(function () {
             }
         },
         loop: true,
-
         // Navigation arrows
         navigation: {
             nextEl: '.arrows_w .swiper-button-next',
             prevEl: '.arrows_w .swiper-button-prev',
+        },
+        //animation: ;
+        //
+        on: {
+            transitionStart: function () {
+                //( mySwiper.previousIndex - mySwiper.activeIndex ) < 0.
+                jQuery('.mod_categories_slider').css("animation-play-state", "running");
+            },
+            transitionEnd: function () {
+                jQuery('.mod_categories_slider').css("animation-play-state", "paused");
+            },
         },
     });
 
 
     /*spoiler*/
     jQuery(".spoiler_title").on("click", function () {
-        jQuery(".spoiler").removeClass("active");
+        jQuery(this).parent().siblings().removeClass("active");
         jQuery(this).parent().toggleClass("active");
     });
 

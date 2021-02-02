@@ -2,6 +2,7 @@
   padding-top: 41px;
   padding-bottom: 50px;
   background: url("../img/pattern/diods-gray.png") center 126px repeat-x #E8E8E8;
+  animation: 2s linear 0s infinite bp;
   h3{
     font-weight: bold;
     font-size: 30px;
@@ -17,10 +18,13 @@
     height: 371px;
     background: #fff;
     border-radius: 9px;
-    padding-bottom: 38px;
+    padding-top: 0;
     border: 2px solid #fff;
     transition: 0.3s all;
     &>a{
+      padding-bottom: 38px;
+      padding-top: 50px;
+      box-sizing: border-box;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
@@ -71,6 +75,16 @@
   }
 }
 
+@keyframes bp {
+  from {
+    background-position:  149px 126px;
+  }
+
+  to {
+    background-position:  0 126px;
+  }
+}
+
 .arrows_w{
   position: relative;
   display: flex;
@@ -87,6 +101,9 @@
     top: auto;
     left: auto;
     right: auto;
+    &:hover{
+      animation: jump 0.3s ease-in-out;
+    }
     &:after{
       display: none;
     }
@@ -94,5 +111,8 @@
   .swiper-button-prev{
     transform: rotate(180deg);
     margin-right: 10px;
+  }
+  .swiper-button-next{
+
   }
 }

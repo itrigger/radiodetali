@@ -65,3 +65,38 @@
     }
   }
 }
+
+.news-form{
+  display: flex;
+  input[type=text]{
+    border: none;
+    height: 47px;
+    width: 503px;
+    background: #FFFFFF;
+    border-radius: 29px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #8D8D8D;
+    padding: 0 20px;
+    box-sizing: border-box;
+    margin-right: -173px;
+  }
+  input[type=submit]{
+    border: none;
+    width: 177px;
+    transition: 0.3s all;
+    &:hover{
+      background-color: #000;
+      animation: falling 3s linear infinite;
+      background-image: url("../img/pattern/mailpattern.svg");
+      transition: 0.3s all;
+    }
+  }
+}
+
+@keyframes falling {
+  0% { background-position: 0 64px; }
+  50% {background-position: 0 0;}
+  100% {background-position: 0 -64px;}
+}

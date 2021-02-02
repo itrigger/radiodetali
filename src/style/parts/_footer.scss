@@ -4,6 +4,42 @@
 .line_orange{
   height: 103px;
   box-sizing: border-box;
+  padding-top: 25px;
+  background: $orange;
+  .flex{
+    align-items: center;
+  }
+  .text{
+    display: flex;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 22px;
+    text-transform: uppercase;
+    color: #000;
+    margin-right: 55px;
+    div span{
+      display: block;
+    }
+    .ico{
+      margin-right: 12px;
+    }
+  }
+  .contact--footer-block{
+    margin-top: 0;
+    text-transform: initial;
+    margin-left: 50px;
+    align-items: center;
+    .text{
+      text-transform: initial;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 22px;
+      margin-right: 0;
+    }
+    a{
+      margin-top: 0;
+    }
+  }
 }
 .line_black{
   box-sizing: border-box;
