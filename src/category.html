@@ -3,10 +3,10 @@
 <head>
     //= template/head.html
 </head>
-<body>
+<body class="category-page">
 //= template/header.html
 
-<div class="cat_header">
+<div class="cat_header bg--gray">
     <div class="container">
         <div class="row">
             <div class="col-3"></div>
@@ -24,21 +24,27 @@
         </div>
         <div class="row">
             <div class="col-3 col-to-end">
-                <a href="#" class="btn btn-goto-list"><span class="ico ico-goto-list ico-left"></span> перейти в список</a>
+                <a href="/cart.html" class="btn btn-goto-list"><span class="ico ico-goto-list ico-left"></span> перейти в список</a>
             </div>
         </div>
     </div>
 </div>
 
-<div class="catalog_content">
+<div class="catalog_content bg--gray">
     <div class="container">
         <div class="row">
             <div class="col-3">
                 <div class="left-menu">
                     <ul>
                         <li>
-                            <span class="title">Радиодетали</span>
-                            <ul>
+                            <span class="title radiodetali">Радиодетали <span class="ico ico-right">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g opacity="0.7">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.35147 1.33795C5.8201 0.887349 6.5799 0.887349 7.04853 1.33795L13.6485 7.68411C14.1172 8.13471 14.1172 8.86529 13.6485 9.31589L7.04853 15.662C6.5799 16.1127 5.8201 16.1127 5.35147 15.662C4.88284 15.2114 4.88284 14.4809 5.35147 14.0303L11.1029 8.5L5.35147 2.96974C4.88284 2.51913 4.88284 1.78856 5.35147 1.33795Z"/>
+                                    </g>
+                                </svg>
+                            </span></span>
+                            <ul style="display: none;">
                                 <li><a href="">Диоды</a></li>
                                 <li><a href="">Конденсаторы</a></li>
                                 <li><a href="">Транзисторы</a></li>
@@ -48,8 +54,14 @@
                             </ul>
                         </li>
                         <li>
-                            <span class="title">Радиоприборы</span>
-                            <ul>
+                            <span class="title radiopribory">Радиоприборы <span class="ico ico-right">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g opacity="0.7">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.35147 1.33795C5.8201 0.887349 6.5799 0.887349 7.04853 1.33795L13.6485 7.68411C14.1172 8.13471 14.1172 8.86529 13.6485 9.31589L7.04853 15.662C6.5799 16.1127 5.8201 16.1127 5.35147 15.662C4.88284 15.2114 4.88284 14.4809 5.35147 14.0303L11.1029 8.5L5.35147 2.96974C4.88284 2.51913 4.88284 1.78856 5.35147 1.33795Z"/>
+                                    </g>
+                                </svg>
+                            </span></span>
+                            <ul style="display: none;">
                                 <li><a href="">Аттенюаторы</a></li>
                                 <li><a href="">Вольтметры</a></li>
                                 <li><a href="">Блоки питания</a></li>
@@ -81,51 +93,141 @@
                         </div>
                     </div>
                 </div>
+                <div class="prems left-prems">
+                    <div class="col-3">
+                        <div class="prem4">
+                            <img src="../img/ab-4.svg" alt="Выезжаем сразу" />
+                            <div class="title">Выезжаем сразу же
+                                <span>после звонка</span></div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="prem2">
+                            <img src="../img/ab-2.svg" alt="Лучшая цена на рынке" />
+                            <div class="title">Лучшая цена на рынке
+                                <span>приёма радиодеталей</span></div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="prem1">
+                            <img src="../img/ab-1.svg" alt="Более 500 позиций" />
+                            <div class="title">Более 500 позиций <span>мы готовы купить у вас</span></div>
+                        </div>
+                    </div>
+
+
+                </div>
             </div>
             <div class="col-9">
                 <div class="cards">
                     <div class="card col-3">
                         <div class="img"><img src="../img/1.jpg" alt="" /></div>
                         <div class="name">К10-28; -47 Н30; D; Н50; Н90</div>
-                        <div class="desc">и т.д средний, большой размер микс</div>
-                        <div class="price">12380р</div>
-                        <div class="price_text">Цена за кг.</div>
+                        <div class="desc"></div>
+                        <div class="price">12380<b>р</b></div>
+                        <div class="price_text">Цена за <span class="type">кг.</span></div>
                         <div class="btn_w">
-                            <a href="#" class="btn btn-round btn-black">+</a>
-                            <a href="#" class="btn btn-round btn-gray">₽</a>
+                            <a href="javascript:;" class="btn btn-round btn-black"><span class="a1">+</span><span class="a2">В список</span></a>
+                            <a href="javascript:;" class="btn btn-round btn-gray"><span class="a1">₽</span><span class="a2">Продать</span></a>
                         </div>
                     </div>
                     <div class="card col-3">
                         <div class="img"><img src="../img/1.jpg" alt="" /></div>
                         <div class="name">К10-28; -47 Н30; D; Н50; Н90</div>
                         <div class="desc">и т.д средний, большой размер микс</div>
-                        <div class="price">12380р</div>
-                        <div class="price_text">Цена за кг.</div>
+                        <div class="price">75<b>р</b></div>
+                        <div class="price_text">Цена за <span class="type">шт.</span></div>
                         <div class="btn_w">
-                            <a href="#" class="btn btn-round btn-black">+</a>
-                            <a href="#" class="btn btn-round btn-gray">₽</a>
+                            <a href="javascript:;" class="btn btn-round btn-black"><span class="a1">+</span><span class="a2">В список</span></a>
+                            <a href="javascript:;" class="btn btn-round btn-gray"><span class="a1">₽</span><span class="a2">Продать</span></a>
                         </div>
                     </div>
                     <div class="card col-3">
                         <div class="img"><img src="../img/1.jpg" alt="" /></div>
                         <div class="name">К10-28; -47 Н30; D; Н50; Н90</div>
                         <div class="desc">и т.д средний, большой размер микс</div>
-                        <div class="price">12380р</div>
-                        <div class="price_text">Цена за кг.</div>
+                        <div class="price">12380<b>р</b></div>
+                        <div class="price_text">Цена за <span class="type">кольцо</span></div>
                         <div class="btn_w">
-                            <a href="#" class="btn btn-round btn-black">+</a>
-                            <a href="#" class="btn btn-round btn-gray">₽</a>
+                            <a href="javascript:;" class="btn btn-round btn-black"><span class="a1">+</span><span class="a2">В список</span></a>
+                            <a href="javascript:;" class="btn btn-round btn-gray"><span class="a1">₽</span><span class="a2">Продать</span></a>
                         </div>
                     </div>
                     <div class="card col-3">
                         <div class="img"><img src="../img/1.jpg" alt="" /></div>
                         <div class="name">К10-28; -47 Н30; D; Н50; Н90</div>
                         <div class="desc">и т.д средний, большой размер микс</div>
-                        <div class="price">12380р</div>
-                        <div class="price_text">Цена за кг.</div>
+                        <div class="price">12380<b>р</b></div>
+                        <div class="price_text">Цена за <span class="type">кг.</span></div>
                         <div class="btn_w">
-                            <a href="#" class="btn btn-round btn-black">+</a>
-                            <a href="#" class="btn btn-round btn-gray">₽</a>
+                            <a href="javascript:;" class="btn btn-round btn-black"><span class="a1">+</span><span class="a2">В список</span></a>
+                            <a href="javascript:;" class="btn btn-round btn-gray"><span class="a1">₽</span><span class="a2">Продать</span></a>
+                        </div>
+                    </div>
+                    <div class="card col-3">
+                        <div class="img"><img src="../img/1.jpg" alt="" /></div>
+                        <div class="name">К10-28; -47 Н30; D; Н50; Н90</div>
+                        <div class="desc">и т.д средний, большой размер микс</div>
+                        <div class="price">12380<b>р</b></div>
+                        <div class="price_text">Цена за <span class="type">кг.</span></div>
+                        <div class="btn_w">
+                            <a href="javascript:;" class="btn btn-round btn-black"><span class="a1">+</span><span class="a2">В список</span></a>
+                            <a href="javascript:;" class="btn btn-round btn-gray"><span class="a1">₽</span><span class="a2">Продать</span></a>
+                        </div>
+                    </div>
+                    <div class="card col-3">
+                        <div class="img"><img src="../img/1.jpg" alt="" /></div>
+                        <div class="name">К10-28; -47 Н30; D; Н50; Н90</div>
+                        <div class="desc">и т.д средний, большой размер микс</div>
+                        <div class="price">12380<b>р</b></div>
+                        <div class="price_text">Цена за <span class="type">кг.</span></div>
+                        <div class="btn_w">
+                            <a href="javascript:;" class="btn btn-round btn-black"><span class="a1">+</span><span class="a2">В список</span></a>
+                            <a href="javascript:;" class="btn btn-round btn-gray"><span class="a1">₽</span><span class="a2">Продать</span></a>
+                        </div>
+                    </div>
+                    <div class="card col-3">
+                        <div class="img"><img src="../img/1.jpg" alt="" /></div>
+                        <div class="name">К10-28; -47 Н30; D; Н50; Н90</div>
+                        <div class="desc">и т.д средний, большой размер микс</div>
+                        <div class="price">12380<b>р</b></div>
+                        <div class="price_text">Цена за <span class="type">кг.</span></div>
+                        <div class="btn_w">
+                            <a href="javascript:;" class="btn btn-round btn-black"><span class="a1">+</span><span class="a2">В список</span></a>
+                            <a href="javascript:;" class="btn btn-round btn-gray"><span class="a1">₽</span><span class="a2">Продать</span></a>
+                        </div>
+                    </div>
+                    <div class="card col-3">
+                        <div class="img"><img src="../img/1.jpg" alt="" /></div>
+                        <div class="name">К10-28; -47 Н30; D; Н50; Н90</div>
+                        <div class="desc">и т.д средний, большой размер микс</div>
+                        <div class="price">12380<b>р</b></div>
+                        <div class="price_text">Цена за <span class="type">кг.</span></div>
+                        <div class="btn_w">
+                            <a href="javascript:;" class="btn btn-round btn-black"><span class="a1">+</span><span class="a2">В список</span></a>
+                            <a href="javascript:;" class="btn btn-round btn-gray"><span class="a1">₽</span><span class="a2">Продать</span></a>
+                        </div>
+                    </div>
+                    <div class="card col-3">
+                        <div class="img"><img src="../img/1.jpg" alt="" /></div>
+                        <div class="name">К10-28; -47 Н30; D; Н50; Н90</div>
+                        <div class="desc">и т.д средний, большой размер микс</div>
+                        <div class="price">12380<b>р</b></div>
+                        <div class="price_text">Цена за <span class="type">кг.</span></div>
+                        <div class="btn_w">
+                            <a href="javascript:;" class="btn btn-round btn-black"><span class="a1">+</span><span class="a2">В список</span></a>
+                            <a href="javascript:;" class="btn btn-round btn-gray"><span class="a1">₽</span><span class="a2">Продать</span></a>
+                        </div>
+                    </div>
+                    <div class="card col-3">
+                        <div class="img"><img src="../img/1.jpg" alt="" /></div>
+                        <div class="name">К10-28; -47 Н30; D; Н50; Н90</div>
+                        <div class="desc">и т.д средний, большой размер микс</div>
+                        <div class="price">12380<b>р</b></div>
+                        <div class="price_text">Цена за <span class="type">кг.</span></div>
+                        <div class="btn_w">
+                            <a href="javascript:;" class="btn btn-round btn-black"><span class="a1">+</span><span class="a2">В список</span></a>
+                            <a href="javascript:;" class="btn btn-round btn-gray"><span class="a1">₽</span><span class="a2">Продать</span></a>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 .cat_header{
-  margin-bottom: 30px;
+  padding-bottom: 30px;
 }
 .cat_header--header{
   display: flex;
@@ -13,7 +13,9 @@
     margin-right: 48px;
   }
 }
+.catalog_content{
 
+}
 .breadcrumb{
   ul{
     display: flex;
@@ -43,6 +45,7 @@
   grid-template-columns: repeat(9, 1fr);
   grid-gap: 30px;
   position: relative;
+  margin-bottom: 80px;
   .card{
     box-sizing: border-box;
     min-height: 368px;
@@ -50,7 +53,9 @@
     background: #fff;
     border-radius: 9px;
     transition: 0.3s all;
-    padding: 25px 33px;
+    padding: 15px 25px 15px;
+    display: flex;
+    flex-direction: column;
     &:hover {
       border: 2px solid #FF8500;
       box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
@@ -71,8 +76,13 @@
       color: #6B6B6B;
     }
     .price{
+      margin-top: auto;
+      padding-top: 10px;
       font-size: 48px;
-      line-height: 62px;
+      line-height: 48px;
+      b{
+        font-size: 24px;
+      }
     }
     .price_text{
       font-size: 11px;
@@ -81,9 +91,89 @@
     .btn_w{
       display: flex;
       align-items: center;
+      margin-top: 10px;
       .btn-black{
         margin-right: 18px;
+        overflow: hidden;
+        position: relative;
+        .a1{
+          transform: translateX(28px);
+          transition: 0.2s transform;
+        }
+        .a2{
+          transform: translateX(150px);
+          opacity: 0;
+          font-size: 16px;
+        }
+      }
+      .btn-gray{
+        overflow: hidden;
+        position: relative;
+        .a1{
+          transform: translateX(33px);
+          transition: 0.2s transform;
+        }
+        .a2{
+          transform: translateX(150px);
+          opacity: 0;
+          font-size: 16px;
+        }
+      }
+    }
+    &:hover{
+      .btn-black:hover{
+        width: 135px;
+        transition: 0.3s all;
+        background: #000;
+        .a1{
+          transform: translateX(-10px)  rotate(90deg);
+          transition: 0.2s all;
+        }
+        .a2{
+          opacity: 1;
+          transform: translateX(0px);
+          transition: 0.2s all;
+          position: relative;
+          z-index: 2;
+        }
+      }
+      .btn-gray:hover{
+        width: 135px;
+        background-color: $orange;
+        position: relative;
+        &:after{
+          content: '';
+          display: block;
+          width: 100%;
+          height: 100%;
+          left: 0;
+          top: 0;
+          position: absolute;
+          transition: 0.2s opacity;
+          animation: sliding 5s linear infinite;
+          background-image: url("../img/pattern/salepattern.svg");
+        }
+        .a1{
+          transform: translateX(-50px);
+          transition: 0.2s all;
+        }
+        .a2{
+          opacity: 1;
+          transform: translateX(-6px);
+          transition: 0.2s all;
+          color: #000;
+          position: relative;
+          z-index: 2;
+        }
       }
     }
   }
+}
+
+@keyframes sliding {
+   0% { background-position: 64px 0; opacity: 0;}
+   10% { opacity: .5;}
+   50% {background-position: 0 0;}
+   90% { opacity: .5;}
+   100% {background-position: -64px 0; opacity: 0;}
 }

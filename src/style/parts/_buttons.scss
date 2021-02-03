@@ -42,6 +42,7 @@
   width: 144px;
   height: 48px;
   border-radius: 27px;
+  position: relative;
   &:hover{
     background: $orange;
   }
@@ -353,7 +354,17 @@
   height: 23px;
   background: url("../img/ico-goto-list.svg") 0 0 no-repeat;
 }
-
+.ico-left-menu-right{
+  width: 20px;
+  height: 20px;
+  background: url("../img/ico-left-menu-arr-right.svg") 0 0 no-repeat;
+}
+.ico-delete-list{
+  width: 46px;
+  height: 45px;
+  background: url("../img/ico-cart-46-45.svg") 0 0 no-repeat;
+  cursor: pointer;
+}
 
 
 

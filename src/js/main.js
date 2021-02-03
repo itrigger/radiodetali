@@ -66,10 +66,8 @@ jQuery("document").ready(function () {
         fadeEffect: {
             crossFade: true
         },
-        // Optional parameters
         slidesPerView: 1,
         spaceBetween: 0,
-        // Responsive breakpoints
         loop: true,
         breakpoints: {
             // when window width is >= 320px
@@ -87,14 +85,12 @@ jQuery("document").ready(function () {
     });
 
     let cardsSwiper = new Swiper('.mod_categories_slider .swiper-container', {
-        // Optional parameters
         slidesPerView: 4,
         spaceBetween: 30,
         autoplay: {
             delay: 4000,
         },
         speed: 1000,
-        // Responsive breakpoints
         breakpoints: {
             // when window width is >= 320px
             320: {
@@ -117,13 +113,10 @@ jQuery("document").ready(function () {
             }
         },
         loop: true,
-        // Navigation arrows
         navigation: {
             nextEl: '.arrows_w .swiper-button-next',
             prevEl: '.arrows_w .swiper-button-prev',
         },
-        //animation: ;
-        //
         on: {
             transitionStart: function () {
                 //( mySwiper.previousIndex - mySwiper.activeIndex ) < 0.
@@ -145,6 +138,20 @@ jQuery("document").ready(function () {
     jQuery('.map_bubble').on('click', '.close', function () {
         jQuery(this).parent().removeClass("open").find(".wrapper").html("");
     });
+
+    jQuery(".left-menu .title").on('click', function () {
+       // jQuery(".left-menu ul li").removeClass("active");
+        jQuery(this).parent().toggleClass("active");
+        jQuery(this).parent().find("ul").slideToggle(function () {
+            if(jQuery(".left-menu>ul>li").hasClass("active")){
+                jQuery(".left-menu").addClass("active");
+            } else {
+                jQuery(".left-menu").removeClass("active");
+            }
+        });
+    });
+
+
 
 
     let GOLD_DISCOUNT = 0.6;
