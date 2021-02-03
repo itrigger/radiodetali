@@ -151,6 +151,77 @@ jQuery("document").ready(function () {
         });
     });
 
+    /*степпер для калькулятора*/
+    jQuery("body").on('click', ".stepper-step", function (e) {
+        let curval = parseFloat(jQuery(this).parent().find("input").val());
+
+        if(e.target.classList[1] === "up"){
+            jQuery(this).parent().find("input").val(curval + 1).trigger("input");
+        } else {
+            if(curval > 1) {
+                jQuery(this).parent().find("input").val(curval - 1).trigger("input");
+            }
+        }
+    });
+
+    var date = new Date(),
+        hour = date.getHours(),
+        min = date.getMinutes(),
+        sec = date.getSeconds(),
+        hourElt = document.getElementsByClassName("hour")[0],
+        minElt = document.getElementsByClassName("min")[0];
+
+    moveTime();
+
+    function moveTime() {
+        moveMin();
+        moveHour();
+    }
+
+    function moveMin() {
+        var turnMin = min*6;
+        minElt.style.transform = "rotate(" + turnMin + "deg)";
+        minElt.style.webkitTransform = "rotate(" + turnMin + "deg)";
+
+        setTimeout(function () {
+            turnMin += 6;
+            minElt.style.transform = "rotate(" + turnMin + "deg)";
+            minElt.style.webkitTransform = "rotate(" + turnMin + "deg)";
+            // for each min after first
+            var eachMin = setInterval(function () {
+                turnMin += 6;
+                minElt.style.transform = "rotate(" + turnMin + "deg)";
+                minElt.style.webkitTransform = "rotate(" + turnMin + "deg)";
+                // display digit on hover; short condition to keep 00:00 format
+            }, 60000);
+        }, (60 - sec) * 1000);
+    }
+
+    function moveHour() {
+        if(hour > 11) {hour -= 12;}
+        var turnHour = hour*30;
+        hourElt.style.transform = "rotate(" + turnHour + "deg)";
+        hourElt.style.webkitTransform = "rotate(" + turnHour + "deg)";
+        // after first hour leftovers
+        setTimeout(function () {
+            turnHour += 30;
+            hourElt.style.transform = "rotate(" + turnHour + "deg)";
+            hourElt.style.webkitTransform = "rotate(" + turnHour + "deg)";
+            // for each hour after first
+            var eachHour = setInterval(function () {
+                turnHour += 30;
+                hourElt.style.transform = "rotate(" + turnHour + "deg)";
+                hourElt.style.webkitTransform = "rotate(" + turnHour + "deg)";
+            }, 3600000);
+        }, (60 - min) * 60000);
+    }
+
+
+
+
+
+
+
 
 
 

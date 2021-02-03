@@ -315,8 +315,8 @@
   background: url("../img/ico-wt-w-20-20.svg") 0 0 no-repeat;
 }
 .ico-vb-b{
-  width: 17px;
-  height: 17px;
+  width: 19px;
+  height: 19px;
   background: url("../img/ico-vb-b-17-17.svg") 0 0 no-repeat;
 }
 .ico-vb-w{
@@ -360,14 +360,59 @@
   background: url("../img/ico-left-menu-arr-right.svg") 0 0 no-repeat;
 }
 .ico-delete-list{
-  width: 46px;
-  height: 45px;
-  background: url("../img/ico-cart-46-45.svg") 0 0 no-repeat;
+  width: 32px;
+  height: 29px;
+  background: url("../img/ico-del-bottom.svg") 0 0 no-repeat;
   cursor: pointer;
+  position: relative;
+  &:before{
+    @include pseudo("ico-del-top.svg",36,10,-9,-2);
+    background-size: contain;
+    transition: 0.2s all;
+  }
+  &:hover{
+    &:before{
+      transform-origin: top left;
+      left: -6px;
+      top: -2px;
+      transform: rotate(-25deg);
+      transition: 0.2s all;
+    }
+  }
 }
 
-
-
+.ico-flag{
+  width: 7px;
+  height: 60px;
+  background: black;
+  position: relative;
+  display: inline-block;
+  border-radius: 3px;
+  &:before{
+    @include pseudo("ico-flag-2.svg",40,39,10,0);
+    background-color: #ffffff;
+    border-radius: 3px;
+    z-index: 2;
+    animation: 3s swing1 ease infinite;
+    transition:  0.1s ease-in all;
+  }
+  &:after{
+    @include pseudo("ico-flag-3.svg",34,44,16,24);
+    z-index: 1;
+    animation: 3s swing2 ease infinite;
+    transition:  0.1s ease-in all;
+  }
+}
+@keyframes swing1 {
+  0% { top: 10px; }
+  50% { top: 4px; }
+  100% {top: 10px;}
+}
+@keyframes swing2 {
+  0% { top: 14px; }
+  50% {top: 18px;}
+  100% {top: 16px;}
+}
 
 @keyframes jump {
   0% { top: 0; }
@@ -417,5 +462,52 @@
 
 
 
+
+.clock {
+  width: 46px;
+  height: 46px;
+  border: solid 6px #000;
+  border-radius: 50%;
+  position: relative;
+  margin: auto;
+}
+
+.dot {
+  background: red;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: calc(50% - 5px);
+  left: calc(50% - 5px);
+  display: none;
+}
+
+.spire {
+  position: absolute;
+}
+
+.hour {
+  top: calc(50% - 15px);
+  left: calc(50% - 3px);
+  width: 6px;
+  height: 18px;
+  border-radius: 5px 5px;
+  background: $orange;
+  z-index: 4;
+  transform-origin: 3px 15px;
+  transition: transform 2s ease;
+}
+
+.min {
+  top: calc(50% - 19px);
+  left: calc(50% - 3px);
+  width: 6px;
+  height: 22px;
+  border-radius:5px 5px;
+  background: $orange;
+  z-index: 3;
+  transform-origin: 3px 19px;
+  transition: transform 1s ease;
+}
 
 
