@@ -1,26 +1,22 @@
 <div id="calcform">
     <div class="tabform">
         <div class="tabs_label">
-            <div class="tab_label active">
+            <div class="tab_label active" data-vals="[17,16,18,24,25,26,30,28,19,29,23,22,21,20]">
                 <div><span class="ico ico-tab-detali ico-left"></span> Радиодетали</div>
             </div>
-            <div class="tab_label">
+            <div class="tab_label" data-vals="[37,38,49,39,41,42,43,46,44,45,48,47]">
                 <div><span class="ico ico-tab-pribory ico-left"></span> Радиоприборы</div>
             </div>
         </div>
         <div class="tabs_content">
             <div class="tab_content active">
                 <div>
-                    <select class="select select--default" id="radioels-type">
-                        <option value="1">Диоды</option>
-                        <option value="2">Конденсаторы</option>
-                        <option value="3">Реле</option>
-                        <option value="4">Лампы</option>
-                        <option value="5">Металлы платино-паладиевой группы</option>
+                    <select class="select select--default el-type el-type-1" id="radioels-type">
+                        <option disabled hidden selected value="">Что продаёте?</option>
                     </select>
                 </div>
                 <div>
-                    <select id="radioels-name" class="select select--default">
+                    <select id="radioels-name" class="select select--default el-name el-name-1">
                         <option value="1">Д123</option>
                         <option value="2">Д-223</option>
                         <option value="3">ДР12</option>

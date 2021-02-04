@@ -1,0 +1,115 @@
+#cat_popup_menu{
+  background: #646464;
+  color: #fff;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 0%;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s all;
+  &.open{
+    height: auto;
+    opacity: 1;
+    visibility: visible;
+    transition: 0.3s all;
+    .lined ul{
+      animation: fadeInRight .5s ease forwards;
+      animation-delay: .35s;
+      &:nth-of-type(2) { animation-delay: .5s;}
+    }
+  }
+  a{
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 12px;
+    line-height: 24px;
+    letter-spacing: 1px;
+    &:hover{
+      color: $orange;
+    }
+  }
+  .close_btn{
+    cursor: pointer;
+    position: absolute;
+    top: -38px;
+    right: 0;
+    transform: rotate(0deg);
+    transition: 0.3s all;
+    width: 16px;
+    height: 16px;
+    &:hover{
+      transform: rotate(180deg);
+      transition: 0.3s all;
+    }
+  }
+  ul{
+    column-count: 2;
+    column-gap: 60px;
+    opacity: 0;
+    position: relative;
+  }
+  .lined{
+    border-bottom: 1px solid rgba(#9B9B9B,.35);
+    border-top: 1px solid rgba(#9B9B9B,.35);
+    padding: 26px 0;
+  }
+  header{
+    height: 110px;
+    font-weight: 800;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    letter-spacing: 1px;
+    .name{
+      margin-bottom: 15px;
+    }
+  }
+  footer{
+    height: 243px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .get_price_w{
+      height: 100%;
+    }
+    .get_price{
+      display: flex;
+      align-items: center;
+      text-transform: unset;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .contact--footer-block{
+      margin-top: 0;
+      align-items: flex-end;
+      flex-direction: column;
+      .btns{
+        display: flex;
+        margin-top: 25px;
+      }
+      a{
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+@keyframes fadeInRight {
+
+  0% {
+    opacity: 0;
+    left: 10%;
+  }
+
+  100% {
+    opacity: 1;
+    left: 0;
+  }
+}

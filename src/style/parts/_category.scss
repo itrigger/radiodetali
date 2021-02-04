@@ -64,6 +64,12 @@
     }
     .img{
       text-align: center;
+      cursor: pointer;
+      margin-bottom: 10px;
+      img{
+        width: 100%;
+        height: auto;
+      }
     }
     .name{
       font-weight: 500;

@@ -60,7 +60,6 @@ jQuery("document").ready(function () {
         search: true
     });
 
-
     let bannersSwiper = new Swiper('#slider .swiper-container', {
         effect: 'fade',
         fadeEffect: {
@@ -139,6 +138,8 @@ jQuery("document").ready(function () {
         jQuery(this).parent().removeClass("open").find(".wrapper").html("");
     });
 
+
+    /*Левое меню каталога*/
     jQuery(".left-menu .title").on('click', function () {
        // jQuery(".left-menu ul li").removeClass("active");
         jQuery(this).parent().toggleClass("active");
@@ -150,6 +151,25 @@ jQuery("document").ready(function () {
             }
         });
     });
+    if(jQuery(".left-menu").length){
+        CheckCategoryMenuItem()
+    }
+
+    function CheckCategoryMenuItem(){
+        jQuery(".left-menu ul ul li").each(function () {
+            if(jQuery(this).find("a").attr("href") === window.location.pathname){
+                jQuery(this).addClass("active");
+                jQuery(this).parent().parent().addClass("active");
+                jQuery(this).parent().slideToggle(function () {
+                    if(jQuery(".left-menu>ul>li").hasClass("active")){
+                        jQuery(".left-menu").addClass("active");
+                    } else {
+                        jQuery(".left-menu").removeClass("active");
+                    }
+                });
+            }
+        });
+    }
 
     /*степпер для калькулятора*/
     jQuery("body").on('click', ".stepper-step", function (e) {
@@ -218,9 +238,25 @@ jQuery("document").ready(function () {
 
 
 
+    jQuery(".open-popup-cat").click(function (e) {
+        e.preventDefault();
+        jQuery("#cat_popup_menu").addClass("open");
+    });
+
+    jQuery("#cat_popup_menu .close_btn").on("click", function () {
+        jQuery("#cat_popup_menu").removeClass("open");
+    });
 
 
-
+    if (sessionStorage.getItem('tabs') !== null) {
+        let curTab = sessionStorage.getItem('tabs');
+        jQuery('.mobile_tabs').find('li').removeClass("active");
+        jQuery('.mobile_tabs').find('li').eq(curTab).addClass("active");
+        jQuery(".tab_content").removeClass("active");
+        jQuery(".tab_content").eq(curTab).addClass("active");
+    } else {
+        sessionStorage.setItem('tabs','0');
+    }
 
 
 
@@ -230,7 +266,8 @@ jQuery("document").ready(function () {
     let PLATINUM_DISCOUNT = 0.7;
     let PALLADIUM_DISCOUNT = 0.7;
 
-    let categoriesAPI = {}; // объект где храним список категорий
+    let categoriesRDAPI = {"id":"", "name":""}; // объект где храним список категорий
+    let categoriesRPAPI = {"id":"", "name":""}; // объект где храним список категорий
     let categoriesName = [];
     let productsAPI = {}; // объект где храним список продуктов
     let rowsCount = 1; // изначальное кол-во строк
@@ -252,6 +289,248 @@ jQuery("document").ready(function () {
     const CONST_CS = 'cs_fc757c4e40772bd4cb6b5f36c8a81bf33504395f';
     const $dropdown = jQuery(".el-type-1"); // начальные ссылки на селекты
     const $dropdownChild = jQuery(".el-name-1");
+    const R_DETAILS = [17,16,18,24,25,26,30,28,19,29,23,22,21,20];
+    const R_PRIBORS = [37,38,49,39,41,42,43,46,44,45,48,47];
+
+    /* Add fancybox to product img */
+    if (jQuery(".catalog-cards").length > 0) {
+        jQuery(".catalog-cards .card img.attachment-woocommerce_thumbnail").on('click', function (e) {
+            if(jQuery(window).width() <= 600){
+                if(e.target.offsetParent.classList.contains('active')){
+                    jQuery.fancybox.open({
+                        src: jQuery(this).attr('src'),
+                        type: 'image',
+                        toolbar: false,
+                        beforeShow: function (instance, current) {
+                            jQuery(".fancybox-toolbar").css("display", "none");
+                        },
+                        afterShow: function (instance, current) {
+                            jQuery(".fancybox-content").prepend("<div class='fancy_close'><svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1\" viewBox=\"0 0 24 24\"><path d=\"M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z\"></path></svg></div>");
+                            jQuery(".fancy_close").on('click', function () {
+                                instance.close();
+                            })
+                        },
+                        clickContent: 'close',
+                        clickSlide: "close",
+                        buttons: ['close'],
+                        touch: false
+                        //fancybox-content
+                    });
+                }
+            } else {
+                jQuery.fancybox.open({
+                    src: jQuery(this).attr('src'),
+                    type: 'image',
+                    toolbar: false,
+                    beforeShow: function (instance, current) {
+                        jQuery(".fancybox-toolbar").css("display", "none");
+                    },
+                    afterShow: function (instance, current) {
+                        jQuery(".fancybox-content").prepend("<div class='fancy_close'><svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1\" viewBox=\"0 0 24 24\"><path d=\"M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z\"></path></svg></div>");
+                        jQuery(".fancy_close").on('click', function () {
+                            instance.close();
+                        })
+                    },
+                    clickContent: 'close',
+                    clickSlide: "close",
+                    buttons: ['close'],
+                    touch: false
+                    //fancybox-content
+                });
+            }
+
+
+
+
+        });
+
+        //Высчитываем цену товара, данные для цены выводим с помощью php и ACF
+        jQuery(".catalog-cards .card").each(function () {
+            let item_gold = jQuery(this).find(".item--gold").text();
+            let item_silver = jQuery(this).find(".item--silver").text();
+            let item_platinum = jQuery(this).find(".item--platinum").text();
+            let item_palladium = jQuery(this).find(".item--palladium").text();
+            let item_typecount = jQuery(this).find(".item--typeofcount").text();
+            let item_fixprice = jQuery(this).find(".item--fixprice").text();
+            let item_price;
+            // Основная формула для каждого города и металла есть поправочный кэф
+            if (item_fixprice > 0) {
+                if (item_fixprice == "999999") {
+                    jQuery(this).find(".title").text("Цена договорная");
+                    jQuery(this).find(".price").css("display", "none");
+                    jQuery(this).find(".btn-put-to-storage").css("display", "none");
+                    jQuery(this).find(".product--input-w").css("display", "none");
+                } else {
+                    jQuery(this).find(".price .price_value").text(item_fixprice);
+                    jQuery(this).find(".row-total span").text(item_fixprice);
+                }
+            } else {
+                item_price = (item_gold * GOLD * GOLD_DISCOUNT + item_silver * SILVER * SILVER_DISCOUNT + item_platinum * PLATINUM * PLATINUM_DISCOUNT + item_palladium * PALLADIUM * PALLADIUM_DISCOUNT) * USD;
+                jQuery(this).find(".price .price_value").text((Math.round(item_price + Number.EPSILON) * 1));
+                jQuery(this).find(".row-total span").text((Math.round(item_price + Number.EPSILON) * 1));
+            }
+            jQuery(this).find(".itemcount").text(TYPES[item_typecount - 1]);
+        })
+    }
+
+
+    /*******************/
+    /*****Notifier*******/
+    /*******************/
+    //Собственный модуль уведомлений
+    const notify = function (message, type = "success") { // type может быть success (по умолчанию) или error
+        $parentEl.append(`<div class='flex alert ${type}'>${message} <span class="closebtn">×</span></div>`) // вставляем алерт в дом
+        if (type === "success") { // если алерт об успешной операции, то автоматически прячем через 3 секунды
+            setTimeout(function () {
+                $parentEl.find(".alert").remove();
+            }, 3000);
+        }
+    }
+    jQuery(document).on('click', '.closebtn', function () { // кнопка закрытия алерта
+        let $alert = jQuery(this).parent();
+        $alert.css({"opacity": "0", "height": "1px"});
+        setTimeout(function () {
+            $alert.css("display", "none")
+        }, 600);
+    })
+    const delete_notify = function (input) { // функция "мягкого" скрытия алертов (с анимацией). В качестве input передаем ссылку на элемент, у которого надо убрать класс input-error
+        jQuery('.alert').each(function () {
+            let $alert = jQuery(this);
+            $alert.css({"opacity": "0", "height": "1px"});
+            setTimeout(function () {
+                $alert.remove();
+            }, 600);
+        })
+        if (input) {
+            input.removeClass("input-error");
+        }
+    }
+    const harddelete_notify = function (input) { // тоже самое, только скрытие всех алертов без анимации (например, сркыть все алерты перед проверкой и в случае необходимости отобразить новый)
+        jQuery('.alert').each(function () {
+            jQuery(this).remove();
+        })
+        if (input) {
+            input.removeClass("input-error");
+        }
+    }
+    /****************/
+    /****************/
+    /****************/
+    const isLoading = (cond) => {
+        if (cond === 1) {
+            jQuery(".loader").css("opacity", "1");
+            jQuery(".els-body").addClass("disabled");
+        } else {
+            jQuery(".loader").css("opacity", "0");
+            jQuery(".els-body").removeClass("disabled");
+        }
+    }
+
+
+    $dropdown.prop('disabled', 'disabled'); // отключаем селекты, пока в них не подгрузятся данные
+    $dropdownChild.prop('disabled', 'disabled');
+
+
+    if (jQuery("#calcform").length) {
+        // первоначальный запрос при загрузке страницы, чтобы заполнить первый селект данными
+        fetch(`${CONST_HOST}/wp-json/wc/v3/products/categories?consumer_key=${CONST_CK}&consumer_secret=${CONST_CS}&exclude=15&per_page=100`)
+            .then(
+                function (response) {
+                    isLoading(1);
+                    if (response.status !== 200) {
+                        console.log('Looks like there was a problem. Status Code: ' +
+                            response.status);
+                        notify("Возникла ошибка при получении данных! Попробуйте перезагрузить страницу или зайти позже.", "error");
+                        return;
+                    }
+
+                    // Examine the text in the response
+                    response.json().then(function (data) {
+                       console.log(data);
+                        /*разделяем категории по двум массивам*/
+                        //R_PRIBORS;
+                        //R_DETAILS;
+
+                         jQuery.each(data, function (index) {
+                            if (jQuery.inArray(data[index].id, R_DETAILS) > -1) {
+                                let temp = {};
+                                temp.id = data[index].id;
+                                temp.name = data[index].name;
+                                categoriesRDAPI.push(temp);
+                            } else {
+                                let temp = {};
+                                temp.id = data[index].id;
+                                temp.name = data[index].name;
+                                categoriesRDAPI.push(temp);
+                            }
+                         });
+
+                         console.log(categoriesRDAPI);
+                         console.log(categoriesRPAPI);
+                         /**/
+
+
+                         $dropdown.empty();
+
+                         jQuery.each(categoriesRDAPI, function () {
+                             $dropdown.append(jQuery("<option />").val(this.id).text(this.name));
+                         });
+                         //$dropdown.append(jQuery("<option disabled hidden selected value='9999'></option>").text("Что продаёте?"));
+                         $dropdown.prop('disabled', false);
+
+                         jQuery('#radioels-type').customSelect('reset');
+
+
+
+                         //CheckProjects();
+                         let lsArr = [];
+                        /* if (sessionStorage.getItem('order') !== null) {
+                             lsArr = JSON.parse(sessionStorage.getItem('order'));
+                             getFromLs(lsArr).then(r => console.log('Data loaded from local storage!'));
+                         } else {
+                             CheckProjects();
+                         }*/
+                        isLoading(0);
+                    });
+
+                    /*Fill fields from localstorage*/
+
+
+
+                }
+            )
+            .catch(function (err) {
+                console.log('Fetch Error :-S', err);
+                notify("Возникла ошибка при получении данных! Попробуйте перезагрузить страницу или зайти позже.", "error");
+            });
+    } else {
+        isLoading(0);
+    }
+
+
+
+
+    function CheckProjects(selectVal=null) {
+
+        let $curElsRow = jQuery('.els-row-' + rowsCount);
+        let arrVals = JSON.parse(jQuery('.opt.active').attr('data-vals'));
+
+        $curElsRow.find("select.el-type").empty();
+        let lastId = 0;
+        jQuery.each(categoriesAPI, function (index) {
+
+            if (jQuery.inArray(categoriesAPI[index].id, arrVals) > -1) { //If current project ID is in array of projects
+                $curElsRow.find("select.el-type").append(jQuery("<option />").val(categoriesAPI[index].id).text(categoriesAPI[index].name));
+                lastId = categoriesAPI[index].id;
+            }
+        });
+        $curElsRow.find("select.el-type").val(lastId).trigger('change');
+        //console.log(selectVal);
+        if(selectVal){
+            $curElsRow.find("select.el-type").val(selectVal).prop('selected', true).trigger('change');
+        }
+    }
+
 
 
 

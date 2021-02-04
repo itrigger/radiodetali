@@ -348,6 +348,12 @@
   width: 30px;
   height: 22px;
   background: url("../img/ico-mail-big.svg") 0 0 no-repeat;
+  position: relative;
+  &:before{
+    @include pseudo("ico-mail-2.svg",30,15,-1,1);
+    transition: 0.3s all;
+    background-size: contain;
+  }
 }
 .ico-goto-list{
   width: 23px;

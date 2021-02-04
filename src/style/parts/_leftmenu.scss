@@ -63,6 +63,9 @@
         align-items: end;
         background: #3C4043;
         box-sizing: border-box;
+        &.active a{
+          color: $orange;
+        }
         a{
           text-decoration: none;
           color: #C4C4C4;
