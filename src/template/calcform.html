@@ -1,5 +1,8 @@
 <div id="calcform">
     <div class="tabform">
+        <div class="loader">
+            <div class="lds-ripple"><div></div><div></div></div>
+        </div>
         <div class="tabs_label">
             <div class="tab_label active" data-vals="[17,16,18,24,25,26,30,28,19,29,23,22,21,20]">
                 <div><span class="ico ico-tab-detali ico-left"></span> Радиодетали</div>
@@ -8,7 +11,7 @@
                 <div><span class="ico ico-tab-pribory ico-left"></span> Радиоприборы</div>
             </div>
         </div>
-        <div class="tabs_content">
+        <div class="tabs_content" id="tab1">
             <div class="tab_content active">
                 <div>
                     <select class="select select--default el-type el-type-1" id="radioels-type">
@@ -17,30 +20,19 @@
                 </div>
                 <div>
                     <select id="radioels-name" class="select select--default el-name el-name-1">
-                        <option value="1">Д123</option>
-                        <option value="2">Д-223</option>
-                        <option value="3">ДР12</option>
-                        <option value="4">Еще диод</option>
+                        <option disabled hidden selected value="">Выберите наименование</option>
                     </select>
                 </div>
             </div>
-            <div class="tab_content">
+            <div class="tab_content" id="tab2">
                 <div>
                     <select id="radioprib-type" name="" class="select select--default">
-                        <option value="1">Категория приборов</option>
-                        <option value="2">Категория приборов</option>
-                        <option value="3">Категория приборов</option>
-                        <option value="4">Категория приборов</option>
-                        <option value="5">Категория приборов</option>
+                        <option value="1">---</option>
                     </select>
                 </div>
                 <div>
                     <select id="radioprib-name" name="" class="select select--default">
-                        <option value="1">Наименование</option>
-                        <option value="2">Наименование</option>
-                        <option value="3">Наименование</option>
-                        <option value="4">Наименование</option>
-                        <option value="5">Наименование</option>
+                        <option value="1">---</option>
                     </select>
                 </div>
             </div>
@@ -48,13 +40,11 @@
         <div class="tabform-footer">
             <div class="info-line">
                 <a class="btn-add-to-list" href="javascript:;">+ Добавить в список</a>
-                <div class="count_label">
-                    <span class="count_text">Количество: </span>
-                    <span class="count_num">0</span>
-                </div>
                 <div class="sum_label">
-                    <span class="sum_text">Сумма: </span>
-                    <span class="sum_num">0 ₽</span>
+                    <span class="sum_text">Цена: </span>
+                    <span class="sum_num"><b>-</b> ₽</span>
+                    <span class="count_text">за: </span>
+                    <span class="count_num">-</span>
                 </div>
             </div>
             <div class="btn-w">

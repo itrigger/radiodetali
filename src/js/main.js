@@ -1,4 +1,14 @@
 jQuery("document").ready(function () {
+
+    const isLoading = (cond) => {
+        if (cond === 1) {
+            jQuery(".loader").addClass("active");
+        } else {
+            jQuery(".loader").removeClass("active");
+        }
+    }
+    isLoading(1);
+
     /*Храним в локальной сессии какой таб открыт*/
     if (sessionStorage.getItem('tabs') !== null) {
         let curTab = sessionStorage.getItem('tabs');
@@ -6,7 +16,7 @@ jQuery("document").ready(function () {
         jQuery(".tabs_label .tab_label").eq(curTab).addClass("active");
         jQuery(".tabform .tab_content").removeClass("active");
         jQuery(".tabform .tab_content").eq(curTab).addClass("active");
-        if(curTab == 0){
+        if (curTab == 0) {
             jQuery(".tabs_label").removeClass("first");
             jQuery(".tabs_label").removeClass("second");
             jQuery(".tabs_label").addClass("first");
@@ -17,7 +27,7 @@ jQuery("document").ready(function () {
         }
 
     } else {
-        sessionStorage.setItem('tabs','0');
+        sessionStorage.setItem('tabs', '0');
     }
 
     /*клик по табам*/
@@ -27,7 +37,7 @@ jQuery("document").ready(function () {
         jQuery(this).addClass("active");
         jQuery(this).parent().parent().find(".tab_content").removeClass("active");
         jQuery(this).parent().parent().find(".tab_content").eq(liIndex).addClass("active");
-        if(liIndex === 0){
+        if (liIndex === 0) {
             jQuery(".tabs_label").removeClass("first");
             jQuery(".tabs_label").removeClass("second");
             jQuery(".tabs_label").addClass("first");
@@ -36,28 +46,32 @@ jQuery("document").ready(function () {
             jQuery(".tabs_label").removeClass("second");
             jQuery(".tabs_label").addClass("second");
         }
-        sessionStorage.setItem('tabs',liIndex);
+        sessionStorage.setItem('tabs', liIndex);
     });
 
 
     /*https://kvlsrg.github.io/jquery-custom-select/*/
     jQuery('#radioels-type').customSelect({
         placeholder: '<span style="color: darkgray;">Что продаёте?</span>',
-        search: true
+        search: true,
+        includeValue: true
     });
 
     jQuery('#radioels-name').customSelect({
         placeholder: '<span style="color: darkgray;">Укажите элемент</span>',
-        search: true
+        search: true,
+        includeValue: true
     });
     jQuery('#radioprib-type').customSelect({
         placeholder: '<span style="color: darkgray;">Что продаёте?</span>',
-        search: true
+        search: true,
+        includeValue: true
     });
 
     jQuery('#radioprib-name').customSelect({
         placeholder: '<span style="color: darkgray;">Укажите элемент</span>',
-        search: true
+        search: true,
+        includeValue: true
     });
 
     let bannersSwiper = new Swiper('#slider .swiper-container', {
@@ -70,12 +84,8 @@ jQuery("document").ready(function () {
         loop: true,
         breakpoints: {
             // when window width is >= 320px
-            320: {
-
-            },
-            1180: {
-
-            }
+            320: {},
+            1180: {}
         },
         autoplay: {
             delay: 6000,
@@ -141,27 +151,27 @@ jQuery("document").ready(function () {
 
     /*Левое меню каталога*/
     jQuery(".left-menu .title").on('click', function () {
-       // jQuery(".left-menu ul li").removeClass("active");
+        // jQuery(".left-menu ul li").removeClass("active");
         jQuery(this).parent().toggleClass("active");
         jQuery(this).parent().find("ul").slideToggle(function () {
-            if(jQuery(".left-menu>ul>li").hasClass("active")){
+            if (jQuery(".left-menu>ul>li").hasClass("active")) {
                 jQuery(".left-menu").addClass("active");
             } else {
                 jQuery(".left-menu").removeClass("active");
             }
         });
     });
-    if(jQuery(".left-menu").length){
+    if (jQuery(".left-menu").length) {
         CheckCategoryMenuItem()
     }
 
-    function CheckCategoryMenuItem(){
+    function CheckCategoryMenuItem() {
         jQuery(".left-menu ul ul li").each(function () {
-            if(jQuery(this).find("a").attr("href") === window.location.pathname){
+            if (jQuery(this).find("a").attr("href") === window.location.pathname) {
                 jQuery(this).addClass("active");
                 jQuery(this).parent().parent().addClass("active");
                 jQuery(this).parent().slideToggle(function () {
-                    if(jQuery(".left-menu>ul>li").hasClass("active")){
+                    if (jQuery(".left-menu>ul>li").hasClass("active")) {
                         jQuery(".left-menu").addClass("active");
                     } else {
                         jQuery(".left-menu").removeClass("active");
@@ -175,10 +185,10 @@ jQuery("document").ready(function () {
     jQuery("body").on('click', ".stepper-step", function (e) {
         let curval = parseFloat(jQuery(this).parent().find("input").val());
 
-        if(e.target.classList[1] === "up"){
+        if (e.target.classList[1] === "up") {
             jQuery(this).parent().find("input").val(curval + 1).trigger("input");
         } else {
-            if(curval > 1) {
+            if (curval > 1) {
                 jQuery(this).parent().find("input").val(curval - 1).trigger("input");
             }
         }
@@ -199,7 +209,7 @@ jQuery("document").ready(function () {
     }
 
     function moveMin() {
-        var turnMin = min*6;
+        var turnMin = min * 6;
         minElt.style.transform = "rotate(" + turnMin + "deg)";
         minElt.style.webkitTransform = "rotate(" + turnMin + "deg)";
 
@@ -218,8 +228,10 @@ jQuery("document").ready(function () {
     }
 
     function moveHour() {
-        if(hour > 11) {hour -= 12;}
-        var turnHour = hour*30;
+        if (hour > 11) {
+            hour -= 12;
+        }
+        var turnHour = hour * 30;
         hourElt.style.transform = "rotate(" + turnHour + "deg)";
         hourElt.style.webkitTransform = "rotate(" + turnHour + "deg)";
         // after first hour leftovers
@@ -235,7 +247,6 @@ jQuery("document").ready(function () {
             }, 3600000);
         }, (60 - min) * 60000);
     }
-
 
 
     jQuery(".open-popup-cat").click(function (e) {
@@ -255,10 +266,8 @@ jQuery("document").ready(function () {
         jQuery(".tab_content").removeClass("active");
         jQuery(".tab_content").eq(curTab).addClass("active");
     } else {
-        sessionStorage.setItem('tabs','0');
+        sessionStorage.setItem('tabs', '0');
     }
-
-
 
 
     let GOLD_DISCOUNT = 0.6;
@@ -266,8 +275,8 @@ jQuery("document").ready(function () {
     let PLATINUM_DISCOUNT = 0.7;
     let PALLADIUM_DISCOUNT = 0.7;
 
-    let categoriesRDAPI = {"id":"", "name":""}; // объект где храним список категорий
-    let categoriesRPAPI = {"id":"", "name":""}; // объект где храним список категорий
+    let categoriesRDAPI = {}; // объект где храним список категорий
+    let categoriesRPAPI = {}; // объект где храним список категорий
     let categoriesName = [];
     let productsAPI = {}; // объект где храним список продуктов
     let rowsCount = 1; // изначальное кол-во строк
@@ -287,16 +296,18 @@ jQuery("document").ready(function () {
     console.log(CONST_HOST);
     const CONST_CK = 'ck_1a2af9ee2ad6e3ac6a0f9237cebfcc62ad4a88a5';
     const CONST_CS = 'cs_fc757c4e40772bd4cb6b5f36c8a81bf33504395f';
-    const $dropdown = jQuery(".el-type-1"); // начальные ссылки на селекты
-    const $dropdownChild = jQuery(".el-name-1");
-    const R_DETAILS = [17,16,18,24,25,26,30,28,19,29,23,22,21,20];
-    const R_PRIBORS = [37,38,49,39,41,42,43,46,44,45,48,47];
+    const $dropdown = jQuery("#radioels-type"); // начальные ссылки на селекты
+    const $dropdown2 = jQuery("#radioprib-type"); // начальные ссылки на селекты
+    const $dropdownChild = jQuery("#radioels-name");
+    const $dropdownChild2 = jQuery("#radioprib-name");
+    const R_DETAILS = [17, 16, 18, 24, 25, 26, 30, 28, 19, 29, 23, 22, 21, 20];
+    const R_PRIBORS = [37, 38, 49, 39, 41, 42, 43, 46, 44, 45, 48, 47];
 
     /* Add fancybox to product img */
     if (jQuery(".catalog-cards").length > 0) {
         jQuery(".catalog-cards .card img.attachment-woocommerce_thumbnail").on('click', function (e) {
-            if(jQuery(window).width() <= 600){
-                if(e.target.offsetParent.classList.contains('active')){
+            if (jQuery(window).width() <= 600) {
+                if (e.target.offsetParent.classList.contains('active')) {
                     jQuery.fancybox.open({
                         src: jQuery(this).attr('src'),
                         type: 'image',
@@ -338,8 +349,6 @@ jQuery("document").ready(function () {
                     //fancybox-content
                 });
             }
-
-
 
 
         });
@@ -416,16 +425,6 @@ jQuery("document").ready(function () {
     /****************/
     /****************/
     /****************/
-    const isLoading = (cond) => {
-        if (cond === 1) {
-            jQuery(".loader").css("opacity", "1");
-            jQuery(".els-body").addClass("disabled");
-        } else {
-            jQuery(".loader").css("opacity", "0");
-            jQuery(".els-body").removeClass("disabled");
-        }
-    }
-
 
     $dropdown.prop('disabled', 'disabled'); // отключаем селекты, пока в них не подгрузятся данные
     $dropdownChild.prop('disabled', 'disabled');
@@ -446,44 +445,50 @@ jQuery("document").ready(function () {
 
                     // Examine the text in the response
                     response.json().then(function (data) {
-                       console.log(data);
                         /*разделяем категории по двум массивам*/
-                        //R_PRIBORS;
-                        //R_DETAILS;
 
-                         jQuery.each(data, function (index) {
+                        jQuery.each(data, function (index) {
                             if (jQuery.inArray(data[index].id, R_DETAILS) > -1) {
                                 let temp = {};
                                 temp.id = data[index].id;
                                 temp.name = data[index].name;
-                                categoriesRDAPI.push(temp);
+                                categoriesRDAPI[index] = temp;
                             } else {
                                 let temp = {};
                                 temp.id = data[index].id;
                                 temp.name = data[index].name;
-                                categoriesRDAPI.push(temp);
+                                categoriesRPAPI[index] = temp;
                             }
-                         });
-
-                         console.log(categoriesRDAPI);
-                         console.log(categoriesRPAPI);
-                         /**/
+                        });
 
 
-                         $dropdown.empty();
-
-                         jQuery.each(categoriesRDAPI, function () {
-                             $dropdown.append(jQuery("<option />").val(this.id).text(this.name));
-                         });
-                         //$dropdown.append(jQuery("<option disabled hidden selected value='9999'></option>").text("Что продаёте?"));
-                         $dropdown.prop('disabled', false);
-
-                         jQuery('#radioels-type').customSelect('reset');
+                        /**/
 
 
+                        $dropdown.empty();
 
-                         //CheckProjects();
-                         let lsArr = [];
+                        jQuery.each(categoriesRDAPI, function () {
+                            $dropdown.append(jQuery("<option />").val(this.id).text(this.name));
+                        });
+                        //$dropdown.append(jQuery("<option disabled hidden selected value='9999'></option>").text("Что продаёте?"));
+                        $dropdown.prop('disabled', false);
+
+                        $dropdown.customSelect('reset');
+
+
+                        $dropdown2.empty();
+
+                        jQuery.each(categoriesRPAPI, function () {
+                            $dropdown2.append(jQuery("<option />").val(this.id).text(this.name));
+                        });
+                        //$dropdown.append(jQuery("<option disabled hidden selected value='9999'></option>").text("Что продаёте?"));
+                        $dropdown2.prop('disabled', false);
+
+                        $dropdown2.customSelect('reset');
+
+
+                        //CheckProjects();
+                        let lsArr = [];
                         /* if (sessionStorage.getItem('order') !== null) {
                              lsArr = JSON.parse(sessionStorage.getItem('order'));
                              getFromLs(lsArr).then(r => console.log('Data loaded from local storage!'));
@@ -494,7 +499,6 @@ jQuery("document").ready(function () {
                     });
 
                     /*Fill fields from localstorage*/
-
 
 
                 }
@@ -508,9 +512,202 @@ jQuery("document").ready(function () {
     }
 
 
+    // заполняем дочерний селект при выборе опции в родительском
+    const fillChildSelect = function (id, catId = 0) {
+        isLoading(1); //Отображаем лоадер
+        //jQuery("#print").addClass("active");
+        let thiscatID = 0;
+        let $parentDD;
+        let $childDD;
+        // let $row = jQuery('.els-row-' + id);
+        if (id === 1) {
+            $parentDD = $dropdown;
+            $childDD = $dropdownChild;
+        } else {
+            $parentDD = $dropdown2;
+            $childDD = $dropdownChild2;
+        }
+        if (catId > 0) {
+            thiscatID = catId;
+            $parentDD.val(catId);
+        } else {
+            thiscatID = $parentDD.val(); // получаем ID категории
+        }
 
 
-    function CheckProjects(selectVal=null) {
+        $dropdownChild.prop('disabled', 'disabled'); // блокируем дочерний селект пока идет загрузка
+        //delete_notify($childDD); // удаляем все сообщения об ошибках и красную обводку с поля
+
+
+        if (sessionStorage.getItem('category' + thiscatID) !== null) {
+
+            let lsArr = [];
+            lsArr = JSON.parse(sessionStorage.getItem('category' + thiscatID));
+
+            $childDD.empty(); // очищаем селект
+            $childDD.append(jQuery("<option hidden disabled selected value='9999'></option>").text("Выберите наименование"));
+            for (const [i, arr] of lsArr.entries()) {
+                if (arr[8] !== '999999') {
+                    $childDD.append(jQuery("<option />")
+                        .val(arr[0])
+                        .text(arr[2])
+                        .attr({
+                            'data-g': arr[3],
+                            'data-s': arr[4],
+                            'data-pt': arr[5],
+                            'data-pd': arr[6],
+                            'data-counttype': arr[7],
+                            'data-fixprice': arr[8],
+                            //}).prop('selected', true));
+                        }));
+                }
+            }
+
+            $childDD.prop('disabled', false);
+            getPrice(id);
+            isLoading(0);
+            $childDD.customSelect('reset');
+        } else {
+            // запрос на АПИ
+            fetch(`${CONST_HOST}/wp-json/wc/v3/products?consumer_key=${CONST_CK}&consumer_secret=${CONST_CS}&category=${thiscatID}&per_page=100&status=publish`)
+                .then(
+                    function (response) {
+                        if (response.status !== 200) {
+                            console.log('Looks like there was a problem. Status Code: ' +
+                                response.status);
+                            notify("Возникла ошибка при получении данных! Попробуйте перезагрузить страницу или зайти позже.", "error");
+                            return;
+                        }
+
+                        /**/
+                        response.json().then(function (data) {
+                            productsAPI = data;
+                            let temp = [];
+                            if (data.length) {
+                                $childDD.empty(); // очищаем селект
+                                let i = 0;
+                                for (let key in productsAPI) {
+                                    // заполняем селект данными
+                                    if (productsAPI.hasOwnProperty(key)) {
+                                        if (productsAPI[key].meta_data[10].value !== '999999') {
+                                            $childDD.append(jQuery("<option />")
+                                                .val(productsAPI[key].id)
+                                                .text(productsAPI[key].name)
+                                                .attr({
+                                                    'data-g': productsAPI[key].meta_data[0].value,
+                                                    'data-s': productsAPI[key].meta_data[2].value,
+                                                    'data-pt': productsAPI[key].meta_data[4].value,
+                                                    'data-pd': productsAPI[key].meta_data[6].value,
+                                                    'data-counttype': productsAPI[key].meta_data[8].value,
+                                                    'data-fixprice': productsAPI[key].meta_data[10].value,
+                                                    //}).prop('selected', true));
+                                                }));
+
+                                            //заполняем локальное хранилище
+
+                                            let lsId = productsAPI[key].id; //ID самой радиодетали
+                                            let lsCatId = productsAPI[key].categories[0].id; //Id категории
+                                            let lsName = productsAPI[key].name; //Имя детали
+                                            let lsMeta0 = productsAPI[key].meta_data[0].value; //Gold
+                                            let lsMeta2 = productsAPI[key].meta_data[2].value; //Silver
+                                            let lsMeta4 = productsAPI[key].meta_data[4].value; //Platinum
+                                            let lsMeta6 = productsAPI[key].meta_data[6].value; //Palladium
+                                            let lsMeta8 = productsAPI[key].meta_data[8].value; //Мера измерения (кг,  шт и т.д.)
+                                            let lsMeta10 = productsAPI[key].meta_data[10].value; //Мера измерения (кг,  шт и т.д.)
+                                            temp[i] = [lsId, lsCatId, lsName, lsMeta0, lsMeta2, lsMeta4, lsMeta6, lsMeta8, lsMeta10];
+                                            i++;
+                                        }
+                                    }
+                                }
+
+                                if (sessionStorage.getItem('category' + thiscatID) === null) {
+                                    sessionStorage.setItem('category' + thiscatID, JSON.stringify(temp));
+                                }
+
+                                $childDD.prop('disabled', false);
+
+                                if ($childDD.find('option:selected').attr('value').toString() !== '9999') {
+                                    getPrice(id);
+                                }
+
+                            } else {
+                                $childDD.empty(); // очищаем селект
+                                $childDD.append(jQuery("<option />")
+                                    .val('')
+                                    .text('Нет данных!')
+                                );
+                            }
+
+                            isLoading(0);
+                            $childDD.customSelect('reset');
+                        });
+                        /**/
+
+                    }
+                )
+                .catch(function (err) {
+                    console.log('Fetch Error :-S', err);
+                    notify("Возникла ошибка при получении данных! Попробуйте перезагрузить страницу или зайти позже.", "error");
+                });
+        }
+    };
+
+
+    //run function on dynamic els
+    $dropdown.on('change', function () {
+        fillChildSelect(1);
+    });
+    $dropdown2.on('change', function () {
+        fillChildSelect(2);
+    });
+    $dropdownChild.on('change', function () {
+        getPrice(1);
+    });
+    $dropdownChild2.on('change', function () {
+        getPrice(2);
+    });
+
+    //Высчитывание цены
+    const getPrice = function (id) { //id - номер строки
+        let item_price = 0;
+        let $childDD;
+        if (id === 1) {
+            $childDD = $dropdownChild;
+        } else {
+            $childDD = $dropdownChild2;
+        }
+
+        let item_gold = jQuery('option:selected', $childDD).data('g');
+        let item_silver = jQuery('option:selected', $childDD).data('s');
+        let item_platinum = jQuery('option:selected', $childDD).data('pt');
+        let item_palladium = jQuery('option:selected', $childDD).data('pd');
+        let ItemTypeOf = jQuery('option:selected', $childDD).data('counttype');
+        let FixPrice = jQuery('option:selected', $childDD).data('fixprice');
+        let $childTypeOf = jQuery('.tabform-footer .count_num');
+
+        console.log(ItemTypeOf);
+
+        $childTypeOf.text(TYPES[ItemTypeOf - 1]);
+
+
+        if (FixPrice > 0) {
+            item_price = FixPrice;
+        } else {
+            item_price = Math.round((item_gold * GOLD * GOLD_DISCOUNT + item_silver * SILVER * SILVER_DISCOUNT + item_platinum * PLATINUM * PLATINUM_DISCOUNT + item_palladium * PALLADIUM * PALLADIUM_DISCOUNT) * USD);
+        }
+
+        if (item_price > 0) {
+            jQuery('.sum_num b').text(Math.round(item_price));
+        } else {
+            jQuery('.sum_num b').text("0");
+        }
+
+        //getTotalPrice();
+
+    }
+
+
+    function CheckProjects(selectVal = null) {
 
         let $curElsRow = jQuery('.els-row-' + rowsCount);
         let arrVals = JSON.parse(jQuery('.opt.active').attr('data-vals'));
@@ -526,14 +723,10 @@ jQuery("document").ready(function () {
         });
         $curElsRow.find("select.el-type").val(lastId).trigger('change');
         //console.log(selectVal);
-        if(selectVal){
+        if (selectVal) {
             $curElsRow.find("select.el-type").val(selectVal).prop('selected', true).trigger('change');
         }
     }
-
-
-
-
 
 
 });/*main wrap*/
