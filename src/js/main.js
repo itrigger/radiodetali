@@ -1,5 +1,39 @@
 jQuery("document").ready(function () {
 
+    let GOLD_DISCOUNT = 0.6;
+    let SILVER_DISCOUNT = 0.7;
+    let PLATINUM_DISCOUNT = 0.7;
+    let PALLADIUM_DISCOUNT = 0.7;
+
+    let categoriesRDAPI = {}; // объект где храним список категорий
+    let categoriesRPAPI = {}; // объект где храним список категорий
+    let categoriesName = [];
+    let productsAPI = {}; // объект где храним список продуктов
+    let rowsCount = 1; // изначальное кол-во строк
+    let $parentEl = jQuery('#calcform'); // ссылка на родительскую обертку
+    let totalPrice = 0; // начальное значение итоговой цены
+
+    let GOLD = stock_gold / 31.1; // здесь будут курсы драгметаллов и доллара делим на 31,1 для перевода из унций в кг
+    let SILVER = stock_silver / 31.1;
+    let PLATINUM = stock_platinum / 31.1;
+    let PALLADIUM = stock_palladium / 31.1;
+    let USD = stock_rub;
+    let EUR = 1 / stock_eur * stock_rub;
+    let STOCK_DATE = stock_date.toString();
+    const TYPES = ["кг", "шт", "г", "кольцо", "секция", "2 секции", "контакт", "гр"];
+    const CONST_HOST = "https://priemkm.ru";
+    // const CONST_HOST = window.location.origin;
+    console.log(CONST_HOST);
+    const CONST_CK = 'ck_1a2af9ee2ad6e3ac6a0f9237cebfcc62ad4a88a5';
+    const CONST_CS = 'cs_fc757c4e40772bd4cb6b5f36c8a81bf33504395f';
+    const $dropdown = jQuery("#radioels-type"); // начальные ссылки на селекты
+    const $dropdown2 = jQuery("#radioprib-type"); // начальные ссылки на селекты
+    const $dropdownChild = jQuery("#radioels-name");
+    const $dropdownChild2 = jQuery("#radioprib-name");
+    const R_DETAILS = [17, 16, 18, 24, 25, 26, 30, 28, 19, 29, 23, 22, 21, 20];
+    const R_PRIBORS = [37, 38, 49, 39, 41, 42, 43, 46, 44, 45, 48, 47];
+
+
     const isLoading = (cond) => {
         if (cond === 1) {
             jQuery(".loader").addClass("active");
@@ -8,47 +42,6 @@ jQuery("document").ready(function () {
         }
     }
     isLoading(1);
-
-    /*Храним в локальной сессии какой таб открыт*/
-    if (sessionStorage.getItem('tabs') !== null) {
-        let curTab = sessionStorage.getItem('tabs');
-        jQuery(".tabs_label .tab_label").removeClass("active");
-        jQuery(".tabs_label .tab_label").eq(curTab).addClass("active");
-        jQuery(".tabform .tab_content").removeClass("active");
-        jQuery(".tabform .tab_content").eq(curTab).addClass("active");
-        if (curTab == 0) {
-            jQuery(".tabs_label").removeClass("first");
-            jQuery(".tabs_label").removeClass("second");
-            jQuery(".tabs_label").addClass("first");
-        } else {
-            jQuery(".tabs_label").removeClass("first");
-            jQuery(".tabs_label").removeClass("second");
-            jQuery(".tabs_label").addClass("second");
-        }
-
-    } else {
-        sessionStorage.setItem('tabs', '0');
-    }
-
-    /*клик по табам*/
-    jQuery(".tabs_label .tab_label").on("click", function () {
-        let liIndex = jQuery(this).index();
-        jQuery(this).parent().find(".tab_label").removeClass("active");
-        jQuery(this).addClass("active");
-        jQuery(this).parent().parent().find(".tab_content").removeClass("active");
-        jQuery(this).parent().parent().find(".tab_content").eq(liIndex).addClass("active");
-        if (liIndex === 0) {
-            jQuery(".tabs_label").removeClass("first");
-            jQuery(".tabs_label").removeClass("second");
-            jQuery(".tabs_label").addClass("first");
-        } else {
-            jQuery(".tabs_label").removeClass("first");
-            jQuery(".tabs_label").removeClass("second");
-            jQuery(".tabs_label").addClass("second");
-        }
-        sessionStorage.setItem('tabs', liIndex);
-    });
-
 
     /*https://kvlsrg.github.io/jquery-custom-select/*/
     jQuery('#radioels-type').customSelect({
@@ -73,6 +66,47 @@ jQuery("document").ready(function () {
         search: true,
         includeValue: true
     });
+
+    /*Храним в локальной сессии какой таб открыт*/
+    if (sessionStorage.getItem('tabs') !== null) {
+        let curTab = sessionStorage.getItem('tabs');
+        jQuery(".tabs_label .tab_label").removeClass("active");
+        jQuery(".tabs_label .tab_label").eq(curTab).addClass("active");
+        jQuery(".tabform .tab_content").removeClass("active");
+        jQuery(".tabform .tab_content").eq(curTab).addClass("active");
+        let $tabsLabel = jQuery(".tabs_label");
+        if (curTab == 0) {
+            $tabsLabel.removeClass("first second").addClass("first");
+        } else {
+            $tabsLabel.removeClass("first second").addClass("second");
+        }
+
+    } else {
+        sessionStorage.setItem('tabs', '0');
+    }
+
+    /*клик по табам*/
+    jQuery(".tabs_label .tab_label").on("click", function () {
+        let liIndex = jQuery(this).index();
+        jQuery(".sum_num b").text("-");
+        jQuery(".count_num").text("-");
+        jQuery(this).parent().find(".tab_label").removeClass("active");
+        jQuery(this).addClass("active");
+        jQuery(this).parent().parent().find(".tab_content").removeClass("active");
+        jQuery(this).parent().parent().find(".tab_content").eq(liIndex).addClass("active");
+        let $tabsLabel = jQuery(".tabs_label");
+        if (liIndex === 0) {
+            $tabsLabel.removeClass("first second").addClass("first");
+            $dropdownChild.val("9999").prop('selected', true);
+            $dropdownChild.customSelect('reset');
+        } else {
+            $tabsLabel.removeClass("first second").addClass("second");
+            $dropdownChild2.val("9999").prop('selected', true);
+            $dropdownChild2.customSelect('reset');
+        }
+        sessionStorage.setItem('tabs', liIndex);
+    });
+
 
     let bannersSwiper = new Swiper('#slider .swiper-container', {
         effect: 'fade',
@@ -181,6 +215,17 @@ jQuery("document").ready(function () {
         });
     }
 
+    function CheckMainMenuItem() {
+        jQuery("#cat_popup_menu li").each(function () {
+            if (jQuery(this).find("a").attr("href") === window.location.pathname) {
+                jQuery(this).addClass("active");
+            }
+        });
+    }
+
+    CheckMainMenuItem();
+
+
     /*степпер для калькулятора*/
     jQuery("body").on('click', ".stepper-step", function (e) {
         let curval = parseFloat(jQuery(this).parent().find("input").val());
@@ -270,39 +315,6 @@ jQuery("document").ready(function () {
     }
 
 
-    let GOLD_DISCOUNT = 0.6;
-    let SILVER_DISCOUNT = 0.7;
-    let PLATINUM_DISCOUNT = 0.7;
-    let PALLADIUM_DISCOUNT = 0.7;
-
-    let categoriesRDAPI = {}; // объект где храним список категорий
-    let categoriesRPAPI = {}; // объект где храним список категорий
-    let categoriesName = [];
-    let productsAPI = {}; // объект где храним список продуктов
-    let rowsCount = 1; // изначальное кол-во строк
-    let $parentEl = jQuery('.calculator'); // ссылка на родительскую обертку
-    let totalPrice = 0; // начальное значение итоговой цены
-
-    let GOLD = stock_gold / 31.1; // здесь будут курсы драгметаллов и доллара делим на 31,1 для перевода из унций в кг
-    let SILVER = stock_silver / 31.1;
-    let PLATINUM = stock_platinum / 31.1;
-    let PALLADIUM = stock_palladium / 31.1;
-    let USD = stock_rub;
-    let EUR = 1 / stock_eur * stock_rub;
-    let STOCK_DATE = stock_date.toString();
-    const TYPES = ["кг", "шт", "г", "кольцо", "секция", "2 секции", "контакт", "гр"];
-    const CONST_HOST = "https://priemkm.ru";
-    // const CONST_HOST = window.location.origin;
-    console.log(CONST_HOST);
-    const CONST_CK = 'ck_1a2af9ee2ad6e3ac6a0f9237cebfcc62ad4a88a5';
-    const CONST_CS = 'cs_fc757c4e40772bd4cb6b5f36c8a81bf33504395f';
-    const $dropdown = jQuery("#radioels-type"); // начальные ссылки на селекты
-    const $dropdown2 = jQuery("#radioprib-type"); // начальные ссылки на селекты
-    const $dropdownChild = jQuery("#radioels-name");
-    const $dropdownChild2 = jQuery("#radioprib-name");
-    const R_DETAILS = [17, 16, 18, 24, 25, 26, 30, 28, 19, 29, 23, 22, 21, 20];
-    const R_PRIBORS = [37, 38, 49, 39, 41, 42, 43, 46, 44, 45, 48, 47];
-
     /* Add fancybox to product img */
     if (jQuery(".catalog-cards").length > 0) {
         jQuery(".catalog-cards .card img.attachment-woocommerce_thumbnail").on('click', function (e) {
@@ -387,12 +399,12 @@ jQuery("document").ready(function () {
     /*****Notifier*******/
     /*******************/
     //Собственный модуль уведомлений
-    const notify = function (message, type = "success") { // type может быть success (по умолчанию) или error
-        $parentEl.append(`<div class='flex alert ${type}'>${message} <span class="closebtn">×</span></div>`) // вставляем алерт в дом
+    const notify = function (message, type = "success", html = "") { // type может быть success (по умолчанию) или error
+        jQuery("body").append(`<div class='alert ${type}'>${message} ${html}<span class="closebtn">×</span></div>`) // вставляем алерт в дом
         if (type === "success") { // если алерт об успешной операции, то автоматически прячем через 3 секунды
-            setTimeout(function () {
-                $parentEl.find(".alert").remove();
-            }, 3000);
+             setTimeout(function () {
+                 jQuery("body").find(".alert").remove();
+             }, 3000);
         }
     }
     jQuery(document).on('click', '.closebtn', function () { // кнопка закрытия алерта
@@ -466,26 +478,18 @@ jQuery("document").ready(function () {
 
 
                         $dropdown.empty();
-
                         jQuery.each(categoriesRDAPI, function () {
                             $dropdown.append(jQuery("<option />").val(this.id).text(this.name));
                         });
-                        //$dropdown.append(jQuery("<option disabled hidden selected value='9999'></option>").text("Что продаёте?"));
                         $dropdown.prop('disabled', false);
-
                         $dropdown.customSelect('reset');
 
-
                         $dropdown2.empty();
-
                         jQuery.each(categoriesRPAPI, function () {
                             $dropdown2.append(jQuery("<option />").val(this.id).text(this.name));
                         });
-                        //$dropdown.append(jQuery("<option disabled hidden selected value='9999'></option>").text("Что продаёте?"));
                         $dropdown2.prop('disabled', false);
-
                         $dropdown2.customSelect('reset');
-
 
                         //CheckProjects();
                         let lsArr = [];
@@ -558,6 +562,7 @@ jQuery("document").ready(function () {
                             'data-pd': arr[6],
                             'data-counttype': arr[7],
                             'data-fixprice': arr[8],
+                            'data-imgsrc': arr[9],
                             //}).prop('selected', true));
                         }));
                 }
@@ -569,7 +574,7 @@ jQuery("document").ready(function () {
             $childDD.customSelect('reset');
         } else {
             // запрос на АПИ
-            fetch(`${CONST_HOST}/wp-json/wc/v3/products?consumer_key=${CONST_CK}&consumer_secret=${CONST_CS}&category=${thiscatID}&per_page=100&status=publish`)
+            fetch(`${CONST_HOST}/wp-json/wc/v3/products?consumer_key=${CONST_CK}&consumer_secret=${CONST_CS}&category=${thiscatID}&per_page=100&status=publish&order=asc`)
                 .then(
                     function (response) {
                         if (response.status !== 200) {
@@ -578,7 +583,6 @@ jQuery("document").ready(function () {
                             notify("Возникла ошибка при получении данных! Попробуйте перезагрузить страницу или зайти позже.", "error");
                             return;
                         }
-
                         /**/
                         response.json().then(function (data) {
                             productsAPI = data;
@@ -590,6 +594,10 @@ jQuery("document").ready(function () {
                                     // заполняем селект данными
                                     if (productsAPI.hasOwnProperty(key)) {
                                         if (productsAPI[key].meta_data[10].value !== '999999') {
+                                            let imgSrc = "https://priemkm.ru/wp-content/uploads/blank.jpg";
+                                            if(productsAPI[key].images[0] !== undefined){
+                                                imgSrc = productsAPI[key].images[0].src;
+                                            }
                                             $childDD.append(jQuery("<option />")
                                                 .val(productsAPI[key].id)
                                                 .text(productsAPI[key].name)
@@ -600,6 +608,7 @@ jQuery("document").ready(function () {
                                                     'data-pd': productsAPI[key].meta_data[6].value,
                                                     'data-counttype': productsAPI[key].meta_data[8].value,
                                                     'data-fixprice': productsAPI[key].meta_data[10].value,
+                                                    'data-imgsrc': imgSrc,
                                                     //}).prop('selected', true));
                                                 }));
 
@@ -614,7 +623,8 @@ jQuery("document").ready(function () {
                                             let lsMeta6 = productsAPI[key].meta_data[6].value; //Palladium
                                             let lsMeta8 = productsAPI[key].meta_data[8].value; //Мера измерения (кг,  шт и т.д.)
                                             let lsMeta10 = productsAPI[key].meta_data[10].value; //Мера измерения (кг,  шт и т.д.)
-                                            temp[i] = [lsId, lsCatId, lsName, lsMeta0, lsMeta2, lsMeta4, lsMeta6, lsMeta8, lsMeta10];
+                                            let lsImgSrc = imgSrc; //картинка
+                                            temp[i] = [lsId, lsCatId, lsName, lsMeta0, lsMeta2, lsMeta4, lsMeta6, lsMeta8, lsMeta10, lsImgSrc];
                                             i++;
                                         }
                                     }
@@ -685,7 +695,6 @@ jQuery("document").ready(function () {
         let FixPrice = jQuery('option:selected', $childDD).data('fixprice');
         let $childTypeOf = jQuery('.tabform-footer .count_num');
 
-        console.log(ItemTypeOf);
 
         $childTypeOf.text(TYPES[ItemTypeOf - 1]);
 
@@ -707,26 +716,223 @@ jQuery("document").ready(function () {
     }
 
 
-    function CheckProjects(selectVal = null) {
+    // сохраняем данные в локальное хранилище
+    const saveToLSFromCalc = function () {
+        let oldArr = [];
+        let temp = [];
+        let lsRowSum, lsRowPrice;
+        let $row = jQuery(".tab_content.active");
 
-        let $curElsRow = jQuery('.els-row-' + rowsCount);
-        let arrVals = JSON.parse(jQuery('.opt.active').attr('data-vals'));
+        if (sessionStorage.getItem('order') !== null) {
+            oldArr = JSON.parse(sessionStorage.getItem('order')) || [];
+        }
+        let lsType = $row.find('.el-type option:selected').text(); //Название категории
+        let lsName = $row.find('.el-name option:selected').text(); //Название самой радиодетали
+        let lsId = $row.find('.el-name option:selected').attr('value').toString(); //ID самой радиодетали
+        let lsImgSrc = $row.find('.el-name option:selected').attr('data-imgsrc').toString(); //картинка
+        let lsCount = 1;
+        let lsTypeOf = jQuery(".tabform-footer .count_num").text(); //Мера исчисления (1 - кг, 2 - штуки)
+        lsRowPrice = jQuery(".tabform-footer .sum_num b").text(); //Сумма как (кол-во * меру исчесления)
+        lsRowSum = lsRowPrice;
+        if (lsId !== '9999') {
+            temp = [lsId, lsType, lsName, lsCount, lsTypeOf, lsRowPrice, lsRowSum, lsImgSrc];
+        }
+        let flag = 0;
 
-        $curElsRow.find("select.el-type").empty();
-        let lastId = 0;
-        jQuery.each(categoriesAPI, function (index) {
-
-            if (jQuery.inArray(categoriesAPI[index].id, arrVals) > -1) { //If current project ID is in array of projects
-                $curElsRow.find("select.el-type").append(jQuery("<option />").val(categoriesAPI[index].id).text(categoriesAPI[index].name));
-                lastId = categoriesAPI[index].id;
+        for (const [i, arr] of oldArr.entries()) {
+            if (arr[0] === lsId) {
+                flag = 1;
             }
-        });
-        $curElsRow.find("select.el-type").val(lastId).trigger('change');
-        //console.log(selectVal);
-        if (selectVal) {
-            $curElsRow.find("select.el-type").val(selectVal).prop('selected', true).trigger('change');
+        }
+          if(flag !== 1){
+              oldArr.push(temp);
+              if (lsRowSum > 0) {
+                  sessionStorage.setItem('order', JSON.stringify(oldArr)); //превращаем все данные в строку и сохраняем в локальное хранилище
+                  notify(lsType + " - " + lsName + " успешно добавлен в список!", "success", "<div><a href='/cart.html' class='go-to-list'>Перейти в список</a></div>");
+                  $dropdownChild.val("9999").prop('selected', true);
+                  $dropdownChild.customSelect('reset');
+                  $dropdownChild2.val("9999").prop('selected', true);
+                  $dropdownChild2.customSelect('reset');
+              }
+          } else {
+              notify(lsName + " уже есть в списке","error")
+          }
+
+    };
+
+
+    jQuery(".btn-add-to-list").click(function () {
+        if (jQuery(".tab_content.active .el-name option:selected").attr('value') !== undefined) {
+            if (jQuery(".tab_content.active .el-name option:selected").attr('value').toString() !== '9999') {
+                saveToLSFromCalc();
+            } else {
+                notify("Не указан элемент", "error");
+            }
+        } else {
+            notify("Не выбран элемент", "error");
+        }
+    });
+
+    //в эту функцию передаем объект из локального хранилища, где из него создаются и заполняются данными строки
+    async function getFromLs(lsArr) {
+        isLoading(1);
+
+        for (const [i, arr] of lsArr.entries()) {
+            //вызываем асинхронную функцию создания строки
+            jQuery(".loading_text").text("Загружено " + (i + 1) + " из " + lsArr.length);
+
+            await buildRow(arr[0], arr[1], arr[2],arr[3],arr[4],arr[5],arr[6],arr[7]);
+            getTotalPrice();
+        }
+        //пересчитываем итоговую цену
+        //await getTotalPrice();
+
+        isLoading(0);
+    }
+
+    if(jQuery(".cart-lists").length){
+        let lsArr = [];
+        if (sessionStorage.getItem('order') !== null) {
+            lsArr = JSON.parse(sessionStorage.getItem('order'));
+            getFromLs(lsArr).then(r => console.log('Data loaded from local storage!'));
+        } else {
+            jQuery(".cart-lists").html("<h3>Тут пусто пока</h3>")
         }
     }
+
+    const getTotalPrice = function () {
+
+        totalPrice = 0;
+        jQuery(".cart-lists").find('.list').each(function () {
+            let temp = parseFloat(jQuery(this).find('.total_price').text());
+            totalPrice += temp;
+        });
+        if (totalPrice > 0) {
+            jQuery(".list-total .price span").text(totalPrice.toFixed(0));
+        } else {
+            jQuery(".list-total .price span").text("0");
+        }
+
+    };
+
+    /*Построение строки с данными из локального хранилища*/
+    async function buildRow(
+        lsId,
+        lsType,
+        lsName,
+        lsCount,
+        lsTypeOf,
+        lsRowPrice,
+        lsRowSum,
+        lsImgSrc
+        )
+    {
+        jQuery(".cart-lists").prepend('<div class="list list-'+lsId+'" data-id="'+lsId+'"><div class="img"><img src="'+lsImgSrc+'" alt="" /></div><div class="center"><div class="name"><b>'+lsName+'</b></div><div class="price"><span>'+lsRowPrice+'</span> <b>р.</b></div><div class="type">за <span class="izm">'+lsTypeOf+'</span></div></div><div class="cart_block"><div class="inputCountWrap"><span class="stepper-step down">-</span><input type="number" min="1" value="'+lsCount+'" class="inputCount inputCount-1"/><span class="stepper-step up">+</span></div><div class="ico-del"><span class="ico ico-delete-list" data-rowid="'+lsId+'"></span></div><div class="total_price"><span>'+lsRowSum+'</span><b>р.</b></div></div></div>');
+    }
+
+
+    jQuery(".cart-lists").on('input', '.inputCount', function () {
+        let id = jQuery(this).parent().parent().parent().attr("data-id");
+        //let $errorInput = jQuery('.inputCount-' + id);
+        //harddelete_notify($errorInput);
+        getPriceInCart(id);
+    });
+
+    const getPriceInCart = function(id) { //id = row index
+        let $row = jQuery(".list-"+id);
+        let col = $row.find('.inputCount').val();
+        let price = parseInt($row.find(".price span").text());
+        $row.find(".total_price span").text(Math.round(col*price));
+        //ToDo Обновить данные в сторэдже
+        let oldArr = [];
+        oldArr = JSON.parse(sessionStorage.getItem('order')) || [];
+        for (const [i, arr] of oldArr.entries()) {
+            if (arr[0] === id) {
+
+                arr[3] = col;
+                arr[6] = Math.round(col*price);
+            }
+        }
+
+        sessionStorage.setItem('order', JSON.stringify(oldArr));
+        getTotalPrice();
+    }
+
+    function cuteHide(el) {
+        el.animate({opacity: '0'}, 250, function(){
+            el.animate({height: '0px'}, 250, function(){
+                el.remove();
+            });
+        });
+    }
+    const deleteRow = function (rowId) {
+        cuteHide(jQuery(".list-"+rowId));
+        removeFromLS(rowId);
+    }
+
+    //Удаление строки из локального хранилища
+    const removeFromLS = function (rowID) {
+        let items = JSON.parse(sessionStorage.getItem('order'));
+        for (let i = 0, itemsLength = items.length; i < itemsLength; i++) {
+            if (items[i][0] === rowID) {
+                items.splice(i, 1);
+                break;
+            }
+        }
+        //const filteredItems = items.slice(0, rowID - 1).concat(items.slice(rowID, items.length))
+        sessionStorage.setItem('order', JSON.stringify(items));
+    }
+
+    jQuery("body").on("click", ".ico-delete-list", function () {
+        let rowId = jQuery(this).attr("data-rowid");
+        deleteRow(rowId);
+    })
+
+    jQuery(".card-add-to-list").on("click", function (e) {
+        /*if ($(this).hasClass("added")) {
+            e.preventDefault();
+            return false;
+        } else {*/
+        e.preventDefault();
+        let curSS = JSON.parse(sessionStorage.getItem('order'));
+        let temp = [];
+        let lsId = jQuery(this).parent().parent().find('.item--id').text(); //ID самой радиодетали
+        let lsType = jQuery('.cat_header--header h1').text(); //Название категории
+        let lsName = jQuery(this).parent().parent().find('.name').text() + jQuery(this).parent().parent().find('.desc').text(); //Название самой радиодетали
+        let lsCount = 1; //Кол-во радиодеталей
+        let lsTypeOf = jQuery(this).parent().parent().find('.item--typeofcount').text(); //Мера исчисления (1 - кг, 2 - штуки)
+        let lsRowPrice = jQuery(this).parent().parent().find('.price_value').text(); //Сумма
+        let lsRowSum = lsRowPrice;
+        let lsImgSrc = jQuery(this).parent().parent().find('img').attr("src");
+        if (curSS) {
+            temp = [lsId, lsType, lsName, lsCount, lsTypeOf, lsRowPrice, lsRowSum, lsImgSrc];
+
+            curSS.forEach((element, index) => {
+                if(element[0] === lsId){
+                    curSS.splice(index,1);
+                }
+            });
+
+            curSS.push(temp);
+            sessionStorage.setItem('order', JSON.stringify(curSS));
+
+        } else {
+            temp = [lsId, lsType, lsName, lsCount, lsTypeOf, lsRowPrice, lsRowSum, lsImgSrc];
+            sessionStorage.setItem('order', JSON.stringify(temp));
+        }
+        notify(lsType + " - " + lsName + " успешно добавлен в список!", "success", "<div><a href='/cart.html' class='go-to-list'>Перейти в список</a></div>");
+        //updateList();
+
+        //saveToLS();
+
+        /* ToDo
+            Показать алерт, что товар добавлен в список
+        */
+
+        //$(this).addClass("added").text("Добавлено!");
+        /* }*/
+    });
+
 
 
 });/*main wrap*/

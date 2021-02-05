@@ -9,8 +9,7 @@
   box-shadow: 1px 3px 10px rgba(0, 0, 0, 0.08);
   border-radius: 10px;
   margin-bottom: 20px;
-  padding-left: 14px;
-  padding-right: 30px;
+  padding: 14px 30px 14px 14px;
   display: flex;
   flex-direction: row;
   .img{
@@ -20,6 +19,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
     img{
       width: 100%;
       height: auto;
@@ -34,6 +34,7 @@
     width: 206px;
     margin-right: 80px;
     font-family: 'Montserrat', sans-serif;
+    position: relative;
     .name{
       font-size: 12px;
       line-height: 15px;
@@ -60,11 +61,13 @@
     flex-wrap: wrap;
     flex-direction: row;
     padding-top: 25px;
+    position: relative;
     .total_price{
       width: 100%;
       flex-basis: 100%;
       font-size: 48px;
       line-height: 62px;
+      position: relative;
       b{
         font-size: 24px;
         line-height: 31px;
@@ -78,6 +81,7 @@
   .inputCountWrap{
     width: 120px;
     display: flex;
+    position: relative;
     input[type=text],
     input[type=number],
     {
@@ -113,6 +117,18 @@
       -moz-appearance: textfield;
     }
   }
+
+  &.deleting{
+    overflow: hidden;
+    .img{animation: 0.5s delete ease-in; animation-fill-mode: forwards;}
+    .center{animation: 0.5s delete ease-in; animation-delay: .3s; animation-fill-mode: forwards;}
+    .total_price{animation: 0.3s delete ease-in; animation-delay: .5s; animation-fill-mode: forwards;}
+    .cart_block{animation: 0.5s delete ease-in; animation-delay: .5s; animation-fill-mode: forwards;}
+    .inputCountWrap{animation: 0.5s delete ease-in; animation-delay: .5s; animation-fill-mode: forwards;}
+    transform: translateX(0);
+    transition: 1s transform;
+  }
+
 }
 
 .list-total{
@@ -177,4 +193,9 @@
     background: #ff6600;
     transition: 0.3s all;
   }
+}
+
+@keyframes delete {
+  0%{top:0; }
+  100%{top:-300px;}
 }

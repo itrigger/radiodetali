@@ -142,7 +142,7 @@
   border-radius: 0 0 11px 11px;
   .info-line{
     display: flex;
-    align-items: center;
+    align-items: baseline;
     justify-content: space-between;
   }
 }
@@ -161,6 +161,9 @@
   font-size: 14px;
   font-weight: 500;
 }
+.sum_num b{
+  font-size: 24px;
+}
 
 .btn-add-to-list{
   text-decoration: none;
@@ -168,9 +171,33 @@
   font-size: 14px;
   font-weight: 500;
 }
-
+.btn-add-to-list {
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+}
+.btn-add-to-list:after {
+  background: none repeat scroll 0 0 transparent;
+  bottom: -3px;
+  content: "";
+  display: block;
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  background: $orange;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
+}
+.btn-add-to-list:hover:after {
+  width: 93%;
+  left: 10px;
+}
 
 
 .tab_content .custom-select{
   margin-bottom: 20px;
+}
+
+.custom-select__option-wrap {
+  max-height: 18.25rem;
 }

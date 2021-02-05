@@ -35,6 +35,9 @@
       color: $orange;
     }
   }
+  li.active a{
+    color: $orange;
+  }
   .close_btn{
     cursor: pointer;
     position: absolute;
