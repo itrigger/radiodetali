@@ -116,3 +116,28 @@
   50% {background-position: 0 0;}
   100% {background-position: 0 -64px;}
 }
+
+
+@media (min-width:1025px) and (max-width:1180px) {
+  .news-form input[type=text]{
+    width: 353px;
+  }
+  .form textarea{
+    height: 104px;
+  }
+} /*media 1025-1180*/
+
+@media (min-width:769px) and (max-width:1024px) {
+  .news-form input[type=text]{
+    width: 353px;
+    margin-bottom: 0;
+  }
+} /*media 769-1024*/
+
+@media (min-width:481px) and (max-width:768px) {
+
+} /*media 481-768*/
+
+@media (max-width:480px) {
+
+} /*media max 480*/

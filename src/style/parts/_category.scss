@@ -20,6 +20,7 @@
   ul{
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     li{
       color: #BBBBBB;
       margin-right: 15px;
@@ -185,3 +186,25 @@
    90% { opacity: .5;}
    100% {background-position: -64px 0; opacity: 0;}
 }
+
+@media (min-width:1025px) and (max-width:1180px) {
+
+} /*media 1025-1180*/
+
+@media (min-width:769px) and (max-width:1024px) {
+  .cards{
+    grid-template-columns: repeat(8, 1fr);
+    grid-gap: 15px;
+  }
+  .cards .card{
+    padding: 15px;
+  }
+} /*media 769-1024*/
+
+@media (min-width:481px) and (max-width:768px) {
+
+} /*media 481-768*/
+
+@media (max-width:480px) {
+
+} /*media max 480*/

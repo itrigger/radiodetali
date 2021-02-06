@@ -5,6 +5,7 @@
 
 .mod-map{
   margin-top: 85px;
+  position: relative;
   h2{
     font-size: 42px;
     line-height: 51px;
@@ -72,20 +73,13 @@
 }
 
 @media (max-width: 1180px){
-  .mod-map{
-    margin-top: 0;
-    position: relative;
-  }
   #map{
-    height: 644px;
-    margin-top: -100px;
-    margin-bottom: -100px;
+    height: 344px;
   }
   .map_bubble{
-    right: auto;
     width: 300px;
-    left: 50%;
-    top: 26%;
+    right: 3%;
+    top: 30%;
     margin-left: -150px;
     margin-top: -85px;
     img{
@@ -106,4 +100,24 @@
       }
     }
   }
+  .ymaps-2-1-78-map{
+    height: 344px !important;
+  }
 }
+
+
+@media (min-width:1025px) and (max-width:1180px) {
+
+} /*media 1025-1180*/
+
+@media (min-width:769px) and (max-width:1024px) {
+
+} /*media 769-1024*/
+
+@media (min-width:481px) and (max-width:768px) {
+
+} /*media 481-768*/
+
+@media (max-width:480px) {
+
+} /*media max 480*/

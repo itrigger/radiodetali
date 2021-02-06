@@ -137,20 +137,24 @@ jQuery("document").ready(function () {
         breakpoints: {
             // when window width is >= 320px
             320: {
-                slidesPerView: 2,
+                slidesPerView: 1,
                 spaceBetween: 20
             },
             // when window width is >= 480px
             480: {
-                slidesPerView: 3,
+                slidesPerView: 2,
                 spaceBetween: 20
             },
             // when window width is >= 640px
-            640: {
+            769: {
                 slidesPerView: 3,
                 spaceBetween: 20
             },
-            1120: {
+            1024: {
+                slidesPerView: 3,
+                spaceBetween: 30
+            },
+            1180: {
                 slidesPerView: 4,
                 spaceBetween: 30
             }
@@ -399,20 +403,19 @@ jQuery("document").ready(function () {
     /*****Notifier*******/
     /*******************/
     //Собственный модуль уведомлений
-    const notify = function (message, type = "success", html = "") { // type может быть success (по умолчанию) или error
-        jQuery("body").append(`<div class='alert ${type}'>${message} ${html}<span class="closebtn">×</span></div>`) // вставляем алерт в дом
-        if (type === "success") { // если алерт об успешной операции, то автоматически прячем через 3 секунды
+    const notify = function (message, type = "default", html = "") { // type может быть success (по умолчанию) или error
+        let rnd = "alert-"+Math.floor(Math.random() * 10000); //
+        jQuery("body").append(`<div class='alert ${type} ${rnd}'>${message} ${html}<span class="closebtn"></span></div>`) // вставляем алерт в дом
              setTimeout(function () {
-                 jQuery("body").find(".alert").remove();
+                 jQuery("body").find("."+rnd+"").remove();
              }, 3000);
-        }
     }
     jQuery(document).on('click', '.closebtn', function () { // кнопка закрытия алерта
         let $alert = jQuery(this).parent();
-        $alert.css({"opacity": "0", "height": "1px"});
+        $alert.css({"opacity": "0"});
         setTimeout(function () {
             $alert.css("display", "none")
-        }, 600);
+        }, 100);
     })
     const delete_notify = function (input) { // функция "мягкого" скрытия алертов (с анимацией). В качестве input передаем ссылку на элемент, у которого надо убрать класс input-error
         jQuery('.alert').each(function () {
@@ -748,7 +751,7 @@ jQuery("document").ready(function () {
               oldArr.push(temp);
               if (lsRowSum > 0) {
                   sessionStorage.setItem('order', JSON.stringify(oldArr)); //превращаем все данные в строку и сохраняем в локальное хранилище
-                  notify(lsType + " - " + lsName + " успешно добавлен в список!", "success", "<div><a href='/cart.html' class='go-to-list'>Перейти в список</a></div>");
+                  notify("Добавлено в список: "+lsType + " - " + lsName + "", "default", "<div><a href='/cart.html' class='go-to-list'>Весь список</a></div>");
                   $dropdownChild.val("9999").prop('selected', true);
                   $dropdownChild.customSelect('reset');
                   $dropdownChild2.val("9999").prop('selected', true);
@@ -784,8 +787,6 @@ jQuery("document").ready(function () {
             await buildRow(arr[0], arr[1], arr[2],arr[3],arr[4],arr[5],arr[6],arr[7]);
             getTotalPrice();
         }
-        //пересчитываем итоговую цену
-        //await getTotalPrice();
 
         isLoading(0);
     }
@@ -794,7 +795,12 @@ jQuery("document").ready(function () {
         let lsArr = [];
         if (sessionStorage.getItem('order') !== null) {
             lsArr = JSON.parse(sessionStorage.getItem('order'));
-            getFromLs(lsArr).then(r => console.log('Data loaded from local storage!'));
+            if(lsArr.length > 0) {
+                getFromLs(lsArr).then(r => console.log('Data loaded from local storage!'));
+                jQuery(".list-total").addClass("active");
+            } else {
+                jQuery(".cart-lists").html("<h3>Тут пусто пока</h3>")
+            }
         } else {
             jQuery(".cart-lists").html("<h3>Тут пусто пока</h3>")
         }
@@ -843,12 +849,10 @@ jQuery("document").ready(function () {
         let col = $row.find('.inputCount').val();
         let price = parseInt($row.find(".price span").text());
         $row.find(".total_price span").text(Math.round(col*price));
-        //ToDo Обновить данные в сторэдже
         let oldArr = [];
         oldArr = JSON.parse(sessionStorage.getItem('order')) || [];
         for (const [i, arr] of oldArr.entries()) {
             if (arr[0] === id) {
-
                 arr[3] = col;
                 arr[6] = Math.round(col*price);
             }
@@ -862,6 +866,7 @@ jQuery("document").ready(function () {
         el.animate({opacity: '0'}, 250, function(){
             el.animate({height: '0px'}, 250, function(){
                 el.remove();
+                getTotalPrice();
             });
         });
     }
@@ -894,7 +899,10 @@ jQuery("document").ready(function () {
             return false;
         } else {*/
         e.preventDefault();
-        let curSS = JSON.parse(sessionStorage.getItem('order'));
+        let oldArr = [];
+        if (sessionStorage.getItem('order') !== null) {
+            oldArr = JSON.parse(sessionStorage.getItem('order')) || [];
+        }
         let temp = [];
         let lsId = jQuery(this).parent().parent().find('.item--id').text(); //ID самой радиодетали
         let lsType = jQuery('.cat_header--header h1').text(); //Название категории
@@ -904,9 +912,27 @@ jQuery("document").ready(function () {
         let lsRowPrice = jQuery(this).parent().parent().find('.price_value').text(); //Сумма
         let lsRowSum = lsRowPrice;
         let lsImgSrc = jQuery(this).parent().parent().find('img').attr("src");
-        if (curSS) {
+
             temp = [lsId, lsType, lsName, lsCount, lsTypeOf, lsRowPrice, lsRowSum, lsImgSrc];
 
+            let flag = 0;
+
+            for (const [i, arr] of oldArr.entries()) {
+                if (arr[0] === lsId) {
+                    flag = 1;
+                }
+            }
+            if(flag !== 1){
+                oldArr.push(temp);
+                if (lsRowSum > 0) {
+                    sessionStorage.setItem('order', JSON.stringify(oldArr)); //превращаем все данные в строку и сохраняем в локальное хранилище
+                    notify("Добавлено в список: "+lsType + " - " + lsName + "", "default", "<div><a href='/cart.html' class='go-to-list'>Весь список</a></div>");
+                }
+            } else {
+                notify(lsName + " уже есть в списке","error")
+            }
+
+            /*
             curSS.forEach((element, index) => {
                 if(element[0] === lsId){
                     curSS.splice(index,1);
@@ -914,23 +940,11 @@ jQuery("document").ready(function () {
             });
 
             curSS.push(temp);
-            sessionStorage.setItem('order', JSON.stringify(curSS));
+            sessionStorage.setItem('order', JSON.stringify(curSS));*/
 
-        } else {
-            temp = [lsId, lsType, lsName, lsCount, lsTypeOf, lsRowPrice, lsRowSum, lsImgSrc];
-            sessionStorage.setItem('order', JSON.stringify(temp));
-        }
-        notify(lsType + " - " + lsName + " успешно добавлен в список!", "success", "<div><a href='/cart.html' class='go-to-list'>Перейти в список</a></div>");
-        //updateList();
 
-        //saveToLS();
 
-        /* ToDo
-            Показать алерт, что товар добавлен в список
-        */
 
-        //$(this).addClass("added").text("Добавлено!");
-        /* }*/
     });
 
 

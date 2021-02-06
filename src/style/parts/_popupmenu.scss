@@ -47,6 +47,7 @@
     transition: 0.3s all;
     width: 16px;
     height: 16px;
+    z-index: 99;
     &:hover{
       transform: rotate(180deg);
       transition: 0.3s all;
@@ -116,3 +117,32 @@
     left: 0;
   }
 }
+
+
+@media (min-width:1025px) and (max-width:1180px) {
+  #cat_popup_menu .close_btn{
+    right: 20px;
+  }
+} /*media 1025-1180*/
+
+@media (min-width:769px) and (max-width:1024px) {
+  #cat_popup_menu .close_btn{
+    right: 20px;
+    top: 0;
+  }
+  #cat_popup_menu header{
+    height: 60px;
+  }
+  #cat_popup_menu footer{
+    height: auto;
+    padding: 20px 0;
+  }
+} /*media 769-1024*/
+
+@media (min-width:481px) and (max-width:768px) {
+
+} /*media 481-768*/
+
+@media (max-width:480px) {
+
+} /*media max 480*/

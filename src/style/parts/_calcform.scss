@@ -201,3 +201,44 @@
 .custom-select__option-wrap {
   max-height: 18.25rem;
 }
+
+@media (min-width:1025px) and (max-width:1180px) {
+  #calcform{
+    width: 479px;
+  }
+  .tab_label{
+    width: 238px;
+    font-size: 16px;
+  }
+  .tabs_label:after{
+    width: 238px;
+  }
+  .tabs_label.second:after{
+    left: 241px;
+  }
+  .tab_label.active{
+    font-size: 19px;
+  }
+  #calcform .btn-w .btn{
+    width: 205px;
+  }
+  .calc-w{
+    display: flex;
+    justify-content: flex-end;
+  }
+} /*media 1025-1180*/
+
+@media (min-width:769px) and (max-width:1024px) {
+  .calc-w{
+    display: flex;
+    justify-content: center;
+  }
+} /*media 769-1024*/
+
+@media (min-width:481px) and (max-width:768px) {
+
+} /*media 481-768*/
+
+@media (max-width:480px) {
+
+} /*media max 480*/

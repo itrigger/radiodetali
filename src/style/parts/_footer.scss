@@ -122,3 +122,60 @@
     }
   }
 }
+
+
+@media (min-width:1025px) and (max-width:1180px) {
+
+} /*media 1025-1180*/
+
+@media (min-width:769px) and (max-width:1024px) {
+ .line_orange{
+   height: auto;
+   .contact--footer-block{
+     margin: 20px 0 20px 40px;
+     flex-basis: 100%;
+     justify-content: center;
+     .text{
+       flex-basis: auto;
+       margin-right: 0;
+       padding-right: 0;
+     }
+   }
+   .text{
+     flex-basis: 50%;
+     justify-content: flex-end;
+     box-sizing: border-box;
+     padding-right: 25px;
+     margin-right: 0;
+   }
+ }
+  .line_orange .text div span{
+    display: inline;
+  }
+  .line_orange .flex{
+    flex-wrap: wrap;
+  }
+  .line_black{
+    height: auto;
+    padding-top: 40px;
+    padding-bottom: 30px;
+  }
+  .line_black .foot-menu{
+    display: flex;
+    flex-wrap: wrap;
+    li{
+      margin-right: 15px;
+    }
+  }
+  .line_black .payment-text span{
+    display: inline;
+  }
+} /*media 769-1024*/
+
+@media (min-width:481px) and (max-width:768px) {
+
+} /*media 481-768*/
+
+@media (max-width:480px) {
+
+} /*media max 480*/
