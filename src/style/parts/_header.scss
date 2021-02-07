@@ -194,12 +194,16 @@
   .header-seo-text{
     display: none;
   }
-  .btn-top-m{
-    margin-left: 30px;
-    margin-right: 0;
+  .top-dds-w, .topmenu .ico-mail, .btn-top-m{
+    display: none;
   }
-  .top-dds-w{
-    margin-left: auto;
+  .topmenu-w{
+    height: 70px;
+  }
+  .topmenu{
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
   }
 } /*media max 480*/
 

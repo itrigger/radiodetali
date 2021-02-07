@@ -96,5 +96,32 @@
 } /*media 481-768*/
 
 @media (max-width:480px) {
-
+  #steps{
+    padding-top: 26px;
+  }
+  #steps .heading{
+    font-size: 25px;
+    line-height: 40px;
+    margin-bottom: 40px;
+  }
+  #steps .flex{
+    flex-direction: column;
+  }
+  #steps .step1, #steps .step2, #steps .step3{
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  #steps .img.desktop{
+    display: none;
+  }
+  #steps .title{
+    font-size: 18px;
+    line-height: 20px;
+    margin-top: 15px;
+  }
+  #steps .desc{
+    font-size: 12px;
+    line-height: 18px;
+    min-height: auto;
+  }
 } /*media max 480*/

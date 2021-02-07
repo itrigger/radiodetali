@@ -263,6 +263,11 @@
   height: 24px;
   background: url("../img/ico-category-24-24.svg") 0 0 no-repeat;
 }
+.ico-category-b{
+  width: 24px;
+  height: 24px;
+  background: url("../img/ico-category-b-24-24.svg") 0 0 no-repeat;
+}
 .ico-wt-big{
   width: 39px;
   height: 39px;
@@ -585,5 +590,9 @@
 } /*media 481-768*/
 
 @media (max-width:480px) {
-
+  .btn-white{
+    height: 35px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 } /*media max 480*/

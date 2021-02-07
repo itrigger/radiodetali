@@ -120,9 +120,11 @@
 } /*media 769-1024*/
 
 @media (min-width:481px) and (max-width:768px) {
-
+  #faq{
+    display: none;}
 } /*media 481-768*/
 
 @media (max-width:480px) {
-
+  #faq{
+    display: none;}
 } /*media max 480*/

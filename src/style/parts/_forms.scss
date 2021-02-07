@@ -139,5 +139,10 @@
 } /*media 481-768*/
 
 @media (max-width:480px) {
-
+.cf-email,
+.cf-subject,
+.cf-message
+{
+  display: none;
+}
 } /*media max 480*/

@@ -1,0 +1,106 @@
+.mobile-logo{
+  width: 161px;
+  height: 54px;
+  background: url("../img/m/logo.svg") 0 0 no-repeat;
+  background-size: contain;
+}
+.ico-m-tel{
+  width: 27px;
+  height: 27px;
+  background: url("../img/m/ico-tel.svg") 0 0 no-repeat;
+  background-size: contain;
+}
+.mobile-top-list{
+  background: #2C2C2C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  padding: 0 7px;
+  border-radius: 25px;
+  font-size: 14px;
+  color: #fff;
+  text-decoration: none;
+}
+.mobile-categories{
+  background: #F4F4F4;
+  .head{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    color: #393939;
+    background: #fff;
+    border-radius: 27px;
+    height: 28px;
+    margin: 20px auto;
+  }
+  .btn-w{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 44px;
+    margin-bottom: 40px;
+  }
+}
+.mobile-cats{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px 40px;
+
+  .cat{
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border: 3px solid #000000;
+    box-sizing: border-box;
+    border-radius: 15px;
+    padding: 13px 16px 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: #000;
+    transition: 0.3s all;
+    min-height: 104px;
+    .img{
+      height: 61px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    svg{
+      fill: black;
+    }
+    &:hover{
+      background: #FFFFFF;
+      color: $orange;
+      border-color: $orange;
+      transition: 0.3s all;
+      box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.08);
+      svg{
+        fill: $orange;
+      }
+    }
+  }
+}
+
+
+@media (min-width:769px) {
+  .onlymobile{
+    display: none;
+  }
+} /*media 769+*/
+
+@media (min-width:481px) and (max-width:768px) {
+  .onlymobile{
+    display: inherit;
+  }
+} /*media 481-768*/
+
+@media (max-width:480px) {
+  .onlymobile{
+    display: inherit;
+  }
+} /*media max 480*/
