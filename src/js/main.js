@@ -43,29 +43,58 @@ jQuery("document").ready(function () {
     }
     isLoading(1);
 
-    /*https://kvlsrg.github.io/jquery-custom-select/*/
-    jQuery('#radioels-type').customSelect({
-        placeholder: '<span style="color: darkgray;">Что продаёте?</span>',
-        search: true,
-        includeValue: true
-    });
+    let deviceType = "mobile";
 
-    jQuery('#radioels-name').customSelect({
-        placeholder: '<span style="color: darkgray;">Укажите элемент</span>',
-        search: true,
-        includeValue: true
-    });
-    jQuery('#radioprib-type').customSelect({
-        placeholder: '<span style="color: darkgray;">Что продаёте?</span>',
-        search: true,
-        includeValue: true
-    });
+    if(deviceType === "mobile"){
+        /*https://kvlsrg.github.io/jquery-custom-select/*/
+        jQuery('#radioels-type').customSelect({
+            placeholder: '<span style="color: darkgray;">Что продаёте?</span>',
+            search: false,
+            includeValue: true
+        });
 
-    jQuery('#radioprib-name').customSelect({
-        placeholder: '<span style="color: darkgray;">Укажите элемент</span>',
-        search: true,
-        includeValue: true
-    });
+        jQuery('#radioels-name').customSelect({
+            placeholder: '<span style="color: darkgray;">Укажите элемент</span>',
+            search: false,
+            includeValue: true
+        });
+        jQuery('#radioprib-type').customSelect({
+            placeholder: '<span style="color: darkgray;">Что продаёте?</span>',
+            search: false,
+            includeValue: true
+        });
+
+        jQuery('#radioprib-name').customSelect({
+            placeholder: '<span style="color: darkgray;">Укажите элемент</span>',
+            search: false,
+            includeValue: true
+        });
+    } else {
+        /*https://kvlsrg.github.io/jquery-custom-select/*/
+        jQuery('#radioels-type').customSelect({
+            placeholder: '<span style="color: darkgray;">Что продаёте?</span>',
+            search: true,
+            includeValue: true
+        });
+
+        jQuery('#radioels-name').customSelect({
+            placeholder: '<span style="color: darkgray;">Укажите элемент</span>',
+            search: true,
+            includeValue: true
+        });
+        jQuery('#radioprib-type').customSelect({
+            placeholder: '<span style="color: darkgray;">Что продаёте?</span>',
+            search: true,
+            includeValue: true
+        });
+
+        jQuery('#radioprib-name').customSelect({
+            placeholder: '<span style="color: darkgray;">Укажите элемент</span>',
+            search: true,
+            includeValue: true
+        });
+    }
+
 
     /*Храним в локальной сессии какой таб открыт*/
     if (sessionStorage.getItem('tabs') !== null) {
@@ -107,6 +136,31 @@ jQuery("document").ready(function () {
         sessionStorage.setItem('tabs', liIndex);
     });
 
+
+    /*mobile category menu*/
+    jQuery("#cat_popup_menu .name").on("click", function () {
+        let liIndex = jQuery(this).attr("data-menuid");
+        jQuery("#cat_popup_menu").find("div[data-menuidcontent]").removeClass("active");
+        jQuery("#cat_popup_menu").find(".name").removeClass("active");
+        jQuery("#cat_popup_menu").find("div[data-menuidcontent='"+liIndex+"']").addClass("active");
+        jQuery(this).addClass("active");
+
+        sessionStorage.setItem('mobtabs',liIndex);
+    });
+    if (sessionStorage.getItem('mobtabs') !== null) {
+        let curTab = sessionStorage.getItem('mobtabs');
+        jQuery("#cat_popup_menu").find("div[data-menuidcontent]").removeClass("active");
+        jQuery("#cat_popup_menu").find(".name").removeClass("active");
+        jQuery("#cat_popup_menu").find("div[data-menuidcontent='"+curTab+"']").addClass("active");
+        jQuery("#cat_popup_menu").find(".name[data-menuid='"+curTab+"']").addClass("active");
+
+    } else {
+        jQuery("#cat_popup_menu").find("div[data-menuidcontent]").removeClass("active");
+        jQuery("#cat_popup_menu").find(".name").removeClass("active");
+        jQuery("#cat_popup_menu").find("div[data-menuidcontent='1']").addClass("active");
+        jQuery("#cat_popup_menu").find(".name[data-menuid='1']").addClass("active");
+        sessionStorage.setItem('mobtabs', '1');
+    }
 
     let bannersSwiper = new Swiper('#slider .swiper-container', {
         effect: 'fade',
@@ -305,6 +359,15 @@ jQuery("document").ready(function () {
 
     jQuery("#cat_popup_menu .close_btn").on("click", function () {
         jQuery("#cat_popup_menu").removeClass("open");
+    });
+
+    jQuery(".btn-burger").click(function (e) {
+        e.preventDefault();
+        jQuery("#main_popup_menu").addClass("open");
+    });
+
+    jQuery("#main_popup_menu .close_btn").on("click", function () {
+        jQuery("#main_popup_menu").removeClass("open");
     });
 
 
@@ -908,11 +971,12 @@ jQuery("document").ready(function () {
         let lsType = jQuery('.cat_header--header h1').text(); //Название категории
         let lsName = jQuery(this).parent().parent().find('.name').text() + jQuery(this).parent().parent().find('.desc').text(); //Название самой радиодетали
         let lsCount = 1; //Кол-во радиодеталей
-        let lsTypeOf = jQuery(this).parent().parent().find('.item--typeofcount').text(); //Мера исчисления (1 - кг, 2 - штуки)
+        let lsTypeOf = parseInt(jQuery(this).parent().parent().find('.item--typeofcount').text()); //Мера исчисления (1 - кг, 2 - штуки)
         let lsRowPrice = jQuery(this).parent().parent().find('.price_value').text(); //Сумма
         let lsRowSum = lsRowPrice;
         let lsImgSrc = jQuery(this).parent().parent().find('img').attr("src");
 
+        lsTypeOf = TYPES[lsTypeOf - 1];
             temp = [lsId, lsType, lsName, lsCount, lsTypeOf, lsRowPrice, lsRowSum, lsImgSrc];
 
             let flag = 0;

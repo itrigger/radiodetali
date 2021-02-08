@@ -95,9 +95,45 @@
 
 } /*media 481-768*/
 
-@media (max-width:480px) {
+@media (max-width:768px) {
   #contact_block .container .row:nth-child(2){
-    div:first-child{}
-    div:last-child{}
+    &.div:first-child{
+      grid-row: 2;
+    }
+    &>div:last-child{
+      grid-row: 1;
+    }
+  }
+  #contact_block{
+    padding-top: 30px;
+    padding-bottom: 45px;
+  }
+  #contact_block .heading{
+    text-align: center;
+  }
+  #contact_block img{
+    width: 100%;
+  }
+  #contact_block:before,
+  #contact_block .contact--footer-block
+  {
+    display: none;
+  }
+  .contact--image-block{
+    margin-bottom: 20px;
+  }
+  #contact_block .form{
+    width: 355px;
+    margin: 0 auto;
+  }
+  .form input[type=submit]{
+    width: 355px;
+    background-position: 212px center;
+  }
+  .form input[type=submit]:hover{
+    background-position: 232px center;
+  }
+  .form .text_conf{
+    text-align: center;
   }
 } /*media max 480*/

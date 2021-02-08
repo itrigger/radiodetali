@@ -82,3 +82,23 @@ a{
   95% {opacity: 1}
   100% {opacity: 0}
 }
+
+
+
+@media (max-width: 1080px){
+  .row {
+    padding-left: 20px;
+    padding-left: calc(env(safe-area-inset-left) + 10px);
+    padding-right: 20px;
+    padding-right: calc(env(safe-area-inset-right) + 10px);
+  }
+
+}
+@media (max-width: 800px){
+  .row {
+    padding-left: 20px;
+    padding-left: calc(env(safe-area-inset-left) + 20px);
+    padding-right: 20px;
+    padding-right: calc(env(safe-area-inset-right) + 20px);
+  }
+}

@@ -220,6 +220,33 @@
 
 } /*media 481-768*/
 
-@media (max-width:480px) {
-
+@media (max-width:768px) {
+  .list{
+    flex-direction: column;
+  }
+  .list .img{
+    display: none;
+  }
+  .list .center{
+    padding: 0;
+    margin: 0 0 15px;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .list .center .name{
+    font-size: 20px;
+    line-height: 26px;
+    flex-basis: 100%;
+    margin-bottom: 10px;
+  }
+  .list .center .type{
+    font-size: 16px;
+    line-height: 20px;
+    margin-left: 10px;
+  }
+  .list .cart_block{
+    width: 100%;
+    padding-top: 15px;
+  }
 } /*media max 480*/

@@ -60,6 +60,8 @@
 
 } /*media 481-768*/
 
-@media (max-width:480px) {
-
+@media (max-width:768px) {
+  #about{
+    display: none;
+  }
 } /*media max 480*/

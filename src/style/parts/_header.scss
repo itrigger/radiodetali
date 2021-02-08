@@ -177,7 +177,7 @@
 
 } /*media 481-768*/
 
-@media (max-width:480px) {
+@media (max-width:768px) {
   .menu{
     display: none;
   }
@@ -205,6 +205,7 @@
     display: flex;
     justify-content: space-between;
   }
+
 } /*media max 480*/
 
 

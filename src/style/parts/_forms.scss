@@ -138,7 +138,7 @@
 
 } /*media 481-768*/
 
-@media (max-width:480px) {
+@media (max-width:768px) {
 .cf-email,
 .cf-subject,
 .cf-message
@@ -146,3 +146,14 @@
   display: none;
 }
 } /*media max 480*/
+
+@media (max-height: 500px) {
+  .custom-select__option-wrap{
+    overflow-y: scroll;
+    max-height: 11.25rem;
+  }
+  .custom-select__dropdown{
+    overflow-y: scroll;
+    max-height: 11.25rem;
+  }
+}
