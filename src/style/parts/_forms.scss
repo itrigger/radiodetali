@@ -117,6 +117,24 @@
   100% {background-position: 0 -64px;}
 }
 
+.custom-select__option-wrap{
+  overflow-y: scroll;
+  max-height: 16.25rem;
+}
+.custom-select__dropdown{
+  overflow-y: scroll;
+  max-height: 16.25rem;
+}
+
+
+
+.fancybox-content {
+  background: $yellow;
+  color: #000;
+  border-radius: 10px;
+  max-width: 540px;
+  position: relative;
+}
 
 @media (min-width:1025px) and (max-width:1180px) {
   .news-form input[type=text]{
@@ -145,6 +163,14 @@
 {
   display: none;
 }
+  .custom-select__option-wrap{
+    overflow-y: scroll;
+    max-height: 11.25rem;
+  }
+  .custom-select__dropdown{
+    overflow-y: scroll;
+    max-height: 11.25rem;
+  }
 } /*media max 480*/
 
 @media (max-height: 500px) {
@@ -154,6 +180,17 @@
   }
   .custom-select__dropdown{
     overflow-y: scroll;
+    max-height: 11.25rem;
+  }
+}
+
+@media (max-height: 900px){
+  .custom-select__option-wrap{
+    overflow-y: auto;
+    max-height: 11.25rem;
+  }
+  .custom-select__dropdown{
+    overflow-y: auto;
     max-height: 11.25rem;
   }
 }

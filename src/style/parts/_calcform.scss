@@ -1,6 +1,8 @@
 #calcform{
   width: 537px;
   margin-top: 61px;
+  background: #fff;
+  border-radius: 9px;
   .btn-w{
     display: flex;
     align-items: center;
@@ -8,12 +10,20 @@
     margin-top: 25px;
     .btn{
       width: 230px;
+      &.animation{
+        animation: 0.5s fadeFromBot ease-in-out forwards;
+      }
     }
   }
 }
+@keyframes fadeFromBot {
+  0%{ bottom:-5px;}
+  50%{ bottom:5px;}
+  100%{bottom: 0;}
+}
+
 .calc-w{
   position: relative;
-
 }
 
 .tabform{
@@ -61,7 +71,7 @@
   position: relative;
   z-index: 2;
   cursor: pointer;
-  padding-bottom: 5px;
+  padding-bottom: 3px;
   span{
     opacity: 0.3;
     transition: 0.3s all;
@@ -117,24 +127,24 @@
   top: -7px;
   margin-bottom: -7px;
   display: none;
-  background: #fff;
+  background: transparent;
   padding: 36px 25px 1px;
   transition: 0.5s all;
   z-index: 3;
   &.active{
     display: block;
+    animation: 0.5s fadeInRight2 forwards;
   }
   &:first-child{
     border-radius: 0 11px 0 0;
     transition: 0.5s all;
   }
-
   &:last-child{
     border-radius: 11px 0 0 0;
     transition: 0.5s all;
   }
-
 }
+
 
 .tabform-footer{
   background: #fff;
@@ -165,18 +175,18 @@
   font-size: 24px;
 }
 
-.btn-add-to-list{
+.btn-add-to-price{
   text-decoration: none;
   color: $orange;
   font-size: 14px;
   font-weight: 500;
 }
-.btn-add-to-list {
+.btn-add-to-price {
   text-decoration: none;
   display: inline-block;
   position: relative;
 }
-.btn-add-to-list:after {
+.btn-add-to-price:after {
   background: none repeat scroll 0 0 transparent;
   bottom: -3px;
   content: "";
@@ -188,9 +198,9 @@
   transition: width 0.3s ease 0s, left 0.3s ease 0s;
   width: 0;
 }
-.btn-add-to-list:hover:after {
-  width: 93%;
-  left: 10px;
+.btn-add-to-price:hover:after {
+  width: 100%;
+  left: 0;
 }
 
 
@@ -239,6 +249,44 @@
 
 } /*media 481-768*/
 
-@media (max-width:480px) {
-
+@media (max-width:768px) {
+  .calc-w{
+    display: flex;
+    justify-content: center;
+  }
+  #slider{
+    height: auto;
+    padding-bottom: 40px;
+  }
+  #calcform{
+    width: 100%;
+    margin-top: 40px;
+  }
+  .tab_label{
+    width: 50%;
+    font-size: 14px;
+    &.active{
+      font-size: 14px;
+      &>div{
+        top: 0;
+        position: relative;
+      }
+    }
+    &>div{
+      top: 0;
+      position: relative;
+    }
+  }
+  .tabs_label:after{
+    width: 50%;
+  }
+  .tabs_label.second:after{
+    left: 50%;
+  }
+  #calcform .btn-w{
+    flex-direction: column;
+    .btn-orange{
+      margin-bottom: 15px;
+    }
+  }
 } /*media max 480*/

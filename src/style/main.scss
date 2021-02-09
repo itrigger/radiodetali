@@ -21,7 +21,6 @@
 @import "parts/_mobile";
 
 body{
-  //background: url('../img/temp2.jpg') center 0 no-repeat;
   font-family: 'Roboto', sans-serif;
 }
 a{
@@ -34,6 +33,7 @@ a{
 
 .alert{
   position: fixed;
+  box-sizing: border-box;
   width: 300px;
   right: 5%;
   top: 10%;
@@ -73,6 +73,10 @@ a{
     width: 16px;
     height: 16px;
     background: url("../img/ico-close-w-16-16.svg") 0 0 no-repeat;
+    &:hover{
+      transform: rotate(180deg);
+      transition: 0.3s all;
+    }
   }
 }
 
@@ -92,13 +96,37 @@ a{
     padding-right: 20px;
     padding-right: calc(env(safe-area-inset-right) + 10px);
   }
-
-}
-@media (max-width: 800px){
-  .row {
+  #cat_popup_menu .row{
     padding-left: 20px;
     padding-left: calc(env(safe-area-inset-left) + 20px);
     padding-right: 20px;
     padding-right: calc(env(safe-area-inset-right) + 20px);
   }
+}
+@media (max-width: 800px){
+  .row {
+    padding-left: 20px;
+    padding-left: calc(env(safe-area-inset-left) + 10px);
+    padding-right: 20px;
+    padding-right: calc(env(safe-area-inset-right) + 10px);
+  }
+  #cat_popup_menu .row{
+    padding-left: 20px;
+    padding-left: calc(env(safe-area-inset-left) + 20px);
+    padding-right: 20px;
+    padding-right: calc(env(safe-area-inset-right) + 20px);
+  }
+}
+
+@media (max-width: 600px){
+  .alert{
+    right: auto;
+    left: 50%;
+    margin-left: -150px;
+  }
+}
+
+body.body_menuOpened {
+  height: 100%!important;
+  overflow: hidden;
 }

@@ -45,7 +45,7 @@ jQuery("document").ready(function () {
 
     let deviceType = "mobile";
 
-    if(deviceType === "mobile"){
+    if (deviceType === "mobile") {
         /*https://kvlsrg.github.io/jquery-custom-select/*/
         jQuery('#radioels-type').customSelect({
             placeholder: '<span style="color: darkgray;">Что продаёте?</span>',
@@ -119,6 +119,11 @@ jQuery("document").ready(function () {
         let liIndex = jQuery(this).index();
         jQuery(".sum_num b").text("-");
         jQuery(".count_num").text("-");
+
+        let element = jQuery("#calcform .btn");
+
+        element.removeClass("animation");
+
         jQuery(this).parent().find(".tab_label").removeClass("active");
         jQuery(this).addClass("active");
         jQuery(this).parent().parent().find(".tab_content").removeClass("active");
@@ -134,6 +139,10 @@ jQuery("document").ready(function () {
             $dropdownChild2.customSelect('reset');
         }
         sessionStorage.setItem('tabs', liIndex);
+        setTimeout(function () {
+            element.addClass("animation");
+        },200);
+
     });
 
 
@@ -142,17 +151,17 @@ jQuery("document").ready(function () {
         let liIndex = jQuery(this).attr("data-menuid");
         jQuery("#cat_popup_menu").find("div[data-menuidcontent]").removeClass("active");
         jQuery("#cat_popup_menu").find(".name").removeClass("active");
-        jQuery("#cat_popup_menu").find("div[data-menuidcontent='"+liIndex+"']").addClass("active");
+        jQuery("#cat_popup_menu").find("div[data-menuidcontent='" + liIndex + "']").addClass("active");
         jQuery(this).addClass("active");
 
-        sessionStorage.setItem('mobtabs',liIndex);
+        sessionStorage.setItem('mobtabs', liIndex);
     });
     if (sessionStorage.getItem('mobtabs') !== null) {
         let curTab = sessionStorage.getItem('mobtabs');
         jQuery("#cat_popup_menu").find("div[data-menuidcontent]").removeClass("active");
         jQuery("#cat_popup_menu").find(".name").removeClass("active");
-        jQuery("#cat_popup_menu").find("div[data-menuidcontent='"+curTab+"']").addClass("active");
-        jQuery("#cat_popup_menu").find(".name[data-menuid='"+curTab+"']").addClass("active");
+        jQuery("#cat_popup_menu").find("div[data-menuidcontent='" + curTab + "']").addClass("active");
+        jQuery("#cat_popup_menu").find(".name[data-menuid='" + curTab + "']").addClass("active");
 
     } else {
         jQuery("#cat_popup_menu").find("div[data-menuidcontent]").removeClass("active");
@@ -261,27 +270,65 @@ jQuery("document").ready(function () {
         jQuery(".left-menu ul ul li").each(function () {
             if (jQuery(this).find("a").attr("href") === window.location.pathname) {
                 jQuery(this).addClass("active");
-                jQuery(this).parent().parent().addClass("active");
-                jQuery(this).parent().slideToggle(function () {
-                    if (jQuery(".left-menu>ul>li").hasClass("active")) {
-                        jQuery(".left-menu").addClass("active");
-                    } else {
-                        jQuery(".left-menu").removeClass("active");
-                    }
-                });
+                if (deviceType !== "mobile") {
+                    jQuery(this).parent().parent().addClass("active");
+
+                    jQuery(this).parent().slideToggle(function () {
+                        if (jQuery(".left-menu>ul>li").hasClass("active")) {
+                            jQuery(".left-menu").addClass("active");
+                        } else {
+                            jQuery(".left-menu").removeClass("active");
+                        }
+                    });
+                }
             }
         });
     }
 
     function CheckMainMenuItem() {
-        jQuery("#cat_popup_menu li").each(function () {
+        jQuery("#cat_popup_menu li, #main_popup_menu li").each(function () {
             if (jQuery(this).find("a").attr("href") === window.location.pathname) {
                 jQuery(this).addClass("active");
             }
         });
+
     }
 
     CheckMainMenuItem();
+
+    jQuery(".cards .card").on("click", function (e) {
+        if (deviceType === "mobile") {
+            if (e.target.classList.value == "btn-circle-close") {
+                jQuery(".cards .card").removeClass("active");
+                e.preventDefault();
+            } else if(e.target.classList.value == "cat-btn-prev"){
+                jQuery(this).removeClass("active");
+                jQuery(this).prev().addClass("active");
+                jQuery('html, body').stop().animate({
+                    'scrollTop': jQuery(this).prev().offset().top - 80
+                    }, 200, 'swing', function () {/*callback*/
+                });
+            } else if(e.target.classList.value == "cat-btn-next"){
+                jQuery(this).removeClass("active");
+                jQuery(this).next().addClass("active");
+                jQuery('html, body').stop().animate({
+                    'scrollTop': jQuery(this).next().offset().top - 80
+                }, 200, 'swing', function () {/*callback*/
+                });
+            } else {
+                if (!(jQuery(this).hasClass("active"))) {
+                    jQuery(".cards .card").removeClass("active");
+                    if (jQuery(window).width() <= 768) {
+                        jQuery(this).addClass("active");
+                        jQuery('html, body').stop().animate({
+                            'scrollTop': jQuery(this).offset().top - 80
+                        }, 200, 'swing', function () {/*callback*/
+                        });
+                    }
+                }
+            }
+        }
+    });
 
 
     /*степпер для калькулятора*/
@@ -352,22 +399,26 @@ jQuery("document").ready(function () {
     }
 
 
-    jQuery(".open-popup-cat").click(function (e) {
+    jQuery("body").on("click", ".open-popup-cat", function (e) {
         e.preventDefault();
         jQuery("#cat_popup_menu").addClass("open");
+        jQuery("body").addClass("body_menuOpened");
     });
 
     jQuery("#cat_popup_menu .close_btn").on("click", function () {
         jQuery("#cat_popup_menu").removeClass("open");
+        jQuery("body").removeClass("body_menuOpened");
     });
 
     jQuery(".btn-burger").click(function (e) {
         e.preventDefault();
         jQuery("#main_popup_menu").addClass("open");
+        jQuery("body").addClass("body_menuOpened");
     });
 
     jQuery("#main_popup_menu .close_btn").on("click", function () {
         jQuery("#main_popup_menu").removeClass("open");
+        jQuery("body").removeClass("body_menuOpened");
     });
 
 
@@ -467,11 +518,11 @@ jQuery("document").ready(function () {
     /*******************/
     //Собственный модуль уведомлений
     const notify = function (message, type = "default", html = "") { // type может быть success (по умолчанию) или error
-        let rnd = "alert-"+Math.floor(Math.random() * 10000); //
+        let rnd = "alert-" + Math.floor(Math.random() * 10000); //
         jQuery("body").append(`<div class='alert ${type} ${rnd}'>${message} ${html}<span class="closebtn"></span></div>`) // вставляем алерт в дом
-             setTimeout(function () {
-                 jQuery("body").find("."+rnd+"").remove();
-             }, 3000);
+        setTimeout(function () {
+            jQuery("body").find("." + rnd + "").remove();
+        }, 3000);
     }
     jQuery(document).on('click', '.closebtn', function () { // кнопка закрытия алерта
         let $alert = jQuery(this).parent();
@@ -661,7 +712,7 @@ jQuery("document").ready(function () {
                                     if (productsAPI.hasOwnProperty(key)) {
                                         if (productsAPI[key].meta_data[10].value !== '999999') {
                                             let imgSrc = "https://priemkm.ru/wp-content/uploads/blank.jpg";
-                                            if(productsAPI[key].images[0] !== undefined){
+                                            if (productsAPI[key].images[0] !== undefined) {
                                                 imgSrc = productsAPI[key].images[0].src;
                                             }
                                             $childDD.append(jQuery("<option />")
@@ -810,22 +861,38 @@ jQuery("document").ready(function () {
                 flag = 1;
             }
         }
-          if(flag !== 1){
-              oldArr.push(temp);
-              if (lsRowSum > 0) {
-                  sessionStorage.setItem('order', JSON.stringify(oldArr)); //превращаем все данные в строку и сохраняем в локальное хранилище
-                  notify("Добавлено в список: "+lsType + " - " + lsName + "", "default", "<div><a href='/cart.html' class='go-to-list'>Весь список</a></div>");
-                  $dropdownChild.val("9999").prop('selected', true);
-                  $dropdownChild.customSelect('reset');
-                  $dropdownChild2.val("9999").prop('selected', true);
-                  $dropdownChild2.customSelect('reset');
-              }
-          } else {
-              notify(lsName + " уже есть в списке","error")
-          }
+        if (flag !== 1) {
+            oldArr.push(temp);
+            if (lsRowSum > 0) {
+                sessionStorage.setItem('order', JSON.stringify(oldArr)); //превращаем все данные в строку и сохраняем в локальное хранилище
+                notify("Добавлено в список: " + lsType + " - " + lsName + "", "default", "<div><a href='/cart.html' class='go-to-list'>Весь список</a></div>");
+                $dropdownChild.val("9999").prop('selected', true);
+                $dropdownChild.customSelect('reset');
+                $dropdownChild2.val("9999").prop('selected', true);
+                $dropdownChild2.customSelect('reset');
+                updateCountItems();
+            }
+        } else {
+            notify(lsName + " уже есть в списке", "error")
+        }
 
     };
 
+
+    //Обновляет цифру общего кол-ва элементов в списке
+    const updateCountItems = function () {
+        let countItems = 0;
+        if (sessionStorage.getItem('order') !== null) {
+            let orderArr = JSON.parse(sessionStorage.getItem('order'));
+            if (orderArr.length > 0) {
+                countItems = orderArr.length;
+            }
+        }
+        jQuery(".mobile-top-list b").text(countItems);
+        return countItems;
+    };
+
+    updateCountItems();
 
     jQuery(".btn-add-to-list").click(function () {
         if (jQuery(".tab_content.active .el-name option:selected").attr('value') !== undefined) {
@@ -847,25 +914,25 @@ jQuery("document").ready(function () {
             //вызываем асинхронную функцию создания строки
             jQuery(".loading_text").text("Загружено " + (i + 1) + " из " + lsArr.length);
 
-            await buildRow(arr[0], arr[1], arr[2],arr[3],arr[4],arr[5],arr[6],arr[7]);
+            await buildRow(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7]);
             getTotalPrice();
         }
 
         isLoading(0);
     }
 
-    if(jQuery(".cart-lists").length){
+    if (jQuery(".cart-lists").length) {
         let lsArr = [];
         if (sessionStorage.getItem('order') !== null) {
             lsArr = JSON.parse(sessionStorage.getItem('order'));
-            if(lsArr.length > 0) {
+            if (lsArr.length > 0) {
                 getFromLs(lsArr).then(r => console.log('Data loaded from local storage!'));
                 jQuery(".list-total").addClass("active");
             } else {
-                jQuery(".cart-lists").html("<h3>Тут пусто пока</h3>")
+                jQuery(".cart-lists").html("<div class='empty-list'><h3>В вашем списке еще ничего нет</h3><a href='#' class='btn btn-orange btn-animated open-popup-cat'><span class=\"ico ico-category ico-left\"></span> Открыть каталог</a></div>")
             }
         } else {
-            jQuery(".cart-lists").html("<h3>Тут пусто пока</h3>")
+            jQuery(".cart-lists").html("<div class='empty-list'><h3>В вашем списке еще ничего нет</h3><a href='#' class='btn btn-orange btn-animated open-popup-cat'><span class=\"ico ico-category ico-left\"></span> Открыть каталог</a></div>")
         }
     }
 
@@ -894,9 +961,8 @@ jQuery("document").ready(function () {
         lsRowPrice,
         lsRowSum,
         lsImgSrc
-        )
-    {
-        jQuery(".cart-lists").prepend('<div class="list list-'+lsId+'" data-id="'+lsId+'"><div class="img"><img src="'+lsImgSrc+'" alt="" /></div><div class="center"><div class="name"><b>'+lsName+'</b></div><div class="price"><span>'+lsRowPrice+'</span> <b>р.</b></div><div class="type">за <span class="izm">'+lsTypeOf+'</span></div></div><div class="cart_block"><div class="inputCountWrap"><span class="stepper-step down">-</span><input type="number" min="1" value="'+lsCount+'" class="inputCount inputCount-1"/><span class="stepper-step up">+</span></div><div class="ico-del"><span class="ico ico-delete-list" data-rowid="'+lsId+'"></span></div><div class="total_price"><span>'+lsRowSum+'</span><b>р.</b></div></div></div>');
+    ) {
+        jQuery(".cart-lists").prepend('<div class="list list-' + lsId + '" data-id="' + lsId + '"><div class="img"><img src="' + lsImgSrc + '" alt="" /></div><div class="center"><div class="name"><b>' + lsName + '</b></div><div class="price"><span>' + lsRowPrice + '</span> <b>р.</b></div><div class="type">за <span class="izm">' + lsTypeOf + '</span></div></div><div class="cart_block"><div class="inputCountWrap"><span class="stepper-step down">-</span><input type="number" min="1" value="' + lsCount + '" class="inputCount inputCount-1"/><span class="stepper-step up">+</span></div><div class="ico-del"><span class="ico ico-delete-list" data-rowid="' + lsId + '"></span></div><div class="total_price"><span>' + lsRowSum + '</span><b>р.</b></div></div></div>');
     }
 
 
@@ -907,34 +973,36 @@ jQuery("document").ready(function () {
         getPriceInCart(id);
     });
 
-    const getPriceInCart = function(id) { //id = row index
-        let $row = jQuery(".list-"+id);
+    const getPriceInCart = function (id) { //id = row index
+        let $row = jQuery(".list-" + id);
         let col = $row.find('.inputCount').val();
         let price = parseInt($row.find(".price span").text());
-        $row.find(".total_price span").text(Math.round(col*price));
+        $row.find(".total_price span").text(Math.round(col * price));
         let oldArr = [];
         oldArr = JSON.parse(sessionStorage.getItem('order')) || [];
         for (const [i, arr] of oldArr.entries()) {
             if (arr[0] === id) {
                 arr[3] = col;
-                arr[6] = Math.round(col*price);
+                arr[6] = Math.round(col * price);
             }
         }
 
         sessionStorage.setItem('order', JSON.stringify(oldArr));
         getTotalPrice();
+        updateCountItems();
     }
 
     function cuteHide(el) {
-        el.animate({opacity: '0'}, 250, function(){
-            el.animate({height: '0px'}, 250, function(){
+        el.animate({opacity: '0'}, 250, function () {
+            el.animate({height: '0px'}, 250, function () {
                 el.remove();
                 getTotalPrice();
             });
         });
     }
+
     const deleteRow = function (rowId) {
-        cuteHide(jQuery(".list-"+rowId));
+        cuteHide(jQuery(".list-" + rowId));
         removeFromLS(rowId);
     }
 
@@ -947,8 +1015,8 @@ jQuery("document").ready(function () {
                 break;
             }
         }
-        //const filteredItems = items.slice(0, rowID - 1).concat(items.slice(rowID, items.length))
         sessionStorage.setItem('order', JSON.stringify(items));
+        updateCountItems();
     }
 
     jQuery("body").on("click", ".ico-delete-list", function () {
@@ -957,10 +1025,6 @@ jQuery("document").ready(function () {
     })
 
     jQuery(".card-add-to-list").on("click", function (e) {
-        /*if ($(this).hasClass("added")) {
-            e.preventDefault();
-            return false;
-        } else {*/
         e.preventDefault();
         let oldArr = [];
         if (sessionStorage.getItem('order') !== null) {
@@ -977,40 +1041,26 @@ jQuery("document").ready(function () {
         let lsImgSrc = jQuery(this).parent().parent().find('img').attr("src");
 
         lsTypeOf = TYPES[lsTypeOf - 1];
-            temp = [lsId, lsType, lsName, lsCount, lsTypeOf, lsRowPrice, lsRowSum, lsImgSrc];
+        temp = [lsId, lsType, lsName, lsCount, lsTypeOf, lsRowPrice, lsRowSum, lsImgSrc];
 
-            let flag = 0;
+        let flag = 0;
 
-            for (const [i, arr] of oldArr.entries()) {
-                if (arr[0] === lsId) {
-                    flag = 1;
-                }
+        for (const [i, arr] of oldArr.entries()) {
+            if (arr[0] === lsId) {
+                flag = 1;
             }
-            if(flag !== 1){
-                oldArr.push(temp);
-                if (lsRowSum > 0) {
-                    sessionStorage.setItem('order', JSON.stringify(oldArr)); //превращаем все данные в строку и сохраняем в локальное хранилище
-                    notify("Добавлено в список: "+lsType + " - " + lsName + "", "default", "<div><a href='/cart.html' class='go-to-list'>Весь список</a></div>");
-                }
-            } else {
-                notify(lsName + " уже есть в списке","error")
+        }
+        if (flag !== 1) {
+            oldArr.push(temp);
+            if (lsRowSum > 0) {
+                sessionStorage.setItem('order', JSON.stringify(oldArr)); //превращаем все данные в строку и сохраняем в локальное хранилище
+                notify("Добавлено в список: " + lsType + " - " + lsName + "", "default", "<div><a href='/cart.html' class='go-to-list'>Весь список</a></div>");
+                updateCountItems();
             }
-
-            /*
-            curSS.forEach((element, index) => {
-                if(element[0] === lsId){
-                    curSS.splice(index,1);
-                }
-            });
-
-            curSS.push(temp);
-            sessionStorage.setItem('order', JSON.stringify(curSS));*/
-
-
-
-
+        } else {
+            notify(lsName + " уже есть в списке", "error")
+        }
     });
-
 
 
 });/*main wrap*/

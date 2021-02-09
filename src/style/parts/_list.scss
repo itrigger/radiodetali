@@ -12,6 +12,7 @@
   padding: 14px 30px 14px 14px;
   display: flex;
   flex-direction: row;
+  position: relative;
   .img{
     width: 212px;
     height: 157px;
@@ -131,6 +132,18 @@
 
 }
 
+.empty-list{
+  margin-bottom: calc(100vh - 500px);
+  h3{
+    font-size: 40px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+  .btn-orange{
+    width: 205px;
+  }
+}
+
 .list-total{
   box-sizing: border-box;
   background: black;
@@ -239,6 +252,7 @@
     line-height: 26px;
     flex-basis: 100%;
     margin-bottom: 10px;
+    margin-right: 50px;
   }
   .list .center .type{
     font-size: 16px;
@@ -248,5 +262,35 @@
   .list .cart_block{
     width: 100%;
     padding-top: 15px;
+    align-items: center;
+    position: unset;
+  }
+  .list .cart_block .total_price{
+    font-size: 40px;
+    width: auto;
+    flex-basis: auto;
+    margin-left: 20px;
+  }
+  .list-total{
+    height: auto;
+  }
+  .list-total .price-w{
+    text-align: right;
+    width: 100%;
+  }
+  .list-total .price{
+    display: flex;
+    align-items: baseline;
+    margin-left: 0;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  .list .cart_block .ico-del{
+    position: absolute;
+    right: 30px;
+    top: 30px;
+  }
+  .empty-list h3{
+    font-size: 22px;
   }
 } /*media max 480*/
