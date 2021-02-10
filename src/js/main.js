@@ -44,7 +44,6 @@ jQuery("document").ready(function () {
     isLoading(1);
 
 
-
     if (deviceType === "mobile") {
         /*https://kvlsrg.github.io/jquery-custom-select/*/
         jQuery('#radioels-type').customSelect({
@@ -73,24 +72,24 @@ jQuery("document").ready(function () {
         /*https://kvlsrg.github.io/jquery-custom-select/*/
         jQuery('#radioels-type').customSelect({
             placeholder: '<span style="color: darkgray;">Что продаёте?</span>',
-            search: true,
+            search: false,
             includeValue: true
         });
 
         jQuery('#radioels-name').customSelect({
             placeholder: '<span style="color: darkgray;">Укажите элемент</span>',
-            search: true,
+            search: false,
             includeValue: true
         });
         jQuery('#radioprib-type').customSelect({
             placeholder: '<span style="color: darkgray;">Что продаёте?</span>',
-            search: true,
+            search: false,
             includeValue: true
         });
 
         jQuery('#radioprib-name').customSelect({
             placeholder: '<span style="color: darkgray;">Укажите элемент</span>',
-            search: true,
+            search: false,
             includeValue: true
         });
     }
@@ -141,7 +140,7 @@ jQuery("document").ready(function () {
         sessionStorage.setItem('tabs', liIndex);
         setTimeout(function () {
             element.addClass("animation");
-        },200);
+        }, 200);
 
     });
 
@@ -301,14 +300,14 @@ jQuery("document").ready(function () {
             if (e.target.classList.value == "btn-circle-close") {
                 jQuery(".cards .card").removeClass("active");
                 e.preventDefault();
-            } else if(e.target.classList.value == "cat-btn-prev"){
+            } else if (e.target.classList.value == "cat-btn-prev") {
                 jQuery(this).removeClass("active");
                 jQuery(this).prev().addClass("active");
                 jQuery('html, body').stop().animate({
                     'scrollTop': jQuery(this).prev().offset().top - 80
-                    }, 200, 'swing', function () {/*callback*/
+                }, 200, 'swing', function () {/*callback*/
                 });
-            } else if(e.target.classList.value == "cat-btn-next"){
+            } else if (e.target.classList.value == "cat-btn-next") {
                 jQuery(this).removeClass("active");
                 jQuery(this).next().addClass("active");
                 jQuery('html, body').stop().animate({
@@ -351,7 +350,7 @@ jQuery("document").ready(function () {
         hourElt = document.getElementsByClassName("hour")[0],
         minElt = document.getElementsByClassName("min")[0];
 
-    if(jQuery("section.clock").length) {
+    if (jQuery("section.clock").length) {
         moveTime();
     }
 
@@ -882,15 +881,24 @@ jQuery("document").ready(function () {
 
 
     //Обновляет цифру общего кол-ва элементов в списке
+    let countItems = 0;
     const updateCountItems = function () {
-        let countItems = 0;
+        jQuery(".mobile-top-list").removeClass("jump");
         if (sessionStorage.getItem('order') !== null) {
             let orderArr = JSON.parse(sessionStorage.getItem('order'));
-            if (orderArr.length > 0) {
+            if (orderArr !== []) {
                 countItems = orderArr.length;
             }
         }
         jQuery(".mobile-top-list b").text(countItems);
+        if (countItems === 0) {
+            jQuery(".mobile-top-list").removeClass("is-active jump");
+        } else {
+            jQuery(".mobile-top-list").addClass("is-active");
+            setTimeout(function () {
+                jQuery(".mobile-top-list").addClass("jump");
+            }, 100)
+        }
         return countItems;
     };
 
@@ -1089,7 +1097,7 @@ jQuery("document").ready(function () {
                             jQuery("#z3").val(jQuery("#z3").val() + "_" + arr[3]);
                             jQuery("#z4").val(jQuery("#z4").val() + "_" + arr[5]);
                             jQuery("#z5").val(jQuery("#z5").val() + "_" + arr[6]);
-                            jQuery("#restable table").append("<tr><td class='col1'><img src='"+arr[7]+"' alt='" + arr[2] + "'/></td><td class='col2'><div class='cat-name'>" + arr[1] + "</div>" + arr[2] + "</td><td class='col3'>" + arr[3] + " <span class='izm'>" + arr[4] + "</span></td><td class='col4'><span class='sum'>на</span>" + arr[6] + " ₽</td></tr>");
+                            jQuery("#restable table").append("<tr><td class='col1'><div class='img-w'><img src='" + arr[7] + "' alt='" + arr[2] + "'/></div></td><td class='col2'><div class='cat-name'>" + arr[1] + "</div>" + arr[2] + "</td><td class='col3'>" + arr[3] + " <span class='izm'>" + arr[4] + "</span></td><td class='col4'><span class='sum'>на</span>" + arr[6] + " ₽</td></tr>");
                             totalSum += Math.round(arr[6]);
                         }
                         jQuery("#restable table").append("<tr><td colspan='4' class='totalsum'><div><span class='yellow-rounded'>Итого</span> " + totalSum + " ₽</div></td></tr>");
@@ -1101,8 +1109,8 @@ jQuery("document").ready(function () {
                             instance.close();
                         })
                     },
-                    afterClose: function (instance, current){
-                        jQuery(".wpcf7-response-output").css("display","none");
+                    afterClose: function (instance, current) {
+                        jQuery(".wpcf7-response-output").css("display", "none");
                     }
                 }
             });
@@ -1113,15 +1121,29 @@ jQuery("document").ready(function () {
 
     //закрываем попап алерт СF7
     jQuery('body').on("click", ".wpcf7-response-output", function () {
-        jQuery(this).css("display","none");
+        jQuery(this).css("display", "none");
     })
+
+    document.addEventListener( 'wpcf7mailsent', function( event ) {
+        $.fancybox.close('true');
+        notify("Ваше сообщение успешно отправлено! Менеджер перезвонит Вам в течение 15 минут", "success");
+    }, false );
+    document.addEventListener( 'wpcf7invalid', function( event ) {
+        notify("Проверьте все поля!", "error");
+    }, false );
+    document.addEventListener( 'wpcf7spam', function( event ) {
+        notify("Сообщение выглядит как спам!", "error");
+    }, false );
+    document.addEventListener( 'wpcf7mailfailed', function( event ) {
+        notify("Не удалось отправить сообщение! Попробуйте позднее!", "error");
+    }, false );
 
 
     jQuery(".sellnow").click(function () {
-        jQuery("textarea#mytext").text("Здравствуйте! Я хочу продать: " + jQuery(this).parent().parent().find(".woocommerce-loop-product__title").text() + " "+jQuery(this).parent().parent().find(".desc").text());
+        jQuery("textarea#mytext").text("Здравствуйте! Я хочу продать: " + jQuery(this).parent().parent().find(".woocommerce-loop-product__title").text() + " " + jQuery(this).parent().parent().find(".desc").text());
     });
 
-    jQuery('.send-btn-wrapper a.btn-secondary').on('click', function (e) {
+    jQuery('.card .sellnow').on('click', function (e) {
         e.preventDefault();
         let lsArr = JSON.parse(sessionStorage.getItem('order'));
         if (lsArr) {
@@ -1140,6 +1162,43 @@ jQuery("document").ready(function () {
             });
         } else {
             return false;
+        }
+        /*
+    */
+    });
+
+    jQuery('.tabform-footer .btn-black').on('click', function (e) {
+        e.preventDefault();
+        if ((jQuery(".tab_content.active .el-name option:selected").attr('value') !== undefined)&&(jQuery(".tab_content.active .el-name option:selected").attr('value') !== '9999')) {
+            let lsArr = JSON.parse(sessionStorage.getItem('order'));
+            if (lsArr) {
+                jQuery.fancybox.open({
+                    src: '#calcpopupform',
+                    type: 'inline',
+                    toolbar: false,
+                    opts: {
+                        afterShow: function (instance, current) {
+                            jQuery(".fancybox-content").prepend("<div class='fancy_close'><svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1\" viewBox=\"0 0 24 24\"><path d=\"M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z\"></path></svg></div>");
+                            jQuery(".fancy_close").on('click', function () {
+                                instance.close();
+                            });
+                            jQuery("textarea#mytext2").text("Здравствуйте! Я хочу продать: "
+                                + jQuery(".tab_content.active .el-type option:selected").text()
+                                + " "
+                                + jQuery(".tab_content.active .el-name option:selected").text()
+                                + " по цене: "
+                                + jQuery(".tabform-footer .sum_num").text()
+                                + " за "
+                                + jQuery(".tabform-footer .count_num").text()
+                            );
+                        },
+                    }
+                });
+            } else {
+                return false;
+            }
+        } else {
+            notify("Сначала выберите что-нибудь", "error");
         }
         /*
     */

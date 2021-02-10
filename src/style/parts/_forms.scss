@@ -260,11 +260,18 @@
     margin-bottom: 5px;
   }
   .col1{
-    img{
+    .img-w{
       width: 40px;
       height: 40px;
       overflow: hidden;
       border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img{
+        width: 300%;
+        height: 300%;
+      }
     }
   }
   .col2{
@@ -274,6 +281,7 @@
   .col3{
     white-space: nowrap;
     margin-left: auto;
+    padding-right: 0;
     .izm{
       font-size: 13px;
     }
@@ -281,6 +289,7 @@
   .col4{
     white-space: nowrap;
     text-align: right;
+    padding-left: 5px;
     .sum{
       display: inline-block;
       margin-right: 4px;

@@ -16,11 +16,38 @@
   align-items: center;
   justify-content: center;
   height: 30px;
-  padding: 0 7px;
+  padding: 0 9px 0 7px;
   border-radius: 25px;
   font-size: 14px;
   color: #fff;
   text-decoration: none;
+  margin-left: auto;
+  transition: 0.3s all;
+  &.is-active{
+    background: $orange;
+  }
+  &.jump{
+    animation: 1s jump2;
+    transition: 0.3s all;
+    position: relative;
+  }
+  span.ico-goto-list{
+    transition: 0.2s all;
+  }
+  &:hover{
+    span.ico-goto-list{
+      position: relative;
+      transform: translateY(-2px);
+      transition: 0.3s all;
+    }
+  }
+}
+
+@keyframes jump2 {
+  0%{top:-3px;}
+  35%{top:3px;}
+  70%{top:-3px;}
+  100%{top:0px;}
 }
 .mobile-categories{
   background: #F4F4F4;
@@ -103,6 +130,9 @@
 } /*media 481-768*/
 
 @media (max-width:768px) {
+  .mobile-top-list{
+    margin-left: unset;
+  }
   .onlymobile{
     display: inherit;
   }
