@@ -43,7 +43,7 @@ jQuery("document").ready(function () {
     }
     isLoading(1);
 
-    let deviceType = "mobile";
+
 
     if (deviceType === "mobile") {
         /*https://kvlsrg.github.io/jquery-custom-select/*/
@@ -344,14 +344,16 @@ jQuery("document").ready(function () {
         }
     });
 
-    var date = new Date(),
+    let date = new Date(),
         hour = date.getHours(),
         min = date.getMinutes(),
         sec = date.getSeconds(),
         hourElt = document.getElementsByClassName("hour")[0],
         minElt = document.getElementsByClassName("min")[0];
 
-    moveTime();
+    if(jQuery("section.clock").length) {
+        moveTime();
+    }
 
     function moveTime() {
         moveMin();
@@ -865,7 +867,7 @@ jQuery("document").ready(function () {
             oldArr.push(temp);
             if (lsRowSum > 0) {
                 sessionStorage.setItem('order', JSON.stringify(oldArr)); //превращаем все данные в строку и сохраняем в локальное хранилище
-                notify("Добавлено в список: " + lsType + " - " + lsName + "", "default", "<div><a href='/cart.html' class='go-to-list'>Весь список</a></div>");
+                notify("Добавлено в список: " + lsType + " - " + lsName + "", "default", "<div><a href='/my-list' class='go-to-list'>Весь список</a></div>");
                 $dropdownChild.val("9999").prop('selected', true);
                 $dropdownChild.customSelect('reset');
                 $dropdownChild2.val("9999").prop('selected', true);
@@ -1054,7 +1056,7 @@ jQuery("document").ready(function () {
             oldArr.push(temp);
             if (lsRowSum > 0) {
                 sessionStorage.setItem('order', JSON.stringify(oldArr)); //превращаем все данные в строку и сохраняем в локальное хранилище
-                notify("Добавлено в список: " + lsType + " - " + lsName + "", "default", "<div><a href='/cart.html' class='go-to-list'>Весь список</a></div>");
+                notify("Добавлено в список: " + lsType + " - " + lsName + "", "default", "<div><a href='/my-list' class='go-to-list'>Весь список</a></div>");
                 updateCountItems();
             }
         } else {
@@ -1062,6 +1064,86 @@ jQuery("document").ready(function () {
         }
     });
 
+
+    //Заполняем скрытые поля в форме ContactForm7 данными из локального хранилища
+    jQuery('.list-total .btn-orange').on('click', function (e) {
+        e.preventDefault();
+        let lsArr = JSON.parse(sessionStorage.getItem('order'));
+        if (lsArr) {
+            jQuery.fancybox.open({
+                src: '#popupform',
+                type: 'inline',
+                toolbar: false,
+                opts: {
+                    beforeShow: function (instance, current) {
+                        let totalSum = 0;
+                        jQuery("#restable table").html("");
+                        jQuery("#z1").val("");
+                        jQuery("#z2").val("");
+                        jQuery("#z3").val("");
+                        jQuery("#z4").val("");
+                        jQuery("#z5").val("");
+                        for (const [i, arr] of lsArr.entries()) {
+                            jQuery("#z1").val(jQuery("#z1").val() + "_" + arr[1]);
+                            jQuery("#z2").val(jQuery("#z2").val() + "_" + arr[2]);
+                            jQuery("#z3").val(jQuery("#z3").val() + "_" + arr[3]);
+                            jQuery("#z4").val(jQuery("#z4").val() + "_" + arr[5]);
+                            jQuery("#z5").val(jQuery("#z5").val() + "_" + arr[6]);
+                            jQuery("#restable table").append("<tr><td class='col1'><img src='"+arr[7]+"' alt='" + arr[2] + "'/></td><td class='col2'><div class='cat-name'>" + arr[1] + "</div>" + arr[2] + "</td><td class='col3'>" + arr[3] + " <span class='izm'>" + arr[4] + "</span></td><td class='col4'><span class='sum'>на</span>" + arr[6] + " ₽</td></tr>");
+                            totalSum += Math.round(arr[6]);
+                        }
+                        jQuery("#restable table").append("<tr><td colspan='4' class='totalsum'><div><span class='yellow-rounded'>Итого</span> " + totalSum + " ₽</div></td></tr>");
+                        jQuery(".fancybox-toolbar").css("display", "none");
+                    },
+                    afterShow: function (instance, current) {
+                        jQuery(".fancybox-content").prepend("<div class='fancy_close'><svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1\" viewBox=\"0 0 24 24\"><path d=\"M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z\"></path></svg></div>");
+                        jQuery(".fancy_close").on('click', function () {
+                            instance.close();
+                        })
+                    },
+                    afterClose: function (instance, current){
+                        jQuery(".wpcf7-response-output").css("display","none");
+                    }
+                }
+            });
+        } else {
+            return false;
+        }
+    });
+
+    //закрываем попап алерт СF7
+    jQuery('body').on("click", ".wpcf7-response-output", function () {
+        jQuery(this).css("display","none");
+    })
+
+
+    jQuery(".sellnow").click(function () {
+        jQuery("textarea#mytext").text("Здравствуйте! Я хочу продать: " + jQuery(this).parent().parent().find(".woocommerce-loop-product__title").text() + " "+jQuery(this).parent().parent().find(".desc").text());
+    });
+
+    jQuery('.send-btn-wrapper a.btn-secondary').on('click', function (e) {
+        e.preventDefault();
+        let lsArr = JSON.parse(sessionStorage.getItem('order'));
+        if (lsArr) {
+            jQuery.fancybox.open({
+                src: '#sendMSG',
+                type: 'inline',
+                toolbar: false,
+                opts: {
+                    afterShow: function (instance, current) {
+                        jQuery(".fancybox-content").prepend("<div class='fancy_close'><svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1\" viewBox=\"0 0 24 24\"><path d=\"M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z\"></path></svg></div>");
+                        jQuery(".fancy_close").on('click', function () {
+                            instance.close();
+                        })
+                    },
+                }
+            });
+        } else {
+            return false;
+        }
+        /*
+    */
+    });
 
 });/*main wrap*/
 

@@ -127,13 +127,213 @@
 }
 
 
-
+.hidden_inputs{
+  display: none;
+}
 .fancybox-content {
-  background: $yellow;
-  color: #000;
+  background: $orange;
+  color: #fff;
   border-radius: 10px;
-  max-width: 540px;
+  max-width: 900px;
   position: relative;
+  .form--wrap{
+    position: relative;
+    z-index: 2;
+  }
+  .heading{
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 20px;
+  }
+  input[type=text],
+  input[type=email],
+  input[type=tel],
+  textarea
+  {
+    background: #fff;
+    border-color: #fff;
+    border-radius: 5px;
+    margin-bottom: 8px;
+  }
+  textarea{
+    width: 100%;
+  }
+  .wpcf7 .wpcf7-response-output{
+    margin-top: 20px !important;
+  }
+  &#popupform{
+    max-width: 800px;
+    .wpcf7-form-control-wrap{
+      textarea{
+        margin-top: 7px;
+      }
+      &.your-name input{
+        width: 98%;
+      }
+    }
+  }
+}
+.f_line{
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  input[type=email], input[type=tel], input[type=text]
+  {
+    width: 100%;
+  }
+  input[type=submit]{
+    margin-top: 20px;
+    margin-left: auto;
+    color: #fff;
+    background: #000;
+    width: 144px;
+    height: 48px;
+    border-radius: 27px;
+    padding-right: 0;
+    &:hover{
+      background: #363636;
+    }
+  }
+  .ajax-loader{
+    position: absolute;
+    right: -28px;
+    top: 30px;
+  }
+}
+.wpcf7-not-valid-tip{
+  display: none !important;
+}
+
+.wpcf7 form .wpcf7-response-output{
+  margin: 0 !important;
+  font-size: 11px;
+}
+.wpcf7-form-control-wrap{
+  width: 100%;
+}
+.fancy_close{
+  background: #fff;
+  border-radius: 50%;
+  opacity: 1;
+  padding: 10px;
+  right: 10px;
+  top: 10px;
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  z-index: 2;
+  cursor: pointer;
+}
+
+
+#restable, #printtable{
+  width: 100%;
+  table{
+    border-collapse: collapse;
+    width: 100%;
+  }
+  tr{
+    border-top: 1px solid rgba(#ffffff,.5);
+    display: flex;
+    justify-content: flex-end;
+    &:last-child{
+      border-bottom: none;
+    }
+    &:nth-child(2n){
+      td{
+
+      }
+    }
+  }
+  td{
+    border: none;
+    font-size: 14px;
+    padding: 10px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+  .cat-name{
+    font-weight: 800;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  .col1{
+    img{
+      width: 40px;
+      height: 40px;
+      overflow: hidden;
+      border-radius: 50%;
+    }
+  }
+  .col2{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .col3{
+    white-space: nowrap;
+    margin-left: auto;
+    .izm{
+      font-size: 13px;
+    }
+  }
+  .col4{
+    white-space: nowrap;
+    text-align: right;
+    .sum{
+      display: inline-block;
+      margin-right: 4px;
+      font-size: 13px;
+    }
+  }
+  .totalsum{
+    //background: #fff !important;
+    text-align: right;
+    font-size: 22px;
+    //border-top: 1px solid rgba(2,111,160,.5);
+    div{
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: flex-end;
+      text-align: right;
+      .yellow-rounded{
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+.fancybox-content input.wpcf7-not-valid{
+  border: 1px solid red;
+  position: relative;
+  animation: 0.4s not-valid;
+  transition: .2s all;
+}
+
+@keyframes not-valid {
+  0%{left:-3px;}
+  20%{left: 3px;}
+  40%{left:-3px;}
+  60%{left: 3px;}
+  80%{left:-3px;}
+  100%{left: 0px;}
+}
+
+.fancybox-close-small{
+  display: none;
+}
+
+.wpcf7-submit{
+  transition: 0.3s all;
+  &.is-active{
+    background-color: #000 !important;
+    animation: falling 3s linear infinite;
+    background-image: url("../img/pattern/mailpattern.svg") !important;
+    background-repeat: repeat !important;
+    transition: 0.3s all;
+  }
 }
 
 @media (min-width:1025px) and (max-width:1180px) {
@@ -143,12 +343,18 @@
   .form textarea{
     height: 104px;
   }
+  .fancybox-content {
+    max-width: 900px;
+  }
 } /*media 1025-1180*/
 
 @media (min-width:769px) and (max-width:1024px) {
   .news-form input[type=text]{
     width: 353px;
     margin-bottom: 0;
+  }
+  .fancybox-content {
+    max-width: 90%;
   }
 } /*media 769-1024*/
 
@@ -157,6 +363,9 @@
 } /*media 481-768*/
 
 @media (max-width:768px) {
+  .fancybox-content {
+    max-width: 90%;
+  }
 .cf-email,
 .cf-subject,
 .cf-message
