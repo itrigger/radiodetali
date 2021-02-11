@@ -15,7 +15,7 @@
   display: flex;
   align-items: center;
   .menu{
-    margin-left: 7px;
+    margin-left: -20px;
     ul{
       margin: 0;
       padding: 0;
@@ -86,7 +86,7 @@
 
 .header{
   justify-content: space-between;
-  height: 114px;
+  height: 94px;
   align-items: center;
 }
 
@@ -133,8 +133,13 @@
 body{
   padding-top: 49px;
 }
-
+.btn-burger{
+  display: none;
+}
 @media (min-width:1025px) and (max-width:1180px) {
+  .topmenu .menu{
+    margin-left: -10px;
+  }
   .topmenu .menu ul li a{
     padding: 0 15px;
   }
@@ -155,6 +160,9 @@ body{
 } /*media 1025-1180*/
 
 @media (min-width:769px) and (max-width:1024px) {
+  .btn-burger{
+    display: inherit;
+  }
   .menu{
     display: none;
   }
@@ -185,6 +193,9 @@ body{
 } /*media 481-768*/
 
 @media (max-width:768px) {
+  .btn-burger{
+    display: inherit;
+  }
   .menu{
     display: none;
   }

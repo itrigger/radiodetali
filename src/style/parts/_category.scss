@@ -125,7 +125,7 @@
         position: relative;
 
         .a1 {
-          transform: translateX(28px);
+          transform: translateX(27px);
           transition: 0.2s transform;
         }
 
@@ -178,7 +178,7 @@
         background-color: $orange;
         position: relative;
 
-        &:after {
+      /*  &:after {
           content: '';
           display: block;
           width: 100%;
@@ -190,7 +190,7 @@
           animation: sliding 5s linear infinite;
           background-image: url("../img/pattern/salepattern.svg");
         }
-
+*/
         .a1 {
           transform: translateX(-50px);
           transition: 0.2s all;

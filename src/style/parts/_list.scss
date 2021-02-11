@@ -9,13 +9,13 @@
   box-shadow: 1px 3px 10px rgba(0, 0, 0, 0.08);
   border-radius: 10px;
   margin-bottom: 20px;
-  padding: 14px 30px 14px 14px;
+  padding: 11px 30px 11px 52px;
   display: flex;
   flex-direction: row;
   position: relative;
   .img{
-    width: 212px;
-    height: 157px;
+    width: 96px;
+    height: 96px;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -27,9 +27,8 @@
     }
   }
   .center{
-    padding-top: 24px;
-    padding-bottom: 30px;
-    margin-left: 60px;
+    padding-top: 4px;
+    margin-left: 137px;
     display: flex;
     flex-direction: column;
     width: 206px;
@@ -40,6 +39,7 @@
       font-size: 12px;
       line-height: 15px;
       font-weight: 500;
+      margin-bottom: 7px;
       b{
         font-weight: 600;
       }
@@ -61,13 +61,13 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    padding-top: 25px;
+    padding-top: 3px;
     position: relative;
     .total_price{
       width: 100%;
       flex-basis: 100%;
-      font-size: 48px;
-      line-height: 62px;
+      font-size: 28px;
+      line-height: 36px;
       position: relative;
       b{
         font-size: 24px;
@@ -76,7 +76,9 @@
     }
     .ico-del{
       margin-left: auto;
-      margin-top: 7px;
+      position: relative;
+      top: 35px;
+      z-index: 3;
     }
   }
   .inputCountWrap{
@@ -86,17 +88,17 @@
     input[type=text],
     input[type=number],
     {
-      width: 54px;
-      height: 40px;
-      border-radius: 18px;
+      width: 51px;
+      height: 29px;
+      border-radius: 11px;
       border: none;
       font-family: Montserrat, sans-serif;
       font-weight: 600;
-      font-size: 18px;
+      font-size: 15px;
       line-height: 22px;
       text-align: center;
-      margin-left: 8px;
-      margin-right: 8px;
+      margin-left: 6px;
+      margin-right: 6px;
     }
     input[type=number],
     input[type=number]:focus,
@@ -192,8 +194,8 @@
 }
 
 .stepper-step{
-  width: 25px;
-  height: 40px;
+  width: 18px;
+  height: 29px;
   background: #FF8500;
   border-radius: 18px;
   font-family: Montserrat, sans-serif;

@@ -102,7 +102,7 @@
   width: 48px;
   height: 48px;
   font-size: 24px;
-  font-weight: bold;
+  font-weight: normal;
 }
 .btn-burger{
   position: relative;
@@ -371,23 +371,23 @@
   background: url("../img/ico-left-menu-arr-right.svg") 0 0 no-repeat;
 }
 .ico-delete-list{
-  width: 32px;
-  height: 29px;
+  width: 23px;
+  height: 25px;
   background: url("../img/ico-del-bottom.svg") 0 0 no-repeat;
   cursor: pointer;
   position: relative;
   &:before{
-    @include pseudo("ico-del-top.svg",36,10,-9,-2);
-    background-size: contain;
+    @include pseudo("ico-del-top.svg",29,9,-7,-3);
+    background-size: 29px 9px;
     transition: 0.2s all;
   }
   &:hover{
     &:before{
-      transform-origin: top left;
-      left: -6px;
-      top: -2px;
-      transform: rotate(-25deg);
+      transform: rotate(-15deg);
+      transform-origin: 10px 7px;
       transition: 0.2s all;
+      left: -3px;
+      top: -8px;
     }
   }
 }

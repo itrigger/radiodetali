@@ -1,6 +1,6 @@
 .mod_categories_slider{
-  padding-top: 41px;
-  padding-bottom: 50px;
+  padding-top: 25px;
+  padding-bottom: 30px;
   background: url("../img/pattern/diods-gray.png") center 126px repeat-x #E8E8E8;
   animation: 2s linear 0s infinite bp;
   h3{
@@ -8,14 +8,15 @@
     font-size: 30px;
     line-height: 51px;
     text-transform: uppercase;
+    margin-right: 25px;
   }
   .head_w{
     margin-bottom: 15px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
   .swiper-slide{
-    height: 371px;
+    height: 312px;
     background: #fff;
     border-radius: 9px;
     padding-top: 0;
@@ -57,7 +58,7 @@
       font-size: 14px;
       line-height: 24px;
       text-transform: uppercase;
-      margin-bottom: 40px;
+      margin-bottom: 15px;
       margin-top: 17px;
     }
   }
@@ -77,11 +78,11 @@
 
 @keyframes bp {
   from {
-    background-position:  149px 126px;
+    background-position:  149px 20px;
   }
 
   to {
-    background-position:  0 126px;
+    background-position:  0 20px;
   }
 }
 

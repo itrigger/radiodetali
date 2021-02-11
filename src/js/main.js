@@ -44,7 +44,7 @@ jQuery("document").ready(function () {
     isLoading(1);
 
 
-    if (deviceType === "mobile") {
+
         /*https://kvlsrg.github.io/jquery-custom-select/*/
         jQuery('#radioels-type').customSelect({
             placeholder: '<span style="color: darkgray;">Что продаёте?</span>',
@@ -68,31 +68,7 @@ jQuery("document").ready(function () {
             search: false,
             includeValue: true
         });
-    } else {
-        /*https://kvlsrg.github.io/jquery-custom-select/*/
-        jQuery('#radioels-type').customSelect({
-            placeholder: '<span style="color: darkgray;">Что продаёте?</span>',
-            search: false,
-            includeValue: true
-        });
 
-        jQuery('#radioels-name').customSelect({
-            placeholder: '<span style="color: darkgray;">Укажите элемент</span>',
-            search: false,
-            includeValue: true
-        });
-        jQuery('#radioprib-type').customSelect({
-            placeholder: '<span style="color: darkgray;">Что продаёте?</span>',
-            search: false,
-            includeValue: true
-        });
-
-        jQuery('#radioprib-name').customSelect({
-            placeholder: '<span style="color: darkgray;">Укажите элемент</span>',
-            search: false,
-            includeValue: true
-        });
-    }
 
 
     /*Храним в локальной сессии какой таб открыт*/
@@ -195,7 +171,10 @@ jQuery("document").ready(function () {
         autoplay: {
             delay: 4000,
         },
-        speed: 1000,
+        speed: 500,
+        mousewheel: {
+            invert: false,
+        },
         breakpoints: {
             // when window width is >= 320px
             320: {
@@ -523,7 +502,7 @@ jQuery("document").ready(function () {
         jQuery("body").append(`<div class='alert ${type} ${rnd}'>${message} ${html}<span class="closebtn"></span></div>`) // вставляем алерт в дом
         setTimeout(function () {
             jQuery("body").find("." + rnd + "").remove();
-        }, 3000);
+        }, 5000);
     }
     jQuery(document).on('click', '.closebtn', function () { // кнопка закрытия алерта
         let $alert = jQuery(this).parent();
@@ -866,6 +845,7 @@ jQuery("document").ready(function () {
             oldArr.push(temp);
             if (lsRowSum > 0) {
                 sessionStorage.setItem('order', JSON.stringify(oldArr)); //превращаем все данные в строку и сохраняем в локальное хранилище
+                harddelete_notify();
                 notify("Добавлено в список: " + lsType + " - " + lsName + "", "default", "<div><a href='/my-list' class='go-to-list'>Весь список</a></div>");
                 $dropdownChild.val("9999").prop('selected', true);
                 $dropdownChild.customSelect('reset');
@@ -874,10 +854,14 @@ jQuery("document").ready(function () {
                 updateCountItems();
             }
         } else {
+            harddelete_notify();
             notify(lsName + " уже есть в списке", "error")
         }
 
     };
+
+
+    let pageTitle = document.title;
 
 
     //Обновляет цифру общего кол-ва элементов в списке
@@ -891,13 +875,17 @@ jQuery("document").ready(function () {
             }
         }
         jQuery(".mobile-top-list b").text(countItems);
+        let newTitle = '(' + countItems + ') ' + pageTitle;
+        document.title = newTitle;
         if (countItems === 0) {
             jQuery(".mobile-top-list").removeClass("is-active jump");
+            document.title = pageTitle;
         } else {
             jQuery(".mobile-top-list").addClass("is-active");
             setTimeout(function () {
                 jQuery(".mobile-top-list").addClass("jump");
-            }, 100)
+            }, 100);
+            document.title = newTitle;
         }
         return countItems;
     };
