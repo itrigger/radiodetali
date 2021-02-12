@@ -29,7 +29,7 @@
   color: #fff;
   background: #000;
   width: 144px;
-  height: 48px;
+  height: 44px;
   border-radius: 27px;
   &:hover{
     background: #363636;
@@ -40,7 +40,7 @@
   color: #fff;
   background: #A1A1A1;
   width: 144px;
-  height: 48px;
+  height: 44px;
   border-radius: 27px;
   position: relative;
   &:hover{
@@ -51,7 +51,7 @@
 .btn-white{
   color: #000;
   background: #fff;
-  height: 48px;
+  height: 44px;
   border-radius: 35px;
   border: 2px solid #000000;
   width: auto;
@@ -65,7 +65,7 @@
 .btn-whitefilled{
   background: #fff;
   color: #000;
-  height: 48px;
+  height: 44px;
   border-radius: 35px;
   width: auto;
 }
@@ -74,7 +74,7 @@
   color: #000;
   background: $orange;
   width: 144px;
-  height: 48px;
+  height: 44px;
   border-radius: 27px;
   &:hover{
     background: #ff6600;
@@ -480,22 +480,55 @@
     content: '';
     display: block;
     top: 0;
-    width: 5px;
+    width: 3px;
     height: 7px;
-    background: #000;
+    background: $orange;
     position: absolute;
     left: 22px;
+    border-radius: 0 0 3px 3px;
+  }
+  &:after{
+    content: '';
+    display: block;
+    bottom: 0;
+    width: 3px;
+    height: 7px;
+    background: $orange;
+    position: absolute;
+    left: 22px;
+    border-radius: 0 0 3px 3px;
   }
 }
 
 .dot {
-  background: red;
+  background: transparent;
   width: 10px;
   height: 10px;
   position: absolute;
   top: calc(50% - 5px);
   left: calc(50% - 5px);
-  display: none;
+  &:before{
+    content: '';
+    display: block;
+    left: -18px;
+    width: 7px;
+    height: 3px;
+    background: $orange;
+    position: absolute;
+    top: 3px;
+    border-radius: 0 3px 3px 0;
+  }
+  &:after{
+    content: '';
+    display: block;
+    right: -18px;
+    width: 7px;
+    height: 3px;
+    background: $orange;
+    position: absolute;
+    top: 3px;
+    border-radius: 3px 0 0 3px;
+  }
 }
 
 .spire {

@@ -13,6 +13,21 @@
 .custom-select__dropdown{
   top: calc(100% - -2px);
   box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+  &:before{
+    content: '';
+    display: block;
+    position: absolute;
+    left: -10px;
+    top: -10px;
+    bottom: -10px;
+    right: -10px;
+    border-radius: 22px;
+    border: 2px solid #000000;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+  }
 }
 .custom-select__option--value::after{
   border: none;
