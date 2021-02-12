@@ -469,11 +469,6 @@
 }
 
 
-
-
-
-
-
 .clock {
   width: 46px;
   height: 46px;
@@ -481,6 +476,16 @@
   border-radius: 50%;
   position: relative;
   margin: auto;
+  &:before{
+    content: '';
+    display: block;
+    top: 0;
+    width: 5px;
+    height: 7px;
+    background: #000;
+    position: absolute;
+    left: 22px;
+  }
 }
 
 .dot {
