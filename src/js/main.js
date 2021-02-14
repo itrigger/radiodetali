@@ -274,8 +274,9 @@ jQuery("document").ready(function () {
 
     CheckMainMenuItem();
 
-    jQuery(".cards .card").on("click", function (e) {
+   /* jQuery(".cards .card").on("click", function (e) {
         if (deviceType === "mobile") {
+            console.log(e.target.classList.value);
             if (e.target.classList.value == "btn-circle-close") {
                 jQuery(".cards .card").removeClass("active");
                 e.preventDefault();
@@ -284,15 +285,17 @@ jQuery("document").ready(function () {
                 jQuery(this).prev().addClass("active");
                 jQuery('html, body').stop().animate({
                     'scrollTop': jQuery(this).prev().offset().top - 80
-                }, 200, 'swing', function () {/*callback*/
+                }, 200, 'swing', function () {/!*callback*!/
                 });
             } else if (e.target.classList.value == "cat-btn-next") {
                 jQuery(this).removeClass("active");
                 jQuery(this).next().addClass("active");
                 jQuery('html, body').stop().animate({
                     'scrollTop': jQuery(this).next().offset().top - 80
-                }, 200, 'swing', function () {/*callback*/
+                }, 200, 'swing', function () {/!*callback*!/
                 });
+            } else if (e.target.classList.value == "a1" || e.target.classList.value == "a2" || e.target.classList.value == "btn") {
+                e.preventDefault();
             } else {
                 if (!(jQuery(this).hasClass("active"))) {
                     jQuery(".cards .card").removeClass("active");
@@ -300,13 +303,13 @@ jQuery("document").ready(function () {
                         jQuery(this).addClass("active");
                         jQuery('html, body').stop().animate({
                             'scrollTop': jQuery(this).offset().top - 80
-                        }, 200, 'swing', function () {/*callback*/
+                        }, 200, 'swing', function () {/!*callback*!/
                         });
                     }
                 }
             }
         }
-    });
+    });*/
 
 
     /*степпер для калькулятора*/
@@ -416,7 +419,7 @@ jQuery("document").ready(function () {
     /* Add fancybox to product img */
     if (jQuery(".catalog-cards").length > 0) {
         jQuery(".catalog-cards .card img.attachment-woocommerce_thumbnail").on('click', function (e) {
-            if (jQuery(window).width() <= 600) {
+          /*  if (jQuery(window).width() <= 600) {
                 if (e.target.offsetParent.classList.contains('active')) {
                     jQuery.fancybox.open({
                         src: jQuery(this).attr('src'),
@@ -438,7 +441,7 @@ jQuery("document").ready(function () {
                         //fancybox-content
                     });
                 }
-            } else {
+            } else {*/
                 jQuery.fancybox.open({
                     src: jQuery(this).attr('src'),
                     type: 'image',
@@ -458,7 +461,7 @@ jQuery("document").ready(function () {
                     touch: false
                     //fancybox-content
                 });
-            }
+           /* }*/
 
 
         });
@@ -492,6 +495,32 @@ jQuery("document").ready(function () {
         })
     }
 
+    if (jQuery(".print--ul").length > 0) {
+        jQuery(".print--ul").each(function () {
+            let item_gold = jQuery(this).find(".item--gold").text();
+            let item_silver = jQuery(this).find(".item--silver").text();
+            let item_platinum = jQuery(this).find(".item--platinum").text();
+            let item_palladium = jQuery(this).find(".item--palladium").text();
+            let item_typecount = jQuery(this).find(".item--typeofcount").text();
+            let item_fixprice = jQuery(this).find(".item--fixprice").text();
+            let item_price;
+            // Основная формула для каждого города и металла есть поправочный кэф
+            if (item_fixprice > 0) {
+                if (item_fixprice == "999999") {
+                    jQuery(this).find(".price").text("договорная");
+                } else {
+                    jQuery(this).find(".price .price_value").text(item_fixprice);
+                }
+            } else {
+                // З -40%, С -30%, Пл -30%, Пал -30%
+                item_price = (item_gold * GOLD * GOLD_DISCOUNT + item_silver * SILVER * SILVER_DISCOUNT + item_platinum * PLATINUM * PLATINUM_DISCOUNT + item_palladium * PALLADIUM * PALLADIUM_DISCOUNT) * USD;
+                // З -50%, С -35%, Пл -30%, Пал -35% (ост города)
+                jQuery(this).find(".price .price_value").text(Math.round((item_price + Number.EPSILON) * 1));
+            }
+            jQuery(this).find(".itemcount").text(TYPES[item_typecount - 1]);
+
+        })
+    }
 
     /*******************/
     /*****Notifier*******/
@@ -1128,29 +1157,32 @@ jQuery("document").ready(function () {
 
 
     jQuery(".sellnow").click(function () {
-        jQuery("textarea#mytext").text("Здравствуйте! Я хочу продать: " + jQuery(this).parent().parent().find(".woocommerce-loop-product__title").text() + " " + jQuery(this).parent().parent().find(".desc").text());
+
     });
 
     jQuery('.card .sellnow').on('click', function (e) {
         e.preventDefault();
-        let lsArr = JSON.parse(sessionStorage.getItem('order'));
-        if (lsArr) {
+        jQuery("textarea#mytext").text("Здравствуйте! Я хочу продать: " + jQuery(this).parent().parent().find(".woocommerce-loop-product__title").text() + " " + jQuery(this).parent().parent().find(".desc").text());
+        delete_notify();
+       // let lsArr = JSON.parse(sessionStorage.getItem('order'));
+       // if (lsArr) {
             jQuery.fancybox.open({
                 src: '#sendMSG',
                 type: 'inline',
                 toolbar: false,
+                allowTouchMove: false,
                 opts: {
                     afterShow: function (instance, current) {
                         jQuery(".fancybox-content").prepend("<div class='fancy_close'><svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1\" viewBox=\"0 0 24 24\"><path d=\"M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z\"></path></svg></div>");
                         jQuery(".fancy_close").on('click', function () {
-                            instance.close();
+                            jQuery.fancybox.close();
                         })
                     },
                 }
             });
-        } else {
+      /*  } else {
             return false;
-        }
+        }*/
         /*
     */
     });

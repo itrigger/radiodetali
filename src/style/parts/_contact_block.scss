@@ -122,12 +122,8 @@
   .contact--image-block{
     margin-bottom: 20px;
   }
-  #contact_block .form{
-    width: 355px;
-    margin: 0 auto;
-  }
   .form input[type=submit]{
-    width: 355px;
+    width: 100%;
     background-position: 212px center;
   }
   .form input[type=submit]:hover{

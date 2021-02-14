@@ -8,6 +8,7 @@
   background: $orange;
   .flex{
     align-items: center;
+    justify-content: center;
   }
   .text{
     display: flex;
@@ -51,14 +52,14 @@
 }
 .line_black{
   box-sizing: border-box;
-  height: 295px;
+  padding-bottom: 100px;
   position: relative;
   background: #000;
   color: #C4C4C4;
   padding-top: 68px;
   &:before{
     content: '';
-    display: block;
+    display: none;
     width: 100%;
     height: 100%;
     background: url("../img/pattern/diods-gray.png") 0 0 repeat;
@@ -66,6 +67,9 @@
     left: 0;
     top: 0;
     opacity: 0.3;
+  }
+  a{
+    color: #fff;
   }
   .container{
     position: relative;
@@ -80,7 +84,9 @@
     font-weight: normal;
     font-size: 14px;
     line-height: 20px;
-    margin-top: 20px;
+    span{
+      display: block;
+    }
   }
   .address{
     display: flex;
@@ -121,6 +127,27 @@
       }
     }
   }
+  .contact--footer-block{
+    margin-top: 25px;
+    text-transform: initial;
+    margin-left: 0;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    .text{
+      flex-basis: 100%;
+      text-transform: initial;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 22px;
+      margin-right: 0;
+    }
+    a{
+      margin-top: 3px;
+      margin-left: 0;
+      margin-right: 18px;
+    }
+  }
 }
 
 
@@ -142,7 +169,7 @@
      }
    }
    .text{
-     flex-basis: 50%;
+     flex-basis: auto;
      justify-content: flex-end;
      box-sizing: border-box;
      padding-right: 25px;
@@ -169,6 +196,9 @@
   }
   .line_black .payment-text span{
     display: inline;
+  }
+  .line_black .contacts span{
+    display: block;
   }
 } /*media 769-1024*/
 
@@ -199,5 +229,8 @@
   .payment-text
   {
     display: none;
+  }
+  .line_black .contact--footer-block{
+    margin-bottom: 25px;
   }
 } /*media max 480*/

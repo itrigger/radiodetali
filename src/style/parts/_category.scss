@@ -229,6 +229,15 @@
   }
 }
 
+
+ .woocommerce-ordering,
+ .woocommerce-result-count,
+ .woocommerce-notices-wrapper
+ {
+   display: none !important;
+ }
+
+
 @media (min-width: 1025px) and (max-width: 1180px) {
 
 }
@@ -292,7 +301,7 @@
     margin-right: 8px;
   }
   .cards .card:hover .btn-black:hover {
-    width: 48px;
+    width: 38px;
   }
   .cards .card:hover .btn-black:hover .a2 {
     opacity: 0;
@@ -383,6 +392,7 @@
   .cards .card.active {
     .cat-btn-next,
     .cat-btn-prev {
+      display: none;
       width: 32px;
       height: 32px;
       background: url("../img/ico-arrow.svg") 0 0 no-repeat #fff;

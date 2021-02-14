@@ -4,25 +4,57 @@
 }
 
 .mod-map{
-  margin-top: 85px;
+  margin-top: 0;
   position: relative;
+  min-height: 529px;
   h2{
     font-size: 42px;
     line-height: 51px;
     margin-bottom: 20px;
     font-weight: 800;
   }
+  .heading{
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 64px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 40px;
+    margin-bottom: 15px;
+  }
+  .form{
+    position: relative;
+    z-index: 2;
+  }
+  &:before{
+    content: '';
+    display: block;
+    width: 50%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    background: #DEDEDE;
+    bottom: 0;
+  }
 }
 #map{
-  height: 642px;
+  height: 529px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50%;
+  padding-left: 50%;
+  overflow: hidden;
 }
 .map_bubble{
   color: #444c56;
   margin: 60px auto 0;
   position: absolute;
   right: 15%;
+  top: 0;
   z-index: 12;
   border-radius: 10px;
+  display: none;
   .close{
     background: url("../img/ico-close-20-19.svg") center center no-repeat #fff;
     width: 32px;
@@ -35,8 +67,11 @@
     display: none;
     cursor: pointer;
   }
-  &.open .close{
+  &.open {
     display: block;
+    .close{
+      display: block;
+    }
   }
 }
 
@@ -74,7 +109,7 @@
 
 @media (max-width: 1180px){
   #map{
-    height: 344px;
+    //height: 344px;
   }
   .map_bubble{
     width: 300px;
@@ -101,7 +136,7 @@
     }
   }
   .ymaps-2-1-78-map{
-    height: 344px !important;
+    //height: 344px !important;
   }
 }
 
@@ -111,7 +146,9 @@
 } /*media 1025-1180*/
 
 @media (min-width:769px) and (max-width:1024px) {
-
+  .mod-map .form{
+    padding-right: 10px;
+  }
 } /*media 769-1024*/
 
 @media (min-width:481px) and (max-width:768px) {
@@ -119,7 +156,33 @@
 } /*media 481-768*/
 
 @media (max-width:768px) {
+  #map{
+    position: relative;
+    width: 100%;
+    padding-left: 0;
+    margin-top: 40px;
+    height: 344px;
+  }
+  .map_bubble{
+    top: auto;
+    bottom: 10%;
+  }
+  .ymaps-2-1-78-map{
+    height: 344px !important;
+  }
+  .mod-map:before{
+    width: 100%;
+  }
   .mod-map{
     margin-top: 0;
+    min-height: auto;
+    .heading{
+      text-align: center;
+      line-height: 36px;
+    }
+  }
+  .mod-map .form {
+    margin: 0 auto;
+    max-width: 355px;
   }
 } /*media max 480*/

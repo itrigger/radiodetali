@@ -9,15 +9,16 @@
     position: absolute;
     left: 0;
     top:0;
-    width: 40%;
+    width: 100%;
     height: 100%;
-    background: url("../img/pattern/details.png") right 41px repeat-x;
+    background: url("../img/pattern/details.png") right 40px repeat-x;
   }
 }
 
 .left-man{
   position: relative;
   top: -94px;
+  margin-bottom: -44px;
   .man{
     position: relative;
     left: -20px;
@@ -96,9 +97,13 @@
   transition: 0.3s all;
 }
 .spoiler.active{
-  border: 2px solid #000000;
+  border: 2px solid #DEDEDE;
   border-radius: 9px;
   transition: 0.3s all;
+  background: #fff;
+  .spoiler_title{
+    text-decoration: none;
+  }
   .spoiler_text{
     display: block;
     transition: 0.3s all;

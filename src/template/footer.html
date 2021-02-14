@@ -5,12 +5,12 @@
                 <div class="col-12">
                     <div class="flex">
                         <div class="text">
-                            <span class="ico ico-mail-big"></span>
-                            <div>Подпишитесь на <span>новостную рассылку</span></div>
+                            <span class="ico ico-tel-big"></span>
+                            <div>Заказать звонок</div>
                         </div>
                         <div class="news-form">
-                            <input type="text" placeholder="Введите свой email"/>
-                            <input type="submit" class="btn btn-black" value="Подписаться"/>
+                            <input type="text" placeholder="Введите свой номер"/>
+                            <input type="submit" class="btn btn-black" value="Заказать"/>
                         </div>
                         <div class="contact--footer-block">
                             <div class="text">Мы в мессенджерах:</span></div>
@@ -24,40 +24,47 @@
             </div>
         </div>
     </div>
+    //= map.html
     <div class="line_black">
         <div class="container">
             <div class="row">
-                <div class="col-3 m-col-6 s-col-12 xs-col-12">
-                    <div class="copy">
-                        ООО «БАРЫГА»
-                        (ОГРН 6665902011301)
-                        по свидетельствам №666666666<br/> и №66666.
-                    </div>
+                <div class="col-3 m-col-3 s-col-12 xs-col-12">
                     <div class="contacts">
-                        (3452) 54-93-03, 8 (3452) 54-99-77
-                        info@baryga.ru<br/>
-                        Контакты
+                        <span>Контакты</span>
+                        <span><a href="tel:89013317104">8(901) 331-71-04</a></span>
+                        <span><a href="mailto://info@radiodetali.ru">info@radiodetali.ru</a></span>
+                    </div>
+                    <div class="contact--footer-block">
+                        <div class="text">Мы в мессенджерах:</div>
+
+                        <a href="https://t-do.ru/@radiodetali" target="_blank" class="ico ico-tg-w"></a>
+                        <a href="mailto://info@radiodetali.ru" class="ico ico-mail-w" target="_blank"></a>
+                        <a class="ico ico-wt-w" href="https://wa.me/79013317104?text=Здравствуйте.%20Хочу%20узнать%20цены%20на%20радиодетали." onclick="ym('XXXXXX'),'reachGoal','whatsapp');VK.Goal('conversion'); return true;" target="_blank"></a>
+                        <?php if ($detect->isMobile()) { ?>
+                            <a href="viber://add?number=79013317104" target="_blank" onclick="ym('XXXXXX','reachGoal','viber');VK.Goal('conversion'); return true;" class="ico ico-vb-w mobile"></a>
+                        <?php } else { ?>
+                            <a title="Должен быть установлен вайбер для ПК" href="viber://chat?number=%2B79013317104" target="_blank" onclick="ym('XXXXXX','reachGoal','viber');VK.Goal('conversion'); return true;" class="ico ico-vb-w desktop"></a>
+                        <?php } ?>
+
                     </div>
                 </div>
-                <div class="col-3 m-col-6 s-col-12 xs-col-12">
+                <div class="col-3 m-col-3 s-col-12 xs-col-12">
                     <div class="address">
                         <div class="ico ico-map-g"></div>
-                        <div>Москва, Варшавское шоссе
-                            <span>145 корпус 2, Метро Аннино</span></div>
+                        <div>Москва, ст. метро «Некрасовка»
+                            <span>ул. Недорубова, д. 5</span></div>
                     </div>
                 </div>
-                <div class="col-3 m-col-6 s-col-12 xs-col-12">
+                <div class="col-3 m-col-2 s-col-12 xs-col-12">
                     <ul class="foot-menu">
-                        <li><a href="#">Интернет-сделка</a></li>
+                        <li><a href="/">Главная</a></li>
                         <li><a href="#" class="open-popup-cat">Каталог</a></li>
-                        <li><a href="#">Как заказать</a></li>
-                        <li><a href="#">Пункты приёма</a></li>
-                        <li><a href="#">Продавцам</a></li>
-                        <li><a href="#">Партнерам</a></li>
-                        <li><a href="#">О нас</a></li>
+                        <li><a href="/#steps">Как продать</a></li>
+                        <li><a href="/price">Прайс лист</a></li>
+                        <li><a href="/#about">О нас</a></li>
                     </ul>
                 </div>
-                <div class="col-3 m-col-6 s-col-12 xs-col-12">
+                <div class="col-3 m-col-4 s-col-12 xs-col-12">
                     <div class="payment-text">
                         Способы оплаты:
                         <span>наличная и безналичная</span>

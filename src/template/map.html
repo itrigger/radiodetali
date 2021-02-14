@@ -1,5 +1,22 @@
 <div class="mod-map">
-    <div class="map_bubble open">
+    <div class="container">
+        <div class="row">
+            <div class="col-5 m-col-6 s-col-del xs-col-del">
+                <div class="heading">
+                    Связаться с нами
+                </div>
+                <div class="form rounded-fields">
+                    <input type="text" placeholder="Имя" class="input--wide"/>
+                    <input type="tel" placeholder="Номер телефона *" class="input--wide"/>
+                    <input type="text" placeholder="Email" class="input--wide cf-email"/>
+                    <textarea name="" id="" cols="30" rows="10" placeholder="Сообщение *" class="input--wide cf-message"></textarea>
+                    <input type="submit" class="btn btn-orange" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="map_bubble">
         <div class="close"></div>
         <div class="wrapper">
             <div class="pic"><img alt="" src="../img/map-img.png" /></div>
@@ -14,17 +31,20 @@
     ymaps.ready(function () {
 
         var sites = [
-            ['Москва', 55.579938826718134, 37.598032975882674, 1, '<div class="pic"><img alt="" src="../img/map-img.png" /></div>'],
+            ['Москва', 55.700116, 37.930042, 1, '<div class="pic"><img alt="" src="https://radio.testim.pw/wp-content/themes/radiodetali/assets/img/map-img.png" /></div>'],
         ];
         var myMap = new ymaps.Map("map", {
-            center: [55.580105, 37.598158],
+            center: [55.700116, 37.930042],
             controls: ['zoomControl','routeButtonControl', 'geolocationControl'],
-            zoom: 19
+            zoom: 17
         });
 
-        var myPlacemark = new ymaps.Placemark([55.580105, 37.598158], {}, {
+
+        myMap.behaviors.disable('scrollZoom');
+
+        var myPlacemark = new ymaps.Placemark([55.700116, 37.930042], {}, {
             iconLayout: 'default#image',
-            iconImageHref: 'http://localhost:3000/img/marker.png',
+            iconImageHref: 'https://radio.testim.pw/wp-content/themes/radiodetali/assets/img/marker.png',
             iconImageSize: [34, 50],
             iconImageOffset: [-3, -42]
         });
@@ -39,6 +59,5 @@
         });
 
     });
-
 
 </script>
