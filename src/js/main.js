@@ -1187,11 +1187,11 @@ jQuery("document").ready(function () {
     */
     });
 
-    jQuery('.tabform-footer .btn-black').on('click', function (e) {
+    jQuery('#calc-sell-now').on('click', function (e) {
         e.preventDefault();
         if ((jQuery(".tab_content.active .el-name option:selected").attr('value') !== undefined)&&(jQuery(".tab_content.active .el-name option:selected").attr('value') !== '9999')) {
             let lsArr = JSON.parse(sessionStorage.getItem('order'));
-            if (lsArr) {
+           /* if (lsArr) {*/
                 jQuery.fancybox.open({
                     src: '#calcpopupform',
                     type: 'inline',
@@ -1214,9 +1214,9 @@ jQuery("document").ready(function () {
                         },
                     }
                 });
-            } else {
+        /*    } else {
                 return false;
-            }
+            }*/
         } else {
             notify("Сначала выберите что-нибудь", "error");
         }
@@ -1224,5 +1224,34 @@ jQuery("document").ready(function () {
     */
     });
 
+
+    jQuery(document).on('click', '.card .btn-wt', function (e){
+        e.preventDefault();
+
+        //let phone = jQuery('#constructor__phone').val().replace(/\D/g, '');
+        let phone = "77072532464";
+        let message = "Здравствуйте, я хочу продать: " + jQuery(this).parent().parent().find('.woocommerce-loop-product__title').text();
+        let link = 'https://wa.me/' + encodeURIComponent(phone) + '?text=' + encodeURIComponent(message);
+        console.log(link);
+        window.open(link, '_blank');
+
+    });
+
 });/*main wrap*/
 
+/*
+* ToDo
+*  Калькулятор
+*  - сделать стандартные дропдауны
+*  - Баг. При выборе первого наименования, автоматом ставится цена для второго списка
+*  Иконка Добавить в список новую
+*  Иконка Продать новую
+*  Отодвинуть вправо и вверх всплывающее окно
+*  Кнопку Перейти в список отодвинуть влево под заголовок
+*  Страница Скачать Прайс?
+* Мобильная версия
+* Бургер меню, кнопка Скачать прайс Оранжевая
+* Бургер Скачать прайс пункт меню убрать
+* 3 простых шага: Ватсап вайбер кнопки покрасить в цвета
+* Баг
+* */
