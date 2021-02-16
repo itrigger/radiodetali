@@ -13,7 +13,7 @@ jQuery("document").ready(function () {
     let $parentEl = jQuery('#calcform'); // ссылка на родительскую обертку
     let totalPrice = 0; // начальное значение итоговой цены
 
-    let GOLD = stock_gold / 31.1; // здесь будут курсы драгметаллов и доллара делим на 31,1 для перевода из унций в кг
+    let GOLD = stock_gold / 31.1;
     let SILVER = stock_silver / 31.1;
     let PLATINUM = stock_platinum / 31.1;
     let PALLADIUM = stock_palladium / 31.1;
@@ -21,13 +21,13 @@ jQuery("document").ready(function () {
     let EUR = 1 / stock_eur * stock_rub;
     let STOCK_DATE = stock_date.toString();
     const TYPES = ["кг", "шт", "г", "кольцо", "секция", "2 секции", "контакт", "гр"];
-    const CONST_HOST = "https://priemkm.ru";
-    // const CONST_HOST = window.location.origin;
+    //const CONST_HOST = "https://priemkm.ru";
+     const CONST_HOST = window.location.origin;
     console.log(CONST_HOST);
     const CONST_CK = 'ck_1a2af9ee2ad6e3ac6a0f9237cebfcc62ad4a88a5';
     const CONST_CS = 'cs_fc757c4e40772bd4cb6b5f36c8a81bf33504395f';
-    const $dropdown = jQuery("#radioels-type"); // начальные ссылки на селекты
-    const $dropdown2 = jQuery("#radioprib-type"); // начальные ссылки на селекты
+    const $dropdown = jQuery("#radioels-type");
+    const $dropdown2 = jQuery("#radioprib-type");
     const $dropdownChild = jQuery("#radioels-name");
     const $dropdownChild2 = jQuery("#radioprib-name");
     const R_DETAILS = [17, 16, 18, 24, 25, 26, 30, 28, 19, 29, 23, 22, 21, 20];
@@ -42,33 +42,6 @@ jQuery("document").ready(function () {
         }
     }
     isLoading(1);
-
-
-
-        /*https://kvlsrg.github.io/jquery-custom-select/*/
-        jQuery('#radioels-type').customSelect({
-            placeholder: '<span style="color: darkgray;">Что продаёте?</span>',
-            search: false,
-            includeValue: true
-        });
-
-        jQuery('#radioels-name').customSelect({
-            placeholder: '<span style="color: darkgray;">Укажите элемент</span>',
-            search: false,
-            includeValue: true
-        });
-        jQuery('#radioprib-type').customSelect({
-            placeholder: '<span style="color: darkgray;">Что продаёте?</span>',
-            search: false,
-            includeValue: true
-        });
-
-        jQuery('#radioprib-name').customSelect({
-            placeholder: '<span style="color: darkgray;">Укажите элемент</span>',
-            search: false,
-            includeValue: true
-        });
-
 
 
     /*Храним в локальной сессии какой таб открыт*/
@@ -249,15 +222,16 @@ jQuery("document").ready(function () {
             if (jQuery(this).find("a").attr("href") === window.location.pathname) {
                 jQuery(this).addClass("active");
                 if (deviceType !== "mobile") {
+                    jQuery(".left-menu ul ul").css("display", "none");
                     jQuery(this).parent().parent().addClass("active");
-
-                    jQuery(this).parent().slideToggle(function () {
+                    jQuery(this).parent().css("display","block");
+                   /* jQuery(this).parent().slideToggle(function () {
                         if (jQuery(".left-menu>ul>li").hasClass("active")) {
                             jQuery(".left-menu").addClass("active");
                         } else {
                             jQuery(".left-menu").removeClass("active");
                         }
-                    });
+                    });*/
                 }
             }
         });
@@ -269,48 +243,9 @@ jQuery("document").ready(function () {
                 jQuery(this).addClass("active");
             }
         });
-
     }
 
     CheckMainMenuItem();
-
-   /* jQuery(".cards .card").on("click", function (e) {
-        if (deviceType === "mobile") {
-            console.log(e.target.classList.value);
-            if (e.target.classList.value == "btn-circle-close") {
-                jQuery(".cards .card").removeClass("active");
-                e.preventDefault();
-            } else if (e.target.classList.value == "cat-btn-prev") {
-                jQuery(this).removeClass("active");
-                jQuery(this).prev().addClass("active");
-                jQuery('html, body').stop().animate({
-                    'scrollTop': jQuery(this).prev().offset().top - 80
-                }, 200, 'swing', function () {/!*callback*!/
-                });
-            } else if (e.target.classList.value == "cat-btn-next") {
-                jQuery(this).removeClass("active");
-                jQuery(this).next().addClass("active");
-                jQuery('html, body').stop().animate({
-                    'scrollTop': jQuery(this).next().offset().top - 80
-                }, 200, 'swing', function () {/!*callback*!/
-                });
-            } else if (e.target.classList.value == "a1" || e.target.classList.value == "a2" || e.target.classList.value == "btn") {
-                e.preventDefault();
-            } else {
-                if (!(jQuery(this).hasClass("active"))) {
-                    jQuery(".cards .card").removeClass("active");
-                    if (jQuery(window).width() <= 768) {
-                        jQuery(this).addClass("active");
-                        jQuery('html, body').stop().animate({
-                            'scrollTop': jQuery(this).offset().top - 80
-                        }, 200, 'swing', function () {/!*callback*!/
-                        });
-                    }
-                }
-            }
-        }
-    });*/
-
 
     /*степпер для калькулятора*/
     jQuery("body").on('click', ".stepper-step", function (e) {
@@ -419,50 +354,26 @@ jQuery("document").ready(function () {
     /* Add fancybox to product img */
     if (jQuery(".catalog-cards").length > 0) {
         jQuery(".catalog-cards .card img.attachment-woocommerce_thumbnail").on('click', function (e) {
-          /*  if (jQuery(window).width() <= 600) {
-                if (e.target.offsetParent.classList.contains('active')) {
-                    jQuery.fancybox.open({
-                        src: jQuery(this).attr('src'),
-                        type: 'image',
-                        toolbar: false,
-                        beforeShow: function (instance, current) {
-                            jQuery(".fancybox-toolbar").css("display", "none");
-                        },
-                        afterShow: function (instance, current) {
-                            jQuery(".fancybox-content").prepend("<div class='fancy_close'><svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1\" viewBox=\"0 0 24 24\"><path d=\"M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z\"></path></svg></div>");
-                            jQuery(".fancy_close").on('click', function () {
-                                instance.close();
-                            })
-                        },
-                        clickContent: 'close',
-                        clickSlide: "close",
-                        buttons: ['close'],
-                        touch: false
-                        //fancybox-content
-                    });
-                }
-            } else {*/
-                jQuery.fancybox.open({
-                    src: jQuery(this).attr('src'),
-                    type: 'image',
-                    toolbar: false,
-                    beforeShow: function (instance, current) {
-                        jQuery(".fancybox-toolbar").css("display", "none");
-                    },
-                    afterShow: function (instance, current) {
-                        jQuery(".fancybox-content").prepend("<div class='fancy_close'><svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1\" viewBox=\"0 0 24 24\"><path d=\"M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z\"></path></svg></div>");
-                        jQuery(".fancy_close").on('click', function () {
-                            instance.close();
-                        })
-                    },
-                    clickContent: 'close',
-                    clickSlide: "close",
-                    buttons: ['close'],
-                    touch: false
-                    //fancybox-content
-                });
-           /* }*/
 
+            jQuery.fancybox.open({
+                src: jQuery(this).attr('src'),
+                type: 'image',
+                toolbar: false,
+                beforeShow: function (instance, current) {
+                    jQuery(".fancybox-toolbar").css("display", "none");
+                },
+                afterShow: function (instance, current) {
+                    jQuery(".fancybox-content").prepend("<div class='fancy_close'><svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1\" viewBox=\"0 0 24 24\"><path d=\"M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z\"></path></svg></div>");
+                    jQuery(".fancy_close").on('click', function () {
+                        instance.close();
+                    })
+                },
+                clickContent: 'close',
+                clickSlide: "close",
+                buttons: ['close'],
+                touch: false
+                //fancybox-content
+            });
 
         });
 
@@ -600,13 +511,11 @@ jQuery("document").ready(function () {
                         });
 
 
-                        /**/
-
-
                         $dropdown.empty();
                         jQuery.each(categoriesRDAPI, function () {
                             $dropdown.append(jQuery("<option />").val(this.id).text(this.name));
                         });
+                        $dropdown.append(jQuery("<option disabled hidden selected value='9999'></option>").text("Выберите тип элемента"));
                         $dropdown.prop('disabled', false);
                         $dropdown.customSelect('reset');
 
@@ -617,19 +526,9 @@ jQuery("document").ready(function () {
                         $dropdown2.prop('disabled', false);
                         $dropdown2.customSelect('reset');
 
-                        //CheckProjects();
-                        let lsArr = [];
-                        /* if (sessionStorage.getItem('order') !== null) {
-                             lsArr = JSON.parse(sessionStorage.getItem('order'));
-                             getFromLs(lsArr).then(r => console.log('Data loaded from local storage!'));
-                         } else {
-                             CheckProjects();
-                         }*/
+
                         isLoading(0);
                     });
-
-                    /*Fill fields from localstorage*/
-
 
                 }
             )
@@ -645,11 +544,11 @@ jQuery("document").ready(function () {
     // заполняем дочерний селект при выборе опции в родительском
     const fillChildSelect = function (id, catId = 0) {
         isLoading(1); //Отображаем лоадер
-        //jQuery("#print").addClass("active");
+
         let thiscatID = 0;
         let $parentDD;
         let $childDD;
-        // let $row = jQuery('.els-row-' + id);
+
         if (id === 1) {
             $parentDD = $dropdown;
             $childDD = $dropdownChild;
@@ -663,7 +562,8 @@ jQuery("document").ready(function () {
         } else {
             thiscatID = $parentDD.val(); // получаем ID категории
         }
-
+        jQuery(".sum_num b").text("-");
+        jQuery(".count_num").text("-");
 
         $dropdownChild.prop('disabled', 'disabled'); // блокируем дочерний селект пока идет загрузка
         //delete_notify($childDD); // удаляем все сообщения об ошибках и красную обводку с поля
@@ -715,6 +615,7 @@ jQuery("document").ready(function () {
                             let temp = [];
                             if (data.length) {
                                 $childDD.empty(); // очищаем селект
+                                $childDD.append(jQuery("<option hidden disabled selected value='9999'></option>").text("Выберите наименование"));
                                 let i = 0;
                                 for (let key in productsAPI) {
                                     // заполняем селект данными
@@ -775,7 +676,7 @@ jQuery("document").ready(function () {
                             }
 
                             isLoading(0);
-                            $childDD.customSelect('reset');
+                            //$childDD.customSelect('reset');
                         });
                         /**/
 
@@ -877,9 +778,9 @@ jQuery("document").ready(function () {
                 harddelete_notify();
                 notify("Добавлено в список: " + lsType + " - " + lsName + "", "default", "<div><a href='/my-list' class='go-to-list'>Весь список</a></div>");
                 $dropdownChild.val("9999").prop('selected', true);
-                $dropdownChild.customSelect('reset');
+                //$dropdownChild.customSelect('reset');
                 $dropdownChild2.val("9999").prop('selected', true);
-                $dropdownChild2.customSelect('reset');
+                //$dropdownChild2.customSelect('reset');
                 updateCountItems();
             }
         } else {
@@ -1141,19 +1042,19 @@ jQuery("document").ready(function () {
         jQuery(this).css("display", "none");
     })
 
-    document.addEventListener( 'wpcf7mailsent', function( event ) {
+    document.addEventListener('wpcf7mailsent', function (event) {
         $.fancybox.close('true');
         notify("Ваше сообщение успешно отправлено! Менеджер перезвонит Вам в течение 15 минут", "success");
-    }, false );
-    document.addEventListener( 'wpcf7invalid', function( event ) {
+    }, false);
+    document.addEventListener('wpcf7invalid', function (event) {
         notify("Проверьте все поля!", "error");
-    }, false );
-    document.addEventListener( 'wpcf7spam', function( event ) {
+    }, false);
+    document.addEventListener('wpcf7spam', function (event) {
         notify("Сообщение выглядит как спам!", "error");
-    }, false );
-    document.addEventListener( 'wpcf7mailfailed', function( event ) {
+    }, false);
+    document.addEventListener('wpcf7mailfailed', function (event) {
         notify("Не удалось отправить сообщение! Попробуйте позднее!", "error");
-    }, false );
+    }, false);
 
 
     jQuery(".sellnow").click(function () {
@@ -1164,59 +1065,49 @@ jQuery("document").ready(function () {
         e.preventDefault();
         jQuery("textarea#mytext").text("Здравствуйте! Я хочу продать: " + jQuery(this).parent().parent().find(".woocommerce-loop-product__title").text() + " " + jQuery(this).parent().parent().find(".desc").text());
         delete_notify();
-       // let lsArr = JSON.parse(sessionStorage.getItem('order'));
-       // if (lsArr) {
-            jQuery.fancybox.open({
-                src: '#sendMSG',
-                type: 'inline',
-                toolbar: false,
-                allowTouchMove: false,
-                opts: {
-                    afterShow: function (instance, current) {
-                        jQuery(".fancybox-content").prepend("<div class='fancy_close'><svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1\" viewBox=\"0 0 24 24\"><path d=\"M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z\"></path></svg></div>");
-                        jQuery(".fancy_close").on('click', function () {
-                            jQuery.fancybox.close();
-                        })
-                    },
-                }
-            });
-      /*  } else {
-            return false;
-        }*/
-        /*
-    */
+        jQuery.fancybox.open({
+            src: '#sendMSG',
+            type: 'inline',
+            toolbar: false,
+            allowTouchMove: false,
+            opts: {
+                afterShow: function (instance, current) {
+                    jQuery(".fancybox-content").prepend("<div class='fancy_close'><svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1\" viewBox=\"0 0 24 24\"><path d=\"M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z\"></path></svg></div>");
+                    jQuery(".fancy_close").on('click', function () {
+                        jQuery.fancybox.close();
+                    })
+                },
+            }
+        });
     });
 
     jQuery('#calc-sell-now').on('click', function (e) {
         e.preventDefault();
-        if ((jQuery(".tab_content.active .el-name option:selected").attr('value') !== undefined)&&(jQuery(".tab_content.active .el-name option:selected").attr('value') !== '9999')) {
+        if ((jQuery(".tab_content.active .el-name option:selected").attr('value') !== undefined) && (jQuery(".tab_content.active .el-name option:selected").attr('value') !== '9999')) {
             let lsArr = JSON.parse(sessionStorage.getItem('order'));
-           /* if (lsArr) {*/
-                jQuery.fancybox.open({
-                    src: '#calcpopupform',
-                    type: 'inline',
-                    toolbar: false,
-                    opts: {
-                        afterShow: function (instance, current) {
-                            jQuery(".fancybox-content").prepend("<div class='fancy_close'><svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1\" viewBox=\"0 0 24 24\"><path d=\"M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z\"></path></svg></div>");
-                            jQuery(".fancy_close").on('click', function () {
-                                instance.close();
-                            });
-                            jQuery("textarea#mytext2").text("Здравствуйте! Я хочу продать: "
-                                + jQuery(".tab_content.active .el-type option:selected").text()
-                                + " "
-                                + jQuery(".tab_content.active .el-name option:selected").text()
-                                + " по цене: "
-                                + jQuery(".tabform-footer .sum_num").text()
-                                + " за "
-                                + jQuery(".tabform-footer .count_num").text()
-                            );
-                        },
-                    }
-                });
-        /*    } else {
-                return false;
-            }*/
+            /* if (lsArr) {*/
+            jQuery.fancybox.open({
+                src: '#calcpopupform',
+                type: 'inline',
+                toolbar: false,
+                opts: {
+                    afterShow: function (instance, current) {
+                        jQuery(".fancybox-content").prepend("<div class='fancy_close'><svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1\" viewBox=\"0 0 24 24\"><path d=\"M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z\"></path></svg></div>");
+                        jQuery(".fancy_close").on('click', function () {
+                            instance.close();
+                        });
+                        jQuery("textarea#mytext2").text("Здравствуйте! Я хочу продать: "
+                            + jQuery(".tab_content.active .el-type option:selected").text()
+                            + " "
+                            + jQuery(".tab_content.active .el-name option:selected").text()
+                            + " по цене: "
+                            + jQuery(".tabform-footer .sum_num").text()
+                            + " за "
+                            + jQuery(".tabform-footer .count_num").text()
+                        );
+                    },
+                }
+            });
         } else {
             notify("Сначала выберите что-нибудь", "error");
         }
@@ -1225,33 +1116,22 @@ jQuery("document").ready(function () {
     });
 
 
-    jQuery(document).on('click', '.card .btn-wt', function (e){
+    jQuery(document).on('click', '.card .btn-wt', function (e) {
         e.preventDefault();
 
-        //let phone = jQuery('#constructor__phone').val().replace(/\D/g, '');
-        let phone = "77072532464";
+        let phone = "79013317104";
         let message = "Здравствуйте, я хочу продать: " + jQuery(this).parent().parent().find('.woocommerce-loop-product__title').text();
         let link = 'https://wa.me/' + encodeURIComponent(phone) + '?text=' + encodeURIComponent(message);
-        console.log(link);
-        window.open(link, '_blank');
 
+        window.open(link, '_blank');
     });
 
 });/*main wrap*/
 
 /*
 * ToDo
-*  Калькулятор
-*  - сделать стандартные дропдауны
-*  - Баг. При выборе первого наименования, автоматом ставится цена для второго списка
-*  Иконка Добавить в список новую
-*  Иконка Продать новую
-*  Отодвинуть вправо и вверх всплывающее окно
-*  Кнопку Перейти в список отодвинуть влево под заголовок
+*  Скачет левое меню в десктоп версии
 *  Страница Скачать Прайс?
-* Мобильная версия
-* Бургер меню, кнопка Скачать прайс Оранжевая
-* Бургер Скачать прайс пункт меню убрать
-* 3 простых шага: Ватсап вайбер кнопки покрасить в цвета
-* Баг
+*  Баг. Не закрывается модалка в мобильной
+*
 * */

@@ -57,18 +57,28 @@
       li{
         color: #C4C4C4;
         font-size: 14px;
-        padding: 0px 10px 4px 80px;
         height: 36px;
         display: flex;
         align-items: center;
         background: #3C4043;
         box-sizing: border-box;
-        &.active a{
-          color: $orange;
+        &:hover{
+          background: #484848;
+        }
+        &.active {
+          background: #484848;
+          a{
+            color: $orange;
+          }
         }
         a{
           text-decoration: none;
+          display: flex;
+          width: 100%;
+          height: 36px;
+          align-items: center;
           color: #C4C4C4;
+          padding: 3px 10px 4px 80px;
           &:hover{
             color: $orange;
           }
@@ -158,6 +168,8 @@
 
 } /*media 481-768*/
 
-@media (max-width:480px) {
-
-} /*media max 480*/
+@media (max-width:768px) {
+  .left-menu ul ul{
+    display: none;
+  }
+} /*media max 768*/

@@ -95,6 +95,16 @@
   font-weight: 500;
 }
 
+.btn-green{
+  background: #11D553;
+  color: #fff;
+  height: 44px;
+  border-radius: 27px;
+  &:hover{
+    background: #09ae3d;
+  }
+}
+
 .btn-wide{
   width: 100%;
 }
@@ -348,6 +358,16 @@
   width: 20px;
   height: 30px;
   background: url("../img/ico-map.svg") 0 0 no-repeat;
+}
+.ico-plus{
+  width: 23px;
+  height: 23px;
+  background: url("../img/ico-plus.svg") 0 0 no-repeat;
+}
+.ico-rub{
+  width: 23px;
+  height: 23px;
+  background: url("../img/ico-rub.svg") 0 0 no-repeat;
 }
 .ico-mail-big{
   width: 30px;
@@ -632,5 +652,23 @@
     height: 35px;
     padding-left: 20px;
     padding-right: 20px;
+  }
+  .spec-wt{
+    background: #11D553;
+    color: #fff;
+    .ico-wt-b{
+      width: 20px;
+      height: 20px;
+      background: url("../img/ico-wt-w-20-20.svg") 0 0 no-repeat;
+    }
+  }
+  .spec-vb{
+    background: #FF36DF;
+    color: #fff;
+    .ico-vb-b{
+      width: 18px;
+      height: 18px;
+      background: url("../img/ico-vb-w-17-17.svg") 0 0 no-repeat;
+    }
   }
 } /*media max 480*/

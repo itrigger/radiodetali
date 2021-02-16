@@ -238,6 +238,8 @@
 @media (max-width:768px) {
   .list{
     flex-direction: column;
+    padding-left: 15px;
+    padding-right: 15px;
   }
   .list .img{
     display: none;
@@ -268,10 +270,10 @@
     position: unset;
   }
   .list .cart_block .total_price{
-    font-size: 40px;
+    font-size: 36px;
     width: auto;
     flex-basis: auto;
-    margin-left: 20px;
+    margin-left: 0;
   }
   .list-total{
     height: auto;
@@ -289,7 +291,7 @@
   }
   .list .cart_block .ico-del{
     position: absolute;
-    right: 30px;
+    right: 15px;
     top: 30px;
   }
   .empty-list h3{
