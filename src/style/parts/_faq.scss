@@ -21,7 +21,11 @@
   margin-bottom: -44px;
   .man{
     position: relative;
-    //left: -20px;
+    left: -15px;
+    img{
+      max-width: none;
+      height: unset;
+    }
   }
   .block{
     background: $orange;

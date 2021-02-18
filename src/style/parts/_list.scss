@@ -222,6 +222,28 @@
   100%{top:-300px;}
 }
 
+.pricelist-w{
+  padding: 20px 35px;
+}
+.pricelist-w h3{
+  font-size: 30px;
+  line-height: 36px;
+  margin-bottom: 20px;
+}
+.pricelist-w .hintbox-text{
+  font-size: 16px;
+  line-height: 24px;
+}
+.pricelist-w .btn-w{
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+.pricelist-w .btn-w .savetojpg{
+  margin-right: 20px;
+}
+
+
 
 @media (min-width:1025px) and (max-width:1180px) {
 
@@ -236,6 +258,9 @@
 } /*media 481-768*/
 
 @media (max-width:768px) {
+  .pricelist-w{
+    padding: 0;
+  }
   .list{
     flex-direction: column;
     padding-left: 15px;

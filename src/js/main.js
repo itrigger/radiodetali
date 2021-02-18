@@ -423,9 +423,9 @@ jQuery("document").ready(function () {
                     jQuery(this).find(".price .price_value").text(item_fixprice);
                 }
             } else {
-                // З -40%, С -30%, Пл -30%, Пал -30%
+
                 item_price = (item_gold * GOLD * GOLD_DISCOUNT + item_silver * SILVER * SILVER_DISCOUNT + item_platinum * PLATINUM * PLATINUM_DISCOUNT + item_palladium * PALLADIUM * PALLADIUM_DISCOUNT) * USD;
-                // З -50%, С -35%, Пл -30%, Пал -35% (ост города)
+
                 jQuery(this).find(".price .price_value").text(Math.round((item_price + Number.EPSILON) * 1));
             }
             jQuery(this).find(".itemcount").text(TYPES[item_typecount - 1]);
