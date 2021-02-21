@@ -22,7 +22,7 @@ jQuery("document").ready(function () {
     let STOCK_DATE = stock_date.toString();
     const TYPES = ["кг", "шт", "г", "кольцо", "секция", "2 секции", "контакт", "гр"];
     //const CONST_HOST = "https://priemkm.ru";
-     const CONST_HOST = window.location.origin;
+    const CONST_HOST = window.location.origin;
     console.log(CONST_HOST);
     const CONST_CK = 'ck_1a2af9ee2ad6e3ac6a0f9237cebfcc62ad4a88a5';
     const CONST_CS = 'cs_fc757c4e40772bd4cb6b5f36c8a81bf33504395f';
@@ -213,28 +213,31 @@ jQuery("document").ready(function () {
             }
         });
     });
-    if (jQuery(".left-menu").length) {
-        CheckCategoryMenuItem()
+    if (jQuery(".left-menu.descktoplm").length) {
+
+            jQuery(".left-menu.descktoplm ul ul li").each(function () {
+                if (jQuery(this).find("a").attr("href") === window.location.pathname) {
+                    jQuery(this).addClass("active");
+                    if (deviceType !== "mobile") {
+                        console.log(deviceType);
+                        jQuery(".left-menu ul ul").removeClass("active");
+                        jQuery(this).parent().parent().addClass("active");
+                        jQuery(this).parent().addClass("active");
+                        /* jQuery(this).parent().slideToggle(function () {
+                             if (jQuery(".left-menu>ul>li").hasClass("active")) {
+                                 jQuery(".left-menu").addClass("active");
+                             } else {
+                                 jQuery(".left-menu").removeClass("active");
+                             }
+                         });*/
+                    }
+                }
+            });
+
     }
 
     function CheckCategoryMenuItem() {
-        jQuery(".left-menu ul ul li").each(function () {
-            if (jQuery(this).find("a").attr("href") === window.location.pathname) {
-                jQuery(this).addClass("active");
-                if (deviceType !== "mobile") {
-                    jQuery(".left-menu ul ul").css("display", "none");
-                    jQuery(this).parent().parent().addClass("active");
-                    jQuery(this).parent().css("display","block");
-                   /* jQuery(this).parent().slideToggle(function () {
-                        if (jQuery(".left-menu>ul>li").hasClass("active")) {
-                            jQuery(".left-menu").addClass("active");
-                        } else {
-                            jQuery(".left-menu").removeClass("active");
-                        }
-                    });*/
-                }
-            }
-        });
+
     }
 
     function CheckMainMenuItem() {

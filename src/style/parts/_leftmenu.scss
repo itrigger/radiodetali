@@ -57,7 +57,6 @@
       li{
         color: #C4C4C4;
         font-size: 14px;
-        height: 36px;
         display: flex;
         align-items: center;
         background: #3C4043;
@@ -67,18 +66,20 @@
         }
         &.active {
           background: #484848;
+
           a{
             color: $orange;
           }
         }
         a{
+          box-sizing: border-box;
           text-decoration: none;
           display: flex;
           width: 100%;
-          height: 36px;
+          min-height: 36px;
           align-items: center;
           color: #C4C4C4;
-          padding: 3px 10px 4px 80px;
+          padding: 4px 10px 5px 80px;
           &:hover{
             color: $orange;
           }
@@ -109,6 +110,7 @@
       }
 
         ul{
+
           li{
             &:last-child{
               transition: 0.3s all;
@@ -124,6 +126,12 @@
   display: none;
 }
 
+div.left-menu > ul > li > ul{
+  display: none;
+}
+div.left-menu > ul > li > ul.active{
+  display: block;
+}
 .catalog_content .left-man{
   top: 0;
   margin-bottom: 70px;
