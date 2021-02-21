@@ -389,8 +389,9 @@ jQuery("document").ready(function () {
             // Основная формула для каждого города и металла есть поправочный кэф
             if (item_fixprice > 0) {
                 if (item_fixprice == "999999") {
-                    jQuery(this).find(".title").text("Цена договорная");
-                    jQuery(this).find(".price").css("display", "none");
+                    jQuery(this).find(".price .price_value").text("По запросу").addClass("priceastext");
+                    jQuery(this).find(".price b").css("display", "none");
+                    jQuery(this).find(".card-add-to-list").css("display", "none");
                     jQuery(this).find(".btn-put-to-storage").css("display", "none");
                     jQuery(this).find(".product--input-w").css("display", "none");
                 } else {
@@ -418,7 +419,7 @@ jQuery("document").ready(function () {
             // Основная формула для каждого города и металла есть поправочный кэф
             if (item_fixprice > 0) {
                 if (item_fixprice == "999999") {
-                    jQuery(this).find(".price").text("договорная");
+                    jQuery(this).find(".price").text("по запросу");
                 } else {
                     jQuery(this).find(".price .price_value").text(item_fixprice);
                 }

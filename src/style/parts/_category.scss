@@ -108,6 +108,10 @@
       b {
         font-size: 24px;
       }
+      .priceastext{
+        font-size: 28px;
+        line-height: 48px;
+      }
     }
 
     .price_text {
@@ -308,9 +312,16 @@
     grid-template-columns: repeat(12, 1fr);
     grid-gap: 10px;
   }
-
+  .woocommerce-loop-product__title{
+    word-break: break-word;
+  }
   .cards .card .price {
-    font-size: 33px;
+    font-size: 28px;
+    line-height: 28px;
+  }
+  .cards .card .price .priceastext{
+    font-size: 20px;
+    line-height: 28px;
   }
   .cards .card .img {
     position: relative;
@@ -390,8 +401,8 @@
     }
   }
   .cards .card .name {
-    font-size: 26px;
-    line-height: 36px;
+    font-size: 24px;
+    line-height: 28px;
   }
 
 }
