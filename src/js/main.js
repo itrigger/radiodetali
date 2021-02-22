@@ -1,9 +1,9 @@
 jQuery("document").ready(function () {
 
-    let GOLD_DISCOUNT = 0.6;
-    let SILVER_DISCOUNT = 0.7;
-    let PLATINUM_DISCOUNT = 0.7;
-    let PALLADIUM_DISCOUNT = 0.7;
+    let GOLD_DISCOUNT = 0.63;
+    let SILVER_DISCOUNT = 0.73;
+    let PLATINUM_DISCOUNT = 0.73;
+    let PALLADIUM_DISCOUNT = 0.73;
 
     let categoriesRDAPI = {}; // объект где храним список категорий
     let categoriesRPAPI = {}; // объект где храним список категорий
@@ -30,7 +30,7 @@ jQuery("document").ready(function () {
     const $dropdown2 = jQuery("#radioprib-type");
     const $dropdownChild = jQuery("#radioels-name");
     const $dropdownChild2 = jQuery("#radioprib-name");
-    const R_DETAILS = [17, 16, 18, 24, 25, 26, 30, 28, 19, 29, 23, 22, 21, 20];
+    const R_DETAILS = [17, 16, 18, 24, 25, 26, 30, 28, 19, 29, 23, 22, 21, 20, 54];
     const R_PRIBORS = [37, 38, 49, 39, 41, 42, 43, 46, 44, 45, 48, 47];
 
 
@@ -340,7 +340,18 @@ jQuery("document").ready(function () {
         jQuery("#main_popup_menu").removeClass("open");
         jQuery("body").removeClass("body_menuOpened");
     });
+    jQuery("#main_popup_menu ul li a").on("click", function () {
+        jQuery("#main_popup_menu").removeClass("open");
+        jQuery("body").removeClass("body_menuOpened");
+    });
 
+    jQuery(document).on('click', function (e){
+        let div = $("#cat_popup_menu, .open-popup-cat");
+        if (!div.is(e.target) && div.has(e.target).length === 0) {
+            jQuery("#cat_popup_menu").removeClass("open");
+            jQuery("body").removeClass("body_menuOpened");
+        }
+    });
 
     if (sessionStorage.getItem('tabs') !== null) {
         let curTab = sessionStorage.getItem('tabs');
@@ -1060,9 +1071,6 @@ jQuery("document").ready(function () {
     }, false);
 
 
-    jQuery(".sellnow").click(function () {
-
-    });
 
     jQuery('.card .sellnow').on('click', function (e) {
         e.preventDefault();
@@ -1074,13 +1082,19 @@ jQuery("document").ready(function () {
             toolbar: true,
             allowTouchMove: false,
             opts: {
-                afterShow: function (instance, current) {
-                   /* jQuery(".fancybox-content").append("<div class='fancy_close'><svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1\" viewBox=\"0 0 24 24\"><path d=\"M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z\"></path></svg></div>");
-                    jQuery(".fancy_close").on('click', function () {
-                        instance.close();
-                    })*/
-                },
+                afterShow: function (instance, current) { },
             }
+        });
+    });
+
+    jQuery('.getCallback').on('click', function (e) {
+        e.preventDefault();
+        delete_notify();
+        jQuery.fancybox.open({
+            src: '#getCallback',
+            type: 'inline',
+            toolbar: true,
+            allowTouchMove: false
         });
     });
 
@@ -1088,17 +1102,12 @@ jQuery("document").ready(function () {
         e.preventDefault();
         if ((jQuery(".tab_content.active .el-name option:selected").attr('value') !== undefined) && (jQuery(".tab_content.active .el-name option:selected").attr('value') !== '9999')) {
             let lsArr = JSON.parse(sessionStorage.getItem('order'));
-            /* if (lsArr) {*/
             jQuery.fancybox.open({
                 src: '#calcpopupform',
                 type: 'inline',
                 toolbar: true,
                 opts: {
                     afterShow: function (instance, current) {
-                       /* jQuery(".fancybox-content").append("<div class='fancy_close'><svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1\" viewBox=\"0 0 24 24\"><path d=\"M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z\"></path></svg></div>");
-                        jQuery(".fancy_close").on('click', function () {
-                            instance.close();
-                        });*/
                         jQuery("textarea#mytext2").text("Здравствуйте! Я хочу продать: "
                             + jQuery(".tab_content.active .el-type option:selected").text()
                             + " "
@@ -1114,8 +1123,6 @@ jQuery("document").ready(function () {
         } else {
             notify("Сначала выберите что-нибудь", "error");
         }
-        /*
-    */
     });
 
 
@@ -1130,11 +1137,3 @@ jQuery("document").ready(function () {
     });
 
 });/*main wrap*/
-
-/*
-* ToDo
-*  Скачет левое меню в десктоп версии
-*  Страница Скачать Прайс?
-*  Баг. Не закрывается модалка в мобильной
-*
-* */
