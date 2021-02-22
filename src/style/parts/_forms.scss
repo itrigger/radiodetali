@@ -39,7 +39,6 @@
 .tab_content{
   select{
     width: 100%;
-    background: #FFFFFF;
     border: 2px solid #000000;
     box-sizing: border-box;
     border-radius: 35px;
@@ -49,7 +48,12 @@
     font-size: 1rem;
     color: #212121;
     line-height: 1.5;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url("../img/ico-dd-arr-20-12.svg") 96% 17px no-repeat #FFF;
   }
+
 }
 
 .form{
