@@ -272,6 +272,12 @@
   margin-top: 20px;
 }
 
+.catalog_content h1{
+  font-size: 36px;
+  line-height: 46px;
+  font-weight: 500;
+}
+
 @media (min-width: 1025px) and (max-width: 1180px) {
 
 }
@@ -297,6 +303,10 @@
 /*media 481-768*/
 
 @media (max-width: 768px) {
+  .catalog_content h1{
+    font-size: 28px;
+    line-height: 36px;
+  }
   .cat_header--header {
     flex-direction: column;
     align-items: flex-start;

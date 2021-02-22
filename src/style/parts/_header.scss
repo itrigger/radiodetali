@@ -67,7 +67,7 @@
   position: relative;
   cursor: pointer;
   &:after{
-    @include pseudo("ico-dd-gray-8-6.svg",8,6,6,null,0);
+    //@include pseudo("ico-dd-gray-8-6.svg",8,6,6,null,0);
   }
   &.dd-ico{
     padding-left: 20px;

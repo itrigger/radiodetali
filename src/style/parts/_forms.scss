@@ -352,9 +352,22 @@
 }
 
 .fancybox-close-small{
-  display: none;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 1;
 }
-
+.fancybox-button svg path{
+  fill: #000;
+}
+.fancybox-slide--html .fancybox-close-small{
+  right: 10px;
+  top: 10px;
+}
 .fancybox-content .wpcf7-submit{
   transition: 0.3s all;
   &.is-active{

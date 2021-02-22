@@ -57,7 +57,6 @@ jQuery("document").ready(function () {
         } else {
             $tabsLabel.removeClass("first second").addClass("second");
         }
-
     } else {
         sessionStorage.setItem('tabs', '0');
     }
@@ -1072,14 +1071,14 @@ jQuery("document").ready(function () {
         jQuery.fancybox.open({
             src: '#sendMSG',
             type: 'inline',
-            toolbar: false,
+            toolbar: true,
             allowTouchMove: false,
             opts: {
                 afterShow: function (instance, current) {
-                    jQuery(".fancybox-content").prepend("<div class='fancy_close'><svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1\" viewBox=\"0 0 24 24\"><path d=\"M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z\"></path></svg></div>");
+                   /* jQuery(".fancybox-content").append("<div class='fancy_close'><svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1\" viewBox=\"0 0 24 24\"><path d=\"M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z\"></path></svg></div>");
                     jQuery(".fancy_close").on('click', function () {
-                        jQuery.fancybox.close();
-                    })
+                        instance.close();
+                    })*/
                 },
             }
         });
@@ -1093,13 +1092,13 @@ jQuery("document").ready(function () {
             jQuery.fancybox.open({
                 src: '#calcpopupform',
                 type: 'inline',
-                toolbar: false,
+                toolbar: true,
                 opts: {
                     afterShow: function (instance, current) {
-                        jQuery(".fancybox-content").prepend("<div class='fancy_close'><svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1\" viewBox=\"0 0 24 24\"><path d=\"M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z\"></path></svg></div>");
+                       /* jQuery(".fancybox-content").append("<div class='fancy_close'><svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1\" viewBox=\"0 0 24 24\"><path d=\"M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z\"></path></svg></div>");
                         jQuery(".fancy_close").on('click', function () {
                             instance.close();
-                        });
+                        });*/
                         jQuery("textarea#mytext2").text("Здравствуйте! Я хочу продать: "
                             + jQuery(".tab_content.active .el-type option:selected").text()
                             + " "
