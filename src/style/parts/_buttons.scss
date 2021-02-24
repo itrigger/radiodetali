@@ -221,7 +221,7 @@
     margin-left: -25%;
     margin-top: -25%;
     border-radius: 300px;
-    background-color: #FF36DF;
+    background-color: #0088CC;
     z-index: -1;
     animation: pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
   }
@@ -290,6 +290,12 @@
   width: 39px;
   height: 39px;
   background: url("../img/ico-vb-big-38-38.svg") 0 0 no-repeat;
+}
+.ico-telegram-big{
+  width: 39px;
+  height: 39px;
+  background: url("../img/ico-telegram-color.svg") 0 0 no-repeat;
+  background-size: contain;
 }
 .ico-tel-big{
   width: 23px;

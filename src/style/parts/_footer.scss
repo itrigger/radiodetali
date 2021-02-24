@@ -150,6 +150,25 @@
   }
 }
 
+#scroll-up{
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #000;
+  right: 10%;
+  bottom: 10%;
+  z-index: 999999;
+  cursor: pointer;
+  background: url("../img/ico-arr-top.svg") center center no-repeat;
+  background-size: contain;
+  opacity: 0;
+  transition: 0.2s all;
+  &.visible{
+    opacity: 1;
+    transition: 0.2s all;
+  }
+}
 
 @media (min-width:1025px) and (max-width:1180px) {
 

@@ -904,7 +904,7 @@ jQuery("document").ready(function () {
         lsRowSum,
         lsImgSrc
     ) {
-        jQuery(".cart-lists").prepend('<div class="list list-' + lsId + '" data-id="' + lsId + '"><div class="img"><img src="' + lsImgSrc + '" alt="" /></div><div class="center"><div class="name"><b>' + lsName + '</b></div><div class="price"><span>' + lsRowPrice + '</span> <b>р.</b></div><div class="type">за <span class="izm">' + lsTypeOf + '</span></div></div><div class="cart_block"><div class="inputCountWrap"><span class="stepper-step down">-</span><input type="number" min="1" value="' + lsCount + '" class="inputCount inputCount-1"/><span class="stepper-step up">+</span></div><div class="ico-del"><span class="ico ico-delete-list" data-rowid="' + lsId + '"></span></div><div class="total_price"><span>' + lsRowSum + '</span><b>р.</b></div></div></div>');
+        jQuery(".cart-lists").prepend('<div class="list list-' + lsId + '" data-id="' + lsId + '"><div class="img"><img src="' + lsImgSrc + '" alt="" /></div><div class="center"><div class="name"><b>' + lsName + '</b></div><div class="price"><span>' + lsRowPrice + '</span> <b>₽</b></div><div class="type">за <span class="izm">' + lsTypeOf + '</span></div></div><div class="cart_block"><div class="inputCountWrap"><span class="stepper-step down">-</span><input type="number" min="1" value="' + lsCount + '" class="inputCount inputCount-1"/><span class="stepper-step up">+</span></div><div class="ico-del"><span class="ico ico-delete-list" data-rowid="' + lsId + '"></span></div><div class="total_price"><span>' + lsRowSum + '</span><b> ₽</b></div></div></div>');
     }
 
 
@@ -1134,6 +1134,19 @@ jQuery("document").ready(function () {
         let link = 'https://wa.me/' + encodeURIComponent(phone) + '?text=' + encodeURIComponent(message);
 
         window.open(link, '_blank');
+    });
+
+    jQuery("#scroll-up").click(function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return false;
+    });
+
+    jQuery(document).on('scroll', function (){
+        if(jQuery(this).scrollTop()>1000){
+            jQuery("#scroll-up").addClass('visible');
+        } else {
+            jQuery("#scroll-up").removeClass('visible');
+        }
     });
 
 });/*main wrap*/
