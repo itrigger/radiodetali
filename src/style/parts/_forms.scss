@@ -220,9 +220,7 @@
     }
   }
   .ajax-loader{
-    position: absolute;
-    right: -28px;
-    top: 30px;
+    display: none !important;
   }
 }
 .wpcf7-not-valid-tip{
@@ -372,15 +370,15 @@
   right: 10px;
   top: 10px;
 }
-.fancybox-content .wpcf7-submit{
+.wpcf7-submit {
   transition: 0.3s all;
-  &.is-active{
-    background-color: #000 !important;
-    animation: falling 3s linear infinite;
-    background-image: url("../img/pattern/mailpattern.svg") !important;
-    background-repeat: repeat !important;
-    transition: 0.3s all;
-  }
+}
+.wpcf7-form.submitting .wpcf7-submit{
+  background-color: #000 !important;
+  animation: falling 3s linear infinite;
+  background-image: url("../img/pattern/mailpattern.svg") !important;
+  background-repeat: repeat !important;
+  transition: 0.3s all;
 }
 
 .rounded-fields{
