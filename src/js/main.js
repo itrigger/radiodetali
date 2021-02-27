@@ -21,7 +21,6 @@ jQuery("document").ready(function () {
     let EUR = 1 / stock_eur * stock_rub;
     let STOCK_DATE = stock_date.toString();
     const TYPES = ["кг", "шт", "г", "кольцо", "секция", "2 секции", "контакт", "гр"];
-    //const CONST_HOST = "https://priemkm.ru";
     const CONST_HOST = window.location.origin;
     console.log(CONST_HOST);
     const CONST_CK = 'ck_1a2af9ee2ad6e3ac6a0f9237cebfcc62ad4a88a5';
@@ -30,7 +29,7 @@ jQuery("document").ready(function () {
     const $dropdown2 = jQuery("#radioprib-type");
     const $dropdownChild = jQuery("#radioels-name");
     const $dropdownChild2 = jQuery("#radioprib-name");
-    const R_DETAILS = [17, 16, 18, 24, 25, 26, 30, 28, 19, 29, 23, 22, 21, 20, 54];
+    const R_DETAILS = [17, 16, 18, 24, 25, 26, 30, 28, 19, 29, 23, 22, 21, 20, 57];
     const R_PRIBORS = [37, 38, 49, 39, 41, 42, 43, 46, 44, 45, 48, 47];
 
 
@@ -635,7 +634,7 @@ jQuery("document").ready(function () {
                                     // заполняем селект данными
                                     if (productsAPI.hasOwnProperty(key)) {
                                         if (productsAPI[key].meta_data[10].value !== '999999') {
-                                            let imgSrc = "https://priemkm.ru/wp-content/uploads/blank.jpg";
+                                            let imgSrc = "/wp-content/uploads/blank.jpg";
                                             if (productsAPI[key].images[0] !== undefined) {
                                                 imgSrc = productsAPI[key].images[0].src;
                                             }
