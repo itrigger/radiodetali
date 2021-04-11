@@ -23,13 +23,13 @@ jQuery("document").ready(function () {
     const TYPES = ["кг", "шт", "г", "кольцо", "секция", "2 секции", "контакт", "гр"];
     const CONST_HOST = window.location.origin;
     console.log(CONST_HOST);
-    const CONST_CK = 'ck_1a2af9ee2ad6e3ac6a0f9237cebfcc62ad4a88a5';
-    const CONST_CS = 'cs_fc757c4e40772bd4cb6b5f36c8a81bf33504395f';
+    const CONST_CK = 'ck_c4e4a8065b654fbb8d04f3d74d46673894b0d479';
+    const CONST_CS = 'cs_081907c0f0c1df9408352dffc35fa361ebf4dfb6';
     const $dropdown = jQuery("#radioels-type");
     const $dropdown2 = jQuery("#radioprib-type");
     const $dropdownChild = jQuery("#radioels-name");
     const $dropdownChild2 = jQuery("#radioprib-name");
-    const R_DETAILS = [17, 16, 18, 24, 25, 26, 30, 28, 19, 29, 23, 22, 21, 20, 57];
+    const R_DETAILS = [17, 16, 21, 19, 20, 18, 25, 26, 24, 22, 39, 27, 23];
     const R_PRIBORS = [37, 38, 49, 39, 41, 42, 43, 46, 44, 45, 48, 47];
 
 
@@ -213,24 +213,24 @@ jQuery("document").ready(function () {
     });
     if (jQuery(".left-menu.descktoplm").length) {
 
-            jQuery(".left-menu.descktoplm ul ul li").each(function () {
-                if (jQuery(this).find("a").attr("href") === window.location.pathname) {
-                    jQuery(this).addClass("active");
-                    if (deviceType !== "mobile") {
-                        console.log(deviceType);
-                        jQuery(".left-menu ul ul").removeClass("active");
-                        jQuery(this).parent().parent().addClass("active");
-                        jQuery(this).parent().addClass("active");
-                        /* jQuery(this).parent().slideToggle(function () {
-                             if (jQuery(".left-menu>ul>li").hasClass("active")) {
-                                 jQuery(".left-menu").addClass("active");
-                             } else {
-                                 jQuery(".left-menu").removeClass("active");
-                             }
-                         });*/
-                    }
+        jQuery(".left-menu.descktoplm ul ul li").each(function () {
+            if (jQuery(this).find("a").attr("href") === window.location.pathname) {
+                jQuery(this).addClass("active");
+                if (deviceType !== "mobile") {
+                    console.log(deviceType);
+                    jQuery(".left-menu ul ul").removeClass("active");
+                    jQuery(this).parent().parent().addClass("active");
+                    jQuery(this).parent().addClass("active");
+                    /* jQuery(this).parent().slideToggle(function () {
+                         if (jQuery(".left-menu>ul>li").hasClass("active")) {
+                             jQuery(".left-menu").addClass("active");
+                         } else {
+                             jQuery(".left-menu").removeClass("active");
+                         }
+                     });*/
                 }
-            });
+            }
+        });
 
     }
 
@@ -344,7 +344,7 @@ jQuery("document").ready(function () {
         jQuery("body").removeClass("body_menuOpened");
     });
 
-    jQuery(document).on('click', function (e){
+    jQuery(document).on('click', function (e) {
         let div = $("#cat_popup_menu, .open-popup-cat");
         if (!div.is(e.target) && div.has(e.target).length === 0) {
             jQuery("#cat_popup_menu").removeClass("open");
@@ -1070,7 +1070,6 @@ jQuery("document").ready(function () {
     }, false);
 
 
-
     jQuery('.card .sellnow').on('click', function (e) {
         e.preventDefault();
         jQuery("textarea#mytext").text("Здравствуйте! Я хочу продать: " + jQuery(this).parent().parent().find(".woocommerce-loop-product__title").text() + " " + jQuery(this).parent().parent().find(".desc").text());
@@ -1081,7 +1080,8 @@ jQuery("document").ready(function () {
             toolbar: true,
             allowTouchMove: false,
             opts: {
-                afterShow: function (instance, current) { },
+                afterShow: function (instance, current) {
+                },
             }
         });
     });
@@ -1135,13 +1135,13 @@ jQuery("document").ready(function () {
         window.open(link, '_blank');
     });
 
-    jQuery("#scroll-up").click(function() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    jQuery("#scroll-up").click(function () {
+        window.scrollTo({top: 0, behavior: 'smooth'});
         return false;
     });
 
-    jQuery(document).on('scroll', function (){
-        if(jQuery(this).scrollTop()>1000){
+    jQuery(document).on('scroll', function () {
+        if (jQuery(this).scrollTop() > 1000) {
             jQuery("#scroll-up").addClass('visible');
         } else {
             jQuery("#scroll-up").removeClass('visible');
