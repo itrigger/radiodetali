@@ -3,7 +3,7 @@ jQuery("document").ready(function () {
     let GOLD_DISCOUNT = 0.63;
     let SILVER_DISCOUNT = 0.73;
     let PLATINUM_DISCOUNT = 0.73;
-    let PALLADIUM_DISCOUNT = 0.63;
+    let PALLADIUM_DISCOUNT = 0.72;
 
     let categoriesRDAPI = {}; // объект где храним список категорий
     let categoriesRPAPI = {}; // объект где храним список категорий
