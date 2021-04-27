@@ -1128,7 +1128,7 @@ jQuery("document").ready(function () {
     jQuery(document).on('click', '.card .btn-wt', function (e) {
         e.preventDefault();
 
-        let phone = "79013317104";
+        let phone = wt_phone;
         let message = "Здравствуйте, я хочу продать: " + jQuery(this).parent().parent().find('.woocommerce-loop-product__title').text();
         let link = 'https://wa.me/' + encodeURIComponent(phone) + '?text=' + encodeURIComponent(message);
 
