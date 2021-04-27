@@ -1,10 +1,5 @@
 jQuery("document").ready(function () {
 
-    let GOLD_DISCOUNT = 0.63;
-    let SILVER_DISCOUNT = 0.73;
-    let PLATINUM_DISCOUNT = 0.73;
-    let PALLADIUM_DISCOUNT = 0.63;
-
     let categoriesRDAPI = {}; // объект где храним список категорий
     let categoriesRPAPI = {}; // объект где храним список категорий
     let categoriesName = [];
@@ -42,6 +37,46 @@ jQuery("document").ready(function () {
     }
     isLoading(1);
 
+
+    /*селектор выбора города*/
+    let flag = 0;
+    function hideList() {
+        $(".dd-list").animate({opacity: "0"}, 100).css({
+            "display": "none",
+            "marginLeft": "4px",
+        });
+        flag = 0;
+    }
+
+    $(".dd").on("click", ".dd-label", function (event) {
+        event.stopPropagation();
+        if (flag === 0) {
+            $(this).next().css({"display": "block"}).animate({
+                opacity: "1",
+                width: "auto",
+                marginLeft: "0px"
+            }, 150);
+            flag = 1;
+        } else {
+            hideList()
+        }
+    });
+    $('html').click(function () {
+        hideList()
+    });
+
+    function getSubdomain(hostname) {
+        var regexParse = new RegExp('[a-z\-0-9]{2,63}\.[a-z\.]{2,5}$');
+        var urlParts = regexParse.exec(hostname);
+        return hostname.replace(urlParts[0],'').slice(0, -1);
+    }
+
+    $('.dd-list li').each(function (e){
+        if($(this).data('sub') === getSubdomain(window.location.hostname)){
+            $(this).addClass('active');
+            $('.dd-label').text($(this).find('a').text());
+        }
+    })
 
     /*Храним в локальной сессии какой таб открыт*/
     if (sessionStorage.getItem('tabs') !== null) {
