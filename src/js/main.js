@@ -437,10 +437,10 @@ jQuery("document").ready(function () {
             if (item_fixprice > 0) {
                 if (item_fixprice == "999999") {
                     jQuery(this).find(".price .price_value").text("По запросу").addClass("priceastext");
-                    jQuery(this).find(".price b").css("display", "none");
-                    jQuery(this).find(".card-add-to-list").css("display", "none");
-                    jQuery(this).find(".btn-put-to-storage").css("display", "none");
-                    jQuery(this).find(".product--input-w").css("display", "none");
+                    //jQuery(this).find(".price b").css("display", "none");
+                    //jQuery(this).find(".card-add-to-list").css("display", "none");
+                    //jQuery(this).find(".btn-put-to-storage").css("display", "none");
+                    //jQuery(this).find(".product--input-w").css("display", "none");
                 } else {
                     jQuery(this).find(".price .price_value").text(item_fixprice);
                     jQuery(this).find(".row-total span").text(item_fixprice);
@@ -807,7 +807,7 @@ jQuery("document").ready(function () {
         let lsImgSrc = $row.find('.el-name option:selected').attr('data-imgsrc').toString(); //картинка
         let lsCount = 1;
         let lsTypeOf = jQuery(".tabform-footer .count_num").text(); //Мера исчисления (1 - кг, 2 - штуки)
-        lsRowPrice = jQuery(".tabform-footer .sum_num b").text(); //Сумма как (кол-во * меру исчесления)
+        lsRowPrice = "По запросу"; //Сумма как (кол-во * меру исчесления)
         lsRowSum = lsRowPrice;
         if (lsId !== '9999') {
             temp = [lsId, lsType, lsName, lsCount, lsTypeOf, lsRowPrice, lsRowSum, lsImgSrc];
@@ -821,7 +821,7 @@ jQuery("document").ready(function () {
         }
         if (flag !== 1) {
             oldArr.push(temp);
-            if (lsRowSum > 0) {
+           // if (lsRowSum > 0) {
                 sessionStorage.setItem('order', JSON.stringify(oldArr)); //превращаем все данные в строку и сохраняем в локальное хранилище
                 harddelete_notify();
                 notify("Добавлено в список: " + lsType + " - " + lsName + "", "default", "<div><a href='/my-list' class='go-to-list'>Весь список</a></div>");
@@ -830,7 +830,7 @@ jQuery("document").ready(function () {
                 $dropdownChild2.val("9999").prop('selected', true);
                 //$dropdownChild2.customSelect('reset');
                 updateCountItems();
-            }
+            //}
         } else {
             harddelete_notify();
             notify(lsName + " уже есть в списке", "error")
@@ -938,7 +938,7 @@ jQuery("document").ready(function () {
         lsRowSum,
         lsImgSrc
     ) {
-        jQuery(".cart-lists").prepend('<div class="list list-' + lsId + '" data-id="' + lsId + '"><div class="img"><img src="' + lsImgSrc + '" alt="" /></div><div class="center"><div class="name"><b>' + lsName + '</b></div><div class="price"><span>' + lsRowPrice + '</span> <b>₽</b></div><div class="type">за <span class="izm">' + lsTypeOf + '</span></div></div><div class="cart_block"><div class="inputCountWrap"><span class="stepper-step down">-</span><input type="number" min="1" value="' + lsCount + '" class="inputCount inputCount-1"/><span class="stepper-step up">+</span></div><div class="ico-del"><span class="ico ico-delete-list" data-rowid="' + lsId + '"></span></div><div class="total_price"><span>' + lsRowSum + '</span><b> ₽</b></div></div></div>');
+        jQuery(".cart-lists").prepend('<div class="list list-' + lsId + '" data-id="' + lsId + '"><div class="img"><img src="' + lsImgSrc + '" alt="" /></div><div class="center"><div class="name"><b>' + lsName + '</b></div><div class="price"><span>' + lsRowPrice + '</span> <b>₽</b></div><div class="type">за <span class="izm">' + lsTypeOf + '</span></div></div><div class="cart_block"><div class="inputCountWrap"><span class="stepper-step down">-</span><input type="number" min="1" value="' + lsCount + '" class="inputCount inputCount-1"/><span class="stepper-step up">+</span></div><div class="ico-del"><span class="ico ico-delete-list" data-rowid="' + lsId + '"></span></div><div class="total_price"><span>догов.</span><b> ₽</b></div></div></div>');
     }
 
 
@@ -953,7 +953,7 @@ jQuery("document").ready(function () {
         let $row = jQuery(".list-" + id);
         let col = $row.find('.inputCount').val();
         let price = parseInt($row.find(".price span").text());
-        $row.find(".total_price span").text(Math.round(col * price));
+        $row.find(".total_price span").text("догов.");
         let oldArr = [];
         oldArr = JSON.parse(sessionStorage.getItem('order')) || [];
         for (const [i, arr] of oldArr.entries()) {
@@ -1028,11 +1028,11 @@ jQuery("document").ready(function () {
         }
         if (flag !== 1) {
             oldArr.push(temp);
-            if (lsRowSum > 0) {
+            //if (lsRowSum > 0) {
                 sessionStorage.setItem('order', JSON.stringify(oldArr)); //превращаем все данные в строку и сохраняем в локальное хранилище
                 notify("Добавлено в список: " + lsType + " - " + lsName + "", "default", "<div><a href='/my-list' class='go-to-list'>Весь список</a></div>");
                 updateCountItems();
-            }
+            //}
         } else {
             notify(lsName + " уже есть в списке", "error")
         }
@@ -1063,10 +1063,10 @@ jQuery("document").ready(function () {
                             jQuery("#z3").val(jQuery("#z3").val() + "_" + arr[3]);
                             jQuery("#z4").val(jQuery("#z4").val() + "_" + arr[5]);
                             jQuery("#z5").val(jQuery("#z5").val() + "_" + arr[6]);
-                            jQuery("#restable table").append("<tr><td class='col1'><div class='img-w'><img src='" + arr[7] + "' alt='" + arr[2] + "'/></div></td><td class='col2'><div class='cat-name'>" + arr[1] + "</div>" + arr[2] + "</td><td class='col3'>" + arr[3] + " <span class='izm'>" + arr[4] + "</span></td><td class='col4'><span class='sum'>на</span>" + arr[6] + " ₽</td></tr>");
+                            jQuery("#restable table").append("<tr><td class='col1'><div class='img-w'><img src='" + arr[7] + "' alt='" + arr[2] + "'/></div></td><td class='col2'><div class='cat-name'>" + arr[1] + "</div>" + arr[2] + "</td><td class='col3'>" + arr[3] + " <span class='izm'>" + arr[4] + "</span></td><td class='col4'></td></tr>");
                             totalSum += Math.round(arr[6]);
                         }
-                        jQuery("#restable table").append("<tr><td colspan='4' class='totalsum'><div><span class='yellow-rounded'>Итого</span> " + totalSum + " ₽</div></td></tr>");
+                        jQuery("#restable table").append("<tr><td colspan='4' class='totalsum'><div></div></td></tr>");
                         jQuery(".fancybox-toolbar").css("display", "none");
                     },
                     afterShow: function (instance, current) {
