@@ -1,0 +1,90 @@
+<div class="calc_w">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 s-col-12 xs-col-12">
+                <div class="calculator" id="main-page--calculator">
+                    <div class="els-header"> Калькулятор
+                        <div class="spinner loader" style="opacity: 0;">
+                            <div class="rect1"></div>
+                            <div class="rect2"></div>
+                            <div class="rect3"></div>
+                            <div class="rect4"></div>
+                            <div class="rect5"></div>
+                        </div>
+                        <div class="loading_text"></div>
+
+                    </div>
+                    <div class="flex els-filter">
+                        <div class="opt opt1 active" data-vals="[17,16,18,24,25,26,27,30,28,23,22,20]"><span>Радиодетали</span></div>
+                        <div class="opt opt2" data-vals="[38,39,42,40,41]"><span>Радиоприборы</span></div>
+                    </div>
+                    <div class="flex els-body fd_c ">
+
+                        <div class="els-row els-row-1" data-id="1">
+                            <div class="els-del"></div>
+                            <div class="el-wrap ew1 sel-wrap">
+                                <select class="el-type" name="el-type">
+                                    <option value="17">Диоды</option>
+                                    <option value="16">Конденсаторы</option>
+                                    <option value="18">Лампы</option>
+                                    <option value="24">Металлы платино-паладиевой группы</option>
+                                    <option value="25">Микросхемы</option>
+                                    <option value="26">Переключатели</option>
+                                    <option value="30">Платы и радиолом</option>
+                                    <option value="28">Потенциометры</option>
+                                    <option value="29">Разъемы</option>
+                                    <option value="23">Резисторы</option>
+                                    <option value="22">Реле</option>
+                                    <option value="21">Серебро техническое</option>
+                                    <option value="19">Техническое оборудование и средства защиты</option>
+                                    <option value="20">Транзисторы</option>
+                                </select>
+                            </div>
+                            <div class="el-wrap ew2 sel-wrap">
+                                <select class="el-name" name="el-name">
+                                    <option hidden="" disabled="" selected="" value="9999">Выберите наименование</option>
+                                </select>
+                            </div>
+                            <div class="el-wrap ew3 labeled-input">
+                                <label>Кол-во (<span class="typeOfCount">кг.</span>)
+                                    <div class="inputCountWrap"><input type="number" min="1" value="1" class="inputCount"><span class="stepper-step up">+</span>
+                                        <span class="stepper-step down">-</span>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="el-wrap ew4 labeled-input input-dark">
+                                <label>Сумма</label>
+                                <div class="row-total"><span>0</span> ₽</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="els-footer">
+                        <div class="d_f ai_c | els-footer-btns">
+                            <div class="el-add-row-btn d_f ai_c">
+                                <span class="ico ico-left ico-plus"></span>
+                                Добавить&nbsp;<span class="desktop">позицию</span>
+                            </div>
+                            <div class="els-clear d_f ai_c">
+                                <span class="ico ico-left ico-clear"></span>Очистить
+                            </div>
+                            <div class="d_f ai_c" id="print">
+                                <span class="ico ico-left ico-print"></span>
+                                <span class="desktop">Распечатать</span>
+                                <span class="mobile">Печать</span>
+                            </div>
+                        </div>
+                        <div class="els-total-price">
+                            <span class="yellow-rounded">Итого:</span>
+                            <div class="els-total-price-num" id="els-total-price-num">
+                                <span>0</span> ₽
+                            </div>
+                            <div class="send-btn-wrapper">
+                                <a class="btn btn-orange" href="javascript:void(0);">Продать</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
