@@ -1739,47 +1739,41 @@ jQuery("document").ready(function () {
 
 
 $('.card-add-to-list').on('click', function (e){
-    e.preventDefault()
-
-    /* добавление в список*/
-    let curSS = JSON.parse(sessionStorage.getItem('order'));
-    let temp = [];
-
-    let lsType = $('.category--header').text(); //Название категории
-    let lsName = $(this).parent().parent().parent().find('.woocommerce-loop-product__title').text(); //Название самой радиодетали
-    let lsId = $(this).parent().parent().parent().find('.item--id').text(); //ID самой радиодетали
-    let lsCount = "1"; //Кол-во радиодеталей
-    let lsTypeOf = $(this).parent().parent().parent().find('.itemcount').text(); //Мера исчисления (1 - кг, 2 - штуки)
-    let lsRowSum = $(this).parent().parent().parent().find('.price_value').text(); //Сумма
-    let lsImgSrc = $(this).parent().parent().parent().find('img').attr("src");
-
-    if (curSS) {
-        // temp = [lsId, lsType, lsName, lsCount, lsTypeOf, lsRowSum, lsImgSrc];
-        temp = [lsId, lsType, lsName, lsCount, lsTypeOf, lsRowSum, lsRowSum, lsImgSrc];
-        curSS.forEach((element, index) => {
-            if(element[0] === lsId){
-                curSS.splice(index,1);
-
-            }
-        });
-
-        curSS.push(temp);
-        sessionStorage.setItem('order', JSON.stringify(curSS));
-        $(this).parent().parent().parent().parent().find(".alertwindow").addClass("active");
-        updateCountItems();
-    } else {
-        //temp[0] = [lsId, lsType, lsName, lsCount, lsTypeOf, lsRowSum, lsImgSrc];
-        temp[0] = [lsId, lsType, lsName, lsCount, lsTypeOf, lsRowSum, lsRowSum, lsImgSrc];
-        sessionStorage.setItem('order', JSON.stringify(temp));
-        $(this).parent().parent().parent().parent().find(".alertwindow").addClass("active");
-        updateCountItems();
+    e.preventDefault();
+    let oldArr = [];
+    if (sessionStorage.getItem('order') !== null) {
+        oldArr = JSON.parse(sessionStorage.getItem('order')) || [];
     }
-    setTimeout(function () {
-        $(".alertwindow").removeClass("active");
-    }, 2000);
-    updateList();
+    let temp = [];
+    let lsId = jQuery(this).parent().parent().find('.item--id').text(); //ID самой радиодетали
+    let lsType = jQuery('.cat_header--header h1').text(); //Название категории
+    let lsName = jQuery(this).parent().parent().find('.name').text() + jQuery(this).parent().parent().find('.desc').text(); //Название самой радиодетали
+    let lsCount = 1; //Кол-во радиодеталей
+    let lsTypeOf = parseInt(jQuery(this).parent().parent().find('.item--typeofcount').text()); //Мера исчисления (1 - кг, 2 - штуки)
+    let lsRowPrice = jQuery(this).parent().parent().find('.price_value').text(); //Сумма
+    let lsRowSum = lsRowPrice;
+    let lsImgSrc = jQuery(this).parent().parent().find('img').attr("src");
 
-    notify("Добавлено в список: " + lsType + " - " + lsName + "", "default", `<div><a href="${maindomain_sub}/list" class="go-to-list">Весь список</a></div>`);
+    lsTypeOf = TYPES[lsTypeOf - 1];
+    temp = [lsId, lsType, lsName, lsCount, lsTypeOf, lsRowPrice, lsRowSum, lsImgSrc];
+
+    let flag = 0;
+
+    for (const [i, arr] of oldArr.entries()) {
+        if (arr[0] === lsId) {
+            flag = 1;
+        }
+    }
+    if (flag !== 1) {
+        oldArr.push(temp);
+        if (lsRowSum > 0) {
+            sessionStorage.setItem('order', JSON.stringify(oldArr)); //превращаем все данные в строку и сохраняем в локальное хранилище
+            notify("Добавлено в список: " + lsType + " - " + lsName + "", "default", "<div><a href='/my-list' class='go-to-list'>Весь список</a></div>");
+            updateCountItems();
+        }
+    } else {
+        notify(lsName + " уже есть в списке", "error")
+    }
 })
 
 
@@ -2252,9 +2246,9 @@ async function getFromLs(lsArr) {
 }
 
 //Кнопка ОФОРМИТЬ ЗАЯВКУ. Отсылает все данные на почту (через форму CF7)
-$(".send-btn-wrapper a").on('click', function (e) {
+/*$(".send-btn-wrapper a").on('click', function (e) {
     e.stopPropagation();
-})
+})*/
 
 /*Построение строки с данными из локального хранилища*/
 async function buildRow(id, rowCol, col) { //id элемента, rowCol порядковый номер создаваемой строки, col кол-во элементов данного типа
@@ -2631,7 +2625,7 @@ $(".alertwindow .btn-close").click(function () {
 });
 
 //Заполняем скрытые поля в форме ContactForm7 данными из локального хранилища
-$('.send-btn-wrapper a.btn-yellow, .cart-lists .btn-yellow').on('click', function (e) {
+$('.send-btn-wrapper a, .cart-lists .btn-orange').on('click', function (e) {
     e.preventDefault();
     let lsArr = JSON.parse(sessionStorage.getItem('order'));
     if (lsArr) {
