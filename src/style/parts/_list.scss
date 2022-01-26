@@ -147,6 +147,7 @@
 }
 
 .list-total{
+  position: relative;
   box-sizing: border-box;
   background: black;
   border-radius: 6px;
@@ -321,5 +322,12 @@
   }
   .empty-list h3{
     font-size: 22px;
+  }
+  .clear_my_list{
+    font-size: 0;
+    width: 43px !important;
+    .ico-left{
+      margin-right: 0;
+    }
   }
 } /*media max 480*/

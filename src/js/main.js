@@ -1611,33 +1611,7 @@ jQuery("document").ready(function () {
     let pageTitle = document.title;
 
 
-    //Обновляет цифру общего кол-ва элементов в списке
-    let countItems = 0;
-    const updateCountItems = function () {
-        jQuery(".mobile-top-list").removeClass("jump");
-        if (sessionStorage.getItem('order') !== null) {
-            let orderArr = JSON.parse(sessionStorage.getItem('order'));
-            if (orderArr !== []) {
-                countItems = orderArr.length;
-            }
-        }
-        jQuery(".mobile-top-list b").text(countItems);
-        let newTitle = '(' + countItems + ') ' + pageTitle;
-        document.title = newTitle;
-        if (countItems === 0) {
-            jQuery(".mobile-top-list").removeClass("is-active jump");
-            document.title = pageTitle;
-        } else {
-            jQuery(".mobile-top-list").addClass("is-active");
-            setTimeout(function () {
-                jQuery(".mobile-top-list").addClass("jump");
-            }, 100);
-            document.title = newTitle;
-        }
-        return countItems;
-    };
 
-    updateCountItems();
 
     //закрываем попап алерт СF7
     jQuery('body').on("click", ".wpcf7-response-output", function () {
@@ -2208,7 +2182,6 @@ const removeFromLS = function (rowID) {
     const filteredItems = items.slice(0, rowID - 1).concat(items.slice(rowID, items.length))
     sessionStorage.setItem('order', JSON.stringify(filteredItems));
     updateCountItems();
-    console.log(rowID);
 }
 
 const removeFromLSList = function (rowID) {
@@ -2614,6 +2587,11 @@ $parentEl.on('click', '.els-clear', function () {
 });
 
 
+$("body").on("click", ".clear_my_list", function (){
+    $(".cart-lists").html("<div class='empty-list'><h3>В вашем списке еще ничего нет</h3><a href='javascript:;' class='btn btn-orange open-popup-cat'><span class=\"ico ico-list ico-left\"></span> Открыть каталог</a></div>")
+    removeAllFromLs();
+})
+
 
 
 $("body").on("click", ".alertwindow", function () {
@@ -2625,7 +2603,7 @@ $(".alertwindow .btn-close").click(function () {
 });
 
 //Заполняем скрытые поля в форме ContactForm7 данными из локального хранилища
-$('.send-btn-wrapper a, .cart-lists .btn-orange').on('click', function (e) {
+$('.send-btn-wrapper a, .cart-lists .my_list_sell').on('click', function (e) {
     e.preventDefault();
     let lsArr = JSON.parse(sessionStorage.getItem('order'));
     if (lsArr) {
@@ -2758,7 +2736,7 @@ if (sessionStorage.getItem('tabs') !== null) {
     sessionStorage.setItem('tabs','0');
 }
 
-let pageTitle = document.title;
+/*let pageTitle = document.title;
 //Обновляет цифру общего кол-ва элементов в списке
 let countItems = 0;
 const updateCountItems = function () {
@@ -2768,6 +2746,8 @@ const updateCountItems = function () {
         if (orderArr !== []) {
             countItems = orderArr.length;
         }
+    } else {
+        countItems = 0
     }
     jQuery(".open-list .notifier").text(countItems);
     let newTitle = '(' + countItems + ') ' + pageTitle;
@@ -2780,8 +2760,38 @@ const updateCountItems = function () {
     return countItems;
 };
 
-updateCountItems();
+updateCountItems();*/
+//Обновляет цифру общего кол-ва элементов в списке
+let pageTitle = document.title;
+let countItems = 0;
+const updateCountItems = function () {
+    console.log('started')
+    jQuery(".mobile-top-list").removeClass("jump");
+    if (sessionStorage.getItem('order') !== null) {
+        let orderArr = JSON.parse(sessionStorage.getItem('order'));
+        if (orderArr !== []) {
+            countItems = orderArr.length;
+        }
+    }else{
+        countItems = 0
+    }
+    jQuery(".mobile-top-list b").text(countItems);
+    let newTitle = '(' + countItems + ') ' + pageTitle;
+    document.title = newTitle;
+    if (countItems === 0) {
+        jQuery(".mobile-top-list").removeClass("is-active jump");
+        document.title = pageTitle;
+    } else {
+        jQuery(".mobile-top-list").addClass("is-active");
+        setTimeout(function () {
+            jQuery(".mobile-top-list").addClass("jump");
+        }, 100);
+        document.title = newTitle;
+    }
+    return countItems;
+};
 
+updateCountItems();
 
 $('document').ready(function (){
     //Добавить в список из модуля популярных товаров на главной
@@ -2794,10 +2804,10 @@ $('document').ready(function (){
                 getFromLs(lsArr).then(r => console.log('Data loaded from local storage!'));
                 $(".list-total").addClass("active");
             } else {
-                $(".cart-lists").html("<div class='empty-list'><h3>В вашем списке еще ничего нет</h3><a href='javascript:;' class='btn btn-purple  open-catalog'><span class=\"ico ico-list ico-left\"></span> Открыть каталог</a></div>")
+                $(".cart-lists").html("<div class='empty-list'><h3>В вашем списке еще ничего нет</h3><a href='javascript:;' class='btn btn-orange  open-popup-cat'><span class=\"ico ico-list ico-left\"></span> Открыть каталог</a></div>")
             }
         } else {
-            $(".cart-lists").html("<div class='empty-list'><h3>В вашем списке еще ничего нет</h3><a href='javascript:;' class='btn btn-purple open-catalog'><span class=\"ico ico-list ico-left\"></span> Открыть каталог</a></div>")
+            $(".cart-lists").html("<div class='empty-list'><h3>В вашем списке еще ничего нет</h3><a href='javascript:;' class='btn btn-orange open-popup-cat'><span class=\"ico ico-list ico-left\"></span> Открыть каталог</a></div>")
         }
     }
 
@@ -2845,7 +2855,7 @@ $('document').ready(function (){
         lsRowSum,
         lsImgSrc
     ) {
-        $(".cart-lists").prepend('<div class="list list-' + lsId + '" data-id="' + lsId + '"><div class="img"><img src="' + lsImgSrc + '" alt="" /></div><div class="center"><div class="name"><b>' + lsName + '</b></div><div class="price"><span>' + lsRowPrice + '</span> <b>₽</b></div><div class="type">за <span class="izm">' + lsTypeOf + '</span></div></div><div class="cart_block"><div class="inputCountWrap"><span class="stepper-step down">-</span><input type="number" min="1" value="' + lsCount + '" class="inputCount inputCount-1"/><span class="stepper-step up">+</span></div><div class="total_price"><span>' + lsRowSum + '</span><b> ₽</b></div><div class="ico-del"><span class="ico ico-clear" data-rowid="' + lsId + '"></span></div></div></div>');
+        $(".cart-lists").prepend('<div class="list list-' + lsId + '" data-id="' + lsId + '"><div class="img"><img src="' + lsImgSrc + '" alt="" /></div><div class="center"><div class="name"><b>' + lsName + '</b></div><div class="price"><span>' + lsRowPrice + '</span> <b>₽</b></div><div class="type">за <span class="izm">' + lsTypeOf + '</span></div></div><div class="cart_block"><div class="inputCountWrap"><span class="stepper-step down">-</span><input type="number" min="1" value="' + lsCount + '" class="inputCount inputCount-1"/><span class="stepper-step up">+</span></div><div class="ico-del"><span class="ico ico-delete-list" data-rowid="' + lsId + '"></span></div><div class="total_price"><span>' + lsRowSum + '</span><b> ₽</b></div></div></div>');
     }
 
     function cuteHide(el) {
@@ -2862,7 +2872,7 @@ $('document').ready(function (){
         removeFromLSList(rowId);
     }
 
-    $("body").on("click", ".cart_block .ico-clear", function () {
+    $("body").on("click", ".cart_block .ico-delete-list", function () {
         let rowId = $(this).attr("data-rowid");
         deleteRow(rowId);
     })

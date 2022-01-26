@@ -185,9 +185,26 @@ $yellow:'yellow';
   height: 32px;
   background-image: url("../img/ico-print2.svg");
 }
+.ico-print2 {
+  width: 20px;
+  height: 20px;
+  background-image: url("../img/ico-print.svg");
+}
 .loading_text{
   display: inline-block;
   font-size: 15px;
+}
+
+.clear_my_list{
+  position: absolute;
+  left: 25px;
+  bottom: 25px;
+  display: flex;
+  align-items: center;
+  .ico-delete-list{
+    top: 2px;
+    transform: scale(.8);
+  }
 }
 
 .els-row{
