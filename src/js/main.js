@@ -1526,13 +1526,13 @@ jQuery("document").ready(function () {
                     jQuery(this).find(".btn-put-to-storage").css("display", "none");
                     jQuery(this).find(".product--input-w").css("display", "none");
                 } else {
-                    jQuery(this).find(".price .price_value").text(item_fixprice);
-                    jQuery(this).find(".row-total span").text(item_fixprice);
+                    jQuery(this).find(".price .price_value").text("Догов.");
+                    jQuery(this).find(".row-total span").text("Догов.");
                 }
             } else {
                 item_price = (item_gold * GOLD * GOLD_DISCOUNT + item_silver * SILVER * SILVER_DISCOUNT + item_platinum * PLATINUM * PLATINUM_DISCOUNT + item_palladium * PALLADIUM * PALLADIUM_DISCOUNT) * USD;
-                jQuery(this).find(".price .price_value").text((Math.round(item_price + Number.EPSILON) * 1));
-                jQuery(this).find(".row-total span").text((Math.round(item_price + Number.EPSILON) * 1));
+                jQuery(this).find(".price .price_value").text("Догов.");
+                jQuery(this).find(".row-total span").text("Догов.");
             }
             jQuery(this).find(".itemcount").text(TYPES[item_typecount - 1]);
         })
@@ -1552,13 +1552,13 @@ jQuery("document").ready(function () {
                 if (item_fixprice == "999999") {
                     jQuery(this).find(".price").text("по запросу");
                 } else {
-                    jQuery(this).find(".price .price_value").text(item_fixprice);
+                    jQuery(this).find(".price .price_value").text("Догов.");
                 }
             } else {
 
                 item_price = (item_gold * GOLD * GOLD_DISCOUNT + item_silver * SILVER * SILVER_DISCOUNT + item_platinum * PLATINUM * PLATINUM_DISCOUNT + item_palladium * PALLADIUM * PALLADIUM_DISCOUNT) * USD;
 
-                jQuery(this).find(".price .price_value").text(Math.round((item_price + Number.EPSILON) * 1));
+                jQuery(this).find(".price .price_value").text("Догов.");
             }
             jQuery(this).find(".itemcount").text(TYPES[item_typecount - 1]);
 
@@ -1968,6 +1968,8 @@ function uniqueBy(arr, prop){
 /*******************************/
 /*******************************/
 
+
+
 // заполняем дочерний селект при выборе опции в родительском
 const fillChildSelect = function (id, catId = 0) {
     isLoading(1); //Отображаем лоадер
@@ -2015,7 +2017,6 @@ const fillChildSelect = function (id, catId = 0) {
         $childDD.prop('disabled', false);
         getPrice(id);
         isLoading(0);
-        console.log('ttt')
     } else {
         // запрос на АПИ
         fetch(`${CONST_HOST}/wp-json/wc/v3/products?consumer_key=${CONST_CK}&consumer_secret=${CONST_CS}&category=${thiscatID}&per_page=100&status=publish`)
@@ -2140,11 +2141,10 @@ const getTotalPrice = function () {
         totalPrice += temp;
     });
     if (totalPrice > 0) {
-        $(".els-total-price-num span").text(totalPrice.toFixed(0));
+        $(".els-total-price-num span").text("Догов.");
     } else {
         $(".els-total-price-num span").text("0");
     }
-
     saveToLS();
 };
 
@@ -2163,14 +2163,14 @@ const saveToLS = function () {
         let lsId = $row.find('.el-name option:selected').attr('value').toString(); //ID самой радиодетали
         let lsCount = $row.find('.inputCount').val().toString(); //Кол-во радиодеталей
         let lsTypeOf = $row.find('.typeOfCount').text(); //Мера исчисления (1 - кг, 2 - штуки)
-        lsRowSum = $row.find('.row-total span').text(); //Сумма как (кол-во * меру исчесления)
+        lsRowSum = 0; //Сумма как (кол-во * меру исчесления)
         let lsPrice = lsRowSum / lsCount;
         let lsImgSrc = $row.find('.el-name option:selected').attr('data-imgsrc') ? $row.find('.el-name option:selected').attr('data-imgsrc').toString() : 'undefined'; //картинка
         if (lsId !== '9999') {
             temp[i - 1] = [lsId, lsType, lsName, lsCount, lsTypeOf, lsPrice, lsRowSum, lsImgSrc];
         }
     }
-    if(lsRowSum>0) {
+    if(lsRowSum>=0) {
         sessionStorage.setItem('order', JSON.stringify(temp)); //превращаем все данные в строку и сохраняем в локальное хранилище
         updateCountItems();
     }
@@ -2427,7 +2427,7 @@ const getPrice = function (id, countTotal) { //id - номер строки
 
     if (item_price > 0) {
         //$row.find('.row-total span').text(Math.round((item_price + Number.EPSILON) * 100) / 100);
-        $row.find('.row-total span').text(Math.round(item_price));
+        $row.find('.row-total span').text("Догов.");
     } else {
         $row.find('.row-total span').text("0");
     }
@@ -2722,7 +2722,7 @@ function updateList(){
         }
     }
     $(".list_total_count").text(totalCount);
-    $(".list_total_sum").text(totalPrice);
+    $(".list_total_sum").text("Догов.");
 }
 
 
@@ -2816,20 +2816,7 @@ $('document').ready(function (){
         $(".popup_layout").addClass("active");
     });
 
-    const getTotalPrice = function () {
 
-        totalPrice = 0;
-        $(".cart-lists").find('.list').each(function () {
-            let temp = parseFloat(jQuery(this).find('.total_price').text());
-            totalPrice += temp;
-        });
-        if (totalPrice > 0) {
-            $(".list-total .price span").text(totalPrice.toFixed(0));
-        } else {
-            $(".list-total .price span").text("0");
-        }
-
-    };
     //в эту функцию передаем объект из локального хранилища, где из него создаются и заполняются данными строки
     async function getFromLs(lsArr) {
         isLoading(1);
@@ -2855,7 +2842,7 @@ $('document').ready(function (){
         lsRowSum,
         lsImgSrc
     ) {
-        $(".cart-lists").prepend('<div class="list list-' + lsId + '" data-id="' + lsId + '"><div class="img"><img src="' + lsImgSrc + '" alt="" /></div><div class="center"><div class="name"><b>' + lsName + '</b></div><div class="price"><span>' + lsRowPrice + '</span> <b>₽</b></div><div class="type">за <span class="izm">' + lsTypeOf + '</span></div></div><div class="cart_block"><div class="inputCountWrap"><span class="stepper-step down">-</span><input type="number" min="1" value="' + lsCount + '" class="inputCount inputCount-1"/><span class="stepper-step up">+</span></div><div class="ico-del"><span class="ico ico-delete-list" data-rowid="' + lsId + '"></span></div><div class="total_price"><span>' + lsRowSum + '</span><b> ₽</b></div></div></div>');
+        $(".cart-lists").prepend('<div class="list list-' + lsId + '" data-id="' + lsId + '"><div class="img"><img src="' + lsImgSrc + '" alt="" /></div><div class="center"><div class="name"><b>' + lsName + '</b></div><div class="price"><span>"Догов."</span></div><div class="type">за <span class="izm">' + lsTypeOf + '</span></div></div><div class="cart_block"><div class="inputCountWrap"><span class="stepper-step down">-</span><input type="number" min="1" value="' + lsCount + '" class="inputCount inputCount-1"/><span class="stepper-step up">+</span></div><div class="ico-del"><span class="ico ico-delete-list" data-rowid="' + lsId + '"></span></div><div class="total_price"><span>"Догов."</span></div></div></div>');
     }
 
     function cuteHide(el) {
@@ -2927,13 +2914,13 @@ $('document').ready(function (){
                 if (item_fixprice == "999999") {
                     $(this).find(".price").text("по запросу");
                 } else {
-                    $(this).find(".price .price_value").text(item_fixprice);
+                    $(this).find(".price .price_value").text("Догов.");
                 }
             } else {
 
                 item_price = (item_gold * GOLD * GOLD_DISCOUNT + item_silver * SILVER * SILVER_DISCOUNT + item_platinum * PLATINUM * PLATINUM_DISCOUNT + item_palladium * PALLADIUM * PALLADIUM_DISCOUNT) * USD;
 
-                $(this).find(".price .price_value").text(Math.round((item_price + Number.EPSILON) * 1));
+                $(this).find(".price .price_value").text("Догов.");
             }
             $(this).find(".itemcount").text(TYPES[item_typecount - 1]);
 
